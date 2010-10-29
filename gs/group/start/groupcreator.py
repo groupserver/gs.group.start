@@ -54,12 +54,31 @@ class MoiraeForGroup(object):
         
         assert groupInfo
         return groupInfo
+
+    def delete(self, groupId, adminInfo):
+        assert groupId, 'No group ID'
+        assert adminInfo, 'No admin'
         
+        if type(groupId) == unicode:
+            groupId = groupId.encode('ascii', 'ignore')        
+
+        groupInfo = createObject('groupserver.UserFromId', 
+                        self.siteInfo.siteObj, groupId)
+        self.delete_group_folder(groupId)
+        self.delete_user_group()
+        self.delete_list()
+
     def create_group_folder(self, groupId):
         # Create the group folder
         self.groupsFolder.manage_addFolder(groupId)
         group = getattr(self.groupsFolder, groupId)
         assert group
+        return group
+
+    def delete_group_folder(self, groupId):
+        # Create the group folder
+        self.groupsFolder.manage_delFolder(groupId)
+        assert not(hasattr(self.groupsFolder, groupId))
         return group
 
     def set_group_properties(self, group, groupName):
@@ -72,6 +91,11 @@ class MoiraeForGroup(object):
         group.manage_changeProperties(title=groupName)
 
     def set_security(self, group):
+        '''\
+        Set the Group Security
+        
+        Create the user-group, and create the GroupMember and GroupAdmin
+        roles.'''
         # Secure the group
         memberGroup = '%s_member' % group.getId()
         # Create the user-group
@@ -81,6 +105,10 @@ class MoiraeForGroup(object):
         group.manage_defined_roles('Add Role', {'role':'GroupAdmin'})
         # Associate the user-group with the group member role
         group.manage_addLocalGroupRoles(memberGroup, ['GroupMember'])
+
+    def del_user_group(self, group):
+        memberGroup = '%s_member' % group.id
+        self.site_root.acl_users.userFolderDelGroups([memberGroup])
 
     def create_administration(self, group):
         assert group
@@ -127,6 +155,10 @@ class MoiraeForGroup(object):
         except:
             pass
         return groupList
+        
+    def delete_list(self, groupId):
+        listManager = self.site_root.ListManager
+        listManager.manage_delFolder(listManager.aq_explicit, groupId)
         
     def create_messages_area(self, group):
         assert group
