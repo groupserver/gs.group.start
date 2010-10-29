@@ -1,4 +1,5 @@
 # coding=utf-8
+from zope.component import createObject
 from Products.GSGroup.groupInfo import GSGroupInfo
 from Products.XWFCore.XWFUtils import add_marker_interfaces,\
     get_the_actual_instance_from_zope
@@ -17,7 +18,10 @@ class MoiraeForGroup(object):
 
     @property
     def site_root(self):
-        return self.siteInfo.siteObj.aq_parent.aq_parent
+        retval = self.siteInfo.siteObj.aq_parent.aq_parent
+        assert hasattr(retval, 'site_root'),\
+            'No "site_root" in %s' % retval
+        return retval
 
     def create(self, groupName, groupId, groupPrivacy, mailHost, adminInfo):
         assert groupName, 'No group name'
@@ -38,15 +42,14 @@ class MoiraeForGroup(object):
         self.create_email_settings(group)
         self.set_group_privacy(group, groupPrivacy)
         
+        # --=mpj17=-- I know, WTF? Why am I creating a User Info for
+        # the admin when I have a user-info for the admin? Well, the 
+        # adminInfo is in the context of the old group. We do not want
+        # that. We want an admin in the context of the *new* group.
+        ctx = get_the_actual_instance_from_zope(group)
+        ai = createObject('groupserver.UserFromId', ctx, adminInfo.id)
+        joiningUser = IGSJoiningUser(ai)
         groupInfo = GSGroupInfo(group)
-        print '***** %s' % groupInfo.name
-        print '***** %s' % adminInfo.name
-        print adminInfo.user
-        print adminInfo.user.aq_parent
-        print adminInfo.user.aq_parent.aq_parent
-        print adminInfo.user.aq_parent.aq_parent.aq_parent
-        print adminInfo.user.aq_parent.aq_parent.aq_parent.aq_parent
-        joiningUser = IGSJoiningUser(adminInfo)
         joiningUser.join(groupInfo)
         
         assert groupInfo
@@ -57,7 +60,6 @@ class MoiraeForGroup(object):
         self.groupsFolder.manage_addFolder(groupId)
         group = getattr(self.groupsFolder, groupId)
         assert group
-        print group
         return group
 
     def set_group_properties(self, group, groupName):
@@ -168,12 +170,11 @@ class MoiraeForGroup(object):
         assert hasattr(group, 'is_group')
         assert group.is_group
         assert hasattr(group, 'messages')
-        # Set the privacy: Which must be done **AFTER** the folder is made into a group
+        # Set the privacy: Which must be done **AFTER** the folder is 
+        #   made into a group
         g = get_the_actual_instance_from_zope(group)
         assert g
         gi = GSGroupInfo(g)
-        #gi = createObject('groupserver.GroupInfo', g)#
-        print dir(gi)
         assert gi.groupObj
         privacyChanger = IGSChangePrivacy(gi)
         if groupPrivacy == 'public':
@@ -182,7 +183,6 @@ class MoiraeForGroup(object):
             privacyChanger.set_group_private()
         else:
             privacyChanger.set_group_secret()
-        print groupPrivacy
 
     def delete(self, groupInfo, adminInfo):
         raise NotImplementedError('TODO')
