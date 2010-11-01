@@ -55,18 +55,15 @@ class MoiraeForGroup(object):
         assert groupInfo
         return groupInfo
 
-    def delete(self, groupId, adminInfo):
+    def delete(self, groupId):
         assert groupId, 'No group ID'
-        assert adminInfo, 'No admin'
         
         if type(groupId) == unicode:
             groupId = groupId.encode('ascii', 'ignore')        
 
-        groupInfo = createObject('groupserver.UserFromId', 
-                        self.siteInfo.siteObj, groupId)
         self.delete_group_folder(groupId)
-        self.delete_user_group()
-        self.delete_list()
+        self.delete_user_group(groupId)
+        self.delete_list(groupId)
 
     def create_group_folder(self, groupId):
         # Create the group folder
@@ -77,9 +74,8 @@ class MoiraeForGroup(object):
 
     def delete_group_folder(self, groupId):
         # Create the group folder
-        self.groupsFolder.manage_delFolder(groupId)
+        self.groupsFolder.manage_delObjects([groupId,])
         assert not(hasattr(self.groupsFolder, groupId))
-        return group
 
     def set_group_properties(self, group, groupName):
         # Set the correct properties
@@ -106,8 +102,8 @@ class MoiraeForGroup(object):
         # Associate the user-group with the group member role
         group.manage_addLocalGroupRoles(memberGroup, ['GroupMember'])
 
-    def del_user_group(self, group):
-        memberGroup = '%s_member' % group.id
+    def delete_user_group(self, groupId):
+        memberGroup = '%s_member' % groupId
         self.site_root.acl_users.userFolderDelGroups([memberGroup])
 
     def create_administration(self, group):
@@ -158,7 +154,7 @@ class MoiraeForGroup(object):
         
     def delete_list(self, groupId):
         listManager = self.site_root.ListManager
-        listManager.manage_delFolder(listManager.aq_explicit, groupId)
+        listManager.manage_delObjects([groupId,])
         
     def create_messages_area(self, group):
         assert group
@@ -215,7 +211,4 @@ class MoiraeForGroup(object):
             privacyChanger.set_group_private()
         else:
             privacyChanger.set_group_secret()
-
-    def delete(self, groupInfo, adminInfo):
-        raise NotImplementedError('TODO')
 
