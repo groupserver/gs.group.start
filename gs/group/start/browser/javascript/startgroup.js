@@ -96,6 +96,7 @@ var StartAGroup = function () {
         } else {
           jQuery('#group-id-error').hide();
         }
+        // TODO: Disable the submit button
     }
     checkGroupId = function(event) {
         var id = null;
