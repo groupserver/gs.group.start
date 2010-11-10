@@ -6,6 +6,7 @@ except ImportError:
 from zope.component import createObject
 from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+from Products.XWFCore.XWFUtils import getOption
 from gs.content.form.radio import radio_widget
 from interfaces import IAboutGroup
 from groupcreator import MoiraeForGroup
@@ -17,7 +18,7 @@ class StartGroupForm(PageForm):
 
     def __init__(self, context, request):
         PageForm.__init__(self, context, request)
-        self.__siteInfo = self.__formFields = None
+        self.__siteInfo = self.__formFields = self.__emailDomain = None
 
     @property
     def form_fields(self):
@@ -32,6 +33,12 @@ class StartGroupForm(PageForm):
             self.__siteInfo = \
                 createObject('groupserver.SiteInfo', self.context)
         return self.__siteInfo
+    
+    @property
+    def emailDomain(self):
+        if self.__emailDomain == None:
+            self.__emailDomain = getOption(self.context, 'emailDomain', '')
+        return self.__emailDomain
     
     @form.action(label=u'Start', failure='handle_start_action_failure')
     def handle_start(self, action, data):
