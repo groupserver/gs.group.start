@@ -19,7 +19,8 @@ class StartGroupForm(PageForm):
     def __init__(self, context, request):
         PageForm.__init__(self, context, request)
         self.__siteInfo = self.__formFields = self.__emailDomain = None
-
+        self.__loggedInUser = None
+        
     @property
     def form_fields(self):
         if self.__formFields == None:
@@ -35,6 +36,12 @@ class StartGroupForm(PageForm):
         return self.__siteInfo
     
     @property
+    def loggedInUser(self):
+        if self.__loggedInUser == None:
+            self.__loggedInUser = createObject('groupserver.LoggedInUser', 
+                                    self.context)
+        return self.__loggedInUser
+    @property
     def emailDomain(self):
         if self.__emailDomain == None:
             self.__emailDomain = getOption(self.context, 'emailDomain', '')
@@ -42,8 +49,14 @@ class StartGroupForm(PageForm):
     
     @form.action(label=u'Start', failure='handle_start_action_failure')
     def handle_start(self, action, data):
-        self.status = u'This should do stuff'
-        
+        groupMoirae = MoiraeForGroup(self.siteInfo)
+        newGroup = groupMoirae.create(data['grpName'], data['grpId'], 
+                              data['grpPrivacy'], self.emailDomain,
+                              self.loggedInUser)
+
+        self.status = u'The group <a href="%s">%s</a> has been started.' %\
+            (newGroup.relative_url(), newGroup.name)
+                              
     def handle_start_action_failure(self, action, data, errors):
         if len(errors) == 1:
             self.status = u'<p>There is an error:</p>'
