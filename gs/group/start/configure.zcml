@@ -15,4 +15,9 @@
     name="startgroup.html"
     class=".startgroup.StartGroupForm"
     permission="zope2.ManageProperties"/>
+    
+  <browser:resource
+    name="startgroup-20101110.js"
+    file="browser/javascript/startgroup.js"
+    permission="zope2.Public"/>
 </configure>
