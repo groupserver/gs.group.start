@@ -37,7 +37,22 @@
       <form enctype="multipart/form-data"  method="post" action="."
         tal:attributes="action request/URL" id="start-group">
         <h1 tal:content="view/label">Start Group</h1>
-        <tal:block define="widgets view/widgets">
+        <tal:block 
+          define="widgets python:[view.widgets['grpName'], view.widgets['grpId']]">
+          <tal:block 
+            replace="structure provider:groupserver.FormWidgets"/>
+        </tal:block>
+        <div id="group-id-error" style="display:none;"
+          class="widget-error ui-state-error ui-corner-all">
+          <p>
+            <span style="float: left; margin-right: 0.39em;" 
+              class="ui-icon ui-icon-alert">&#160;</span>
+            <strong>Group ID In Use:</strong>
+            The Group ID <code>above</code> is already being used.
+            Please pick another group ID.
+          </p>
+        </div><!--group-id-error-->
+        <tal:block define="widgets python:[view.widgets['grpPrivacy']]">
           <tal:block 
             replace="structure provider:groupserver.FormWidgets"/>
         </tal:block>

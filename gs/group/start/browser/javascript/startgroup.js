@@ -107,7 +107,9 @@ var StartAGroup = function () {
           data: {'id': id},
           success: checkGroupIdReturn
         };
-        jQuery.ajax(d);
+        if (id != '') {
+            jQuery.ajax(d);
+        }
     }
 
     // Privacy
