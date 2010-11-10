@@ -9,4 +9,10 @@
     name="existing_id_check"
     class=".checkid.CheckIdForm"
     permission="zope2.Public"/>
+    
+  <browser:page
+    for="Products.GSContent.interfaces.IGSSiteFolder"
+    name="startgroup.html"
+    class=".startgroup.StartGroupForm"
+    permission="zope2.ManageProperties"/>
 </configure>
