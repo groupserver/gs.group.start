@@ -7,6 +7,7 @@ from zope.component import createObject
 from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.XWFCore.XWFUtils import getOption
+from gs.group.member.join.interfaces import IGSJoiningUser
 from gs.content.form.radio import radio_widget
 from interfaces import IAboutGroup
 from groupcreator import MoiraeForGroup
@@ -20,7 +21,7 @@ class StartGroupForm(PageForm):
         PageForm.__init__(self, context, request)
         self.__siteInfo = self.__formFields = self.__emailDomain = None
         self.__loggedInUser = None
-        
+    
     @property
     def form_fields(self):
         if self.__formFields == None:
@@ -28,6 +29,7 @@ class StartGroupForm(PageForm):
                                             render_context=False)
             self.__formFields['grpPrivacy'].custom_widget = radio_widget
         return self.__formFields        
+
     @property
     def siteInfo(self):
         if self.__siteInfo == None:
@@ -54,6 +56,9 @@ class StartGroupForm(PageForm):
                               data['grpPrivacy'], self.emailDomain,
                               self.loggedInUser)
 
+        joiningUser = IGSJoiningUser(self.loggedInUser)
+        joiningUser.join(newGroup)
+        
         self.status = u'The group <a href="%s">%s</a> has been started.' %\
             (newGroup.relative_url(), newGroup.name)
                               
