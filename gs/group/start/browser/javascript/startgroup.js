@@ -96,7 +96,8 @@ var StartAGroup = function () {
         } else {
           jQuery('#group-id-error').hide();
         }
-        // TODO: Disable the submit button
+        // TODO: Disable the submit button. This requires interacting
+        //       with the required-widgets.
     }
     checkGroupId = function(event) {
         var id = null;
