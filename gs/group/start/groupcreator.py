@@ -1,10 +1,9 @@
 # coding=utf-8
-from zope.component import createObject
 from Products.GSGroup.groupInfo import GSGroupInfo
 from Products.XWFCore.XWFUtils import add_marker_interfaces,\
     get_the_actual_instance_from_zope
 from gs.group.privacy.interfaces import IGSChangePrivacy
-from gs.group.member.join.interfaces import IGSJoiningUser
+from audit import Auditor, START
 
 class MoiraeForGroup(object):
     template = 'standard'
@@ -42,16 +41,12 @@ class MoiraeForGroup(object):
         self.create_email_settings(group)
         self.set_group_privacy(group, groupPrivacy)
         
-        # --=mpj17=-- I know, WTF? Why am I creating a User Info for
-        # the admin when I have a user-info for the admin? Well, the 
-        # adminInfo is in the context of the old group. We do not want
-        # that. We want an admin in the context of the *new* group.
-        ctx = get_the_actual_instance_from_zope(group)
-        ai = createObject('groupserver.UserFromId', ctx, adminInfo.id)
-        joiningUser = IGSJoiningUser(ai)
         groupInfo = GSGroupInfo(group)
-        joiningUser.join(groupInfo)
         
+        auditor = Auditor(self.site_root, self.siteInfo)
+        auditor.info(START, adminInfo, groupInfo, groupName, 
+                        groupPrivacy)
+
         assert groupInfo
         return groupInfo
 
