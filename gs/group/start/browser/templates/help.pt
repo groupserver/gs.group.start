@@ -1,0 +1,75 @@
+<div id="gs-group-start">
+  <h2>Starting a Group</h2>
+  <p>
+    To start a group carry out the following tasks.
+  </p>
+  <ol>
+    <li>Go to the Start a Group page.</li>
+    <li>Enter the name of your new group in the 
+      <samp class="entry">Group Name</samp> entry.
+    </li>
+    <li>You may chose an identifier for your group by altering the
+      default identifier in the 
+      <samp class="entry">Group ID</samp> entry.
+      The identifier will be used to form both the email address and web 
+      address for your group.
+      <ul>
+        <li>The <strong>default</strong> identifier will be a lower case 
+          version of the group name with punctuation removed and 
+          spaces replaced by the dash character 
+          (<code>-</code>).</li>
+        <li>The identifier can only contain letters, numbers, dashes 
+          (<code>-</code>) and underscores (<code>_</code>).</li>
+        <li>The identifier must be unique: there cannot be another site
+          or group with the same identifier, including your own site.
+          The page will check to see if there is already a site or group
+          with the same identifier.</li>
+        <li>The identifier cannot be changed once the group has been 
+          created.</li>
+      </ul>
+    </li>
+    <li>Select one of the <samp class="radiobutton">privacy</samp>
+      settings for your new group.
+      The three settings change who can see the group homepage and
+      the messages within the group, as shown in the table below.
+      <table id="gs-start-group-privacy-values">
+        <caption>Visibility of pages for different settings</caption>
+        <thead>
+          <tr>
+            <th>&#160;</th>
+            <th colspan="2">Visibility</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>Group Homepage&#160;</th>
+            <th>Messages</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Public&#160;</th>
+            <td>Anyone</td>
+            <td>Anyone</td>
+          </tr>
+          <tr>
+            <th>Private&#160;</th>
+            <td>Anyone</td>
+            <td>Group members only</td>
+          </tr>
+          <tr>
+            <th>Secret</th>
+            <td>Group members only&#160;</td>
+            <td>Group members only&#160;</td>
+          </tr>
+        </tbody>
+      </table><!--gs-start-group-privacy-values-->
+    </li>
+    <li>Click the <samp class="button">Start</samp> button.
+      <ul>
+        <li>Your new group will be started,</li>
+        <li>You will be made a member,</li>
+        <li>You will be sent a <cite>Welcome</cite> email, and</li>
+        <li>You will be shown the homepage of your new group.</li>
+    </li>
+  </ol>
+</div>

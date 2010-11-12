@@ -20,4 +20,13 @@
     name="startgroup-20101110.js"
     file="browser/javascript/startgroup.js"
     permission="zope2.Public"/>
+    
+  <!--Help-->
+  <browser:viewlet name="gs-start-a-site-help"
+    layer="gs.skin.ogn.ogs.interfaces.IOGSSkin"
+    manager="gs.help.interfaces.IAdminHelp"
+    template="browser/templates/help.pt"
+    permission="zope.Public"
+    weight="1" />
+    
 </configure>
