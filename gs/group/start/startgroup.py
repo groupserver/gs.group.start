@@ -59,6 +59,8 @@ class StartGroupForm(PageForm):
         joiningUser = IGSJoiningUser(self.loggedInUser)
         joiningUser.join(newGroup)
         
+        self.request.RESPONSE.redirect(newGroup.relative_url())
+        
         self.status = u'The group <a href="%s">%s</a> has been started.' %\
             (newGroup.relative_url(), newGroup.name)
                               
