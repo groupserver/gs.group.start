@@ -17,27 +17,37 @@ var StartAGroup = function () {
                 'to logged in members only. People must be invited '   +
                 'to join the group.',
     }
-
+    var idChkTimeout = null;
+    
     // Private methods
     // Group name
     grpNameChanged = function(event) {
-        updateGrpNamePreview();
-
         if (!grpIdUserMod) {
-            // HACK: Delay updating the name by 500ms so the group-ID 
+            // HACK: Delay updating the name by 100ms so the group-name 
             // text entry has a chance to update
-            window.setTimeout(grpIdAutoUpdate, 500);
+            window.setTimeout(grpNameChangeTimeout, 100);
         } 
     };
     
-    grpIdAutoUpdate = function() {
+    grpNameChangeTimeout = function() {
         // If the user has not modified the ID then update that
         // based on the name.
         newId = grpIdFromName(jQuery(grpName).val());
         jQuery(grpId).val(newId);
         jQuery(grpId).trigger('keyup', true);
+        updateGrpNamePreview();
     };
-    
+    grpIdFromName = function(origGrpName) {
+        // Get an group ID from a group name
+        var newGrpId = null;
+        var re1 = /[ ]/g;
+        var re2 = /[^\w-_]/g;
+        newGrpId = origGrpName;
+        newGrpId = newGrpId.replace(re1, '-');
+        newGrpId = newGrpId.replace(re2, '');
+        newGrpId = newGrpId.toLowerCase();
+        return newGrpId;
+    };
     updateGrpNamePreview = function() {
         var newName = null;
         var grpNames  = null;
@@ -49,6 +59,7 @@ var StartAGroup = function () {
         grpNames = jQuery('.preview .grpFn');
         grpNames.html(newName);
     };
+
     // Group Id
     grpIdChanged = function(event, fakeIfSet) {
         // Callback for someone changing the group ID
@@ -62,28 +73,47 @@ var StartAGroup = function () {
         // event is to ensure I pass *something* as the fakeIfSet 
         // argument.
         
-        var newId = null;
-        var grpIdV = jQuery(grpId).val();
-
         if (fakeIfSet == undefined) {
             grpIdUserMod = true;
         }
+        window.setTimeout(grpIdChangeTimeout, 100);
+    };
+    grpIdChangeTimeout = function() {
+        var newId = null;
+        var grpIdV = jQuery(grpId).val();
+
         newId = grpIdV;
         if (newId == '') {
           newId = '&#8230;';
         }
         jQuery('.preview .groupId').html(newId);
+        checkGroupId()
     };
-    grpIdFromName = function(origGrpName) {
-        // Get an group ID from a group name
-        var newGrpId = null;
-        var re1 = /[ ]/g;
-        var re2 = /[^\w-_]/g;
-        newGrpId = origGrpName;
-        newGrpId = newGrpId.replace(re1, '-');
-        newGrpId = newGrpId.replace(re2, '');
-        newGrpId = newGrpId.toLowerCase();
-        return newGrpId;
+    checkGroupId = function() {
+        var id = null;
+        id = jQuery('#form\\.grpId').val();
+        
+        if (idChkTimeout != null) {
+            clearTimeout(idChkTimeout);
+            idChkTimeout = null;
+        }
+        if (id != '') {
+            idChkTimeout = setTimeout(fireGrpIdAjaxCheck, 250);
+        }
+    };
+    fireGrpIdAjaxCheck = function() {
+        var id = null;
+        var d = null;
+        
+        id = jQuery('#form\\.grpId').val()
+        d = {
+          type: "POST",
+          url: existingIdCheckURL,
+          cache: false,
+          data: {'id': id},
+          success: checkGroupIdReturn
+        };
+        jQuery.ajax(d);
     };
     checkGroupIdReturn = function(data, textStatus) {
         var exists = null;
@@ -98,21 +128,7 @@ var StartAGroup = function () {
         }
         // TODO: Disable the submit button. This requires interacting
         //       with the required-widgets.
-    }
-    checkGroupId = function(event) {
-        var id = null;
-        id = jQuery('#form\\.grpId').val()
-        var d = {
-          type: "POST",
-          url: existingIdCheckURL,
-          cache: false,
-          data: {'id': id},
-          success: checkGroupIdReturn
-        };
-        if (id != '') {
-            jQuery.ajax(d);
-        }
-    }
+    };
 
     // Privacy
     grpPrivacyChanged = function(event) {
@@ -126,15 +142,18 @@ var StartAGroup = function () {
     // Public methods and properties
     return {
         init: function () {
-            e = {
+            var e = {
                 onpaste: grpNameChanged, // IE name for the paste event
                 paste:   grpNameChanged, // Gecko name for the paste event
                 keyup:   grpNameChanged, // Standard key-up event
             };
-            jQuery(grpName).bind(e);
-            jQuery(grpName).trigger('paste');
-            jQuery(grpId).keyup(checkGroupId).keyup();
-            jQuery(grpId).keyup(grpIdChanged).trigger('keyup', true);
+            jQuery(grpName).bind(e).trigger('paste');
+            var f = {
+                onpaste: grpIdChanged, // IE name for the paste event
+                paste:   grpIdChanged, // Gecko name for the paste event
+                keyup:   grpIdChanged, // Standard key-up event
+            }
+            jQuery(grpId).bind(f).trigger('paste', true);
             jQuery(privacyButtons).change(grpPrivacyChanged).change();
         },
     }
