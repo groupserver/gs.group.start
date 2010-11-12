@@ -21,14 +21,21 @@ class CheckId(object):
             or self.existing_user(idToCheck)
             
     def existing_group(self, groupId):
+        # Group IDs must be unique *ignoring* case, because the ID is
+        #   used as the email address.
         listManager = self.context.ListManager
-        return groupId in listManager.objectIds()
+        ids = [lid.lower() for lid in listManager.objectIds()]
+        return groupId.lower() in ids
 
     def existing_site(self, siteId):
+        # Having a group with the same ID as a site may cause issues, so
+        #   we ban it.
         content = self.context.Content
         return siteId in content.objectIds()
 
     def existing_user(self, userId):
+        # A group with the same ID as a user is unlkely to cause issues,
+        #   but ban it just in case
         acl_users = self.context.acl_users
         return userId in acl_users.getUserNames()
 
