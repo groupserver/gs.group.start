@@ -28,5 +28,10 @@
     template="browser/templates/help.pt"
     permission="zope.Public"
     weight="1" />
-    
+
+  <utility 
+    factory=".audit.AuditEventFactory"
+    name="ogn.site.start"
+    permission="zope.Public" />
+
 </configure>

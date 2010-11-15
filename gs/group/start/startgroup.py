@@ -55,7 +55,7 @@ class StartGroupForm(PageForm):
         newGroup = groupMoirae.create(data['grpName'], data['grpId'], 
                               data['grpPrivacy'], self.emailDomain,
                               self.loggedInUser)
-
+        
         joiningUser = IGSJoiningUser(self.loggedInUser)
         joiningUser.join(newGroup)
         
