@@ -30,8 +30,8 @@ class CheckId(object):
     def existing_site(self, siteId):
         # Having a group with the same ID as a site may cause issues, so
         #   we ban it.
-        content = self.context.Content
-        return siteId in content.objectIds()
+        ids = [sid.lower() for sid in self.context.Content.objectIds()]
+        return siteId.lower() in ids
 
     def existing_user(self, userId):
         # A group with the same ID as a user is unlkely to cause issues,
