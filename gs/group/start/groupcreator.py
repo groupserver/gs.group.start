@@ -38,7 +38,6 @@ class MoiraeForGroup(object):
         self.create_list(group, mailHost)
         self.create_messages_area(group)
         self.create_files_area(group)
-        self.create_email_settings(group)
         self.set_group_privacy(group, groupPrivacy)
         
         groupInfo = GSGroupInfo(group)
@@ -167,28 +166,6 @@ class MoiraeForGroup(object):
         assert hasattr(group.aq_explicit, 'files'), \
           'Files area not added to "%s"' % group.getId()
     
-    def create_email_settings(self, group):
-        # --=mpj17=-- The fact that we have to copy the email settings 
-        # page from a central template is a bug
-        # https://projects.iopen.net/groupserver/ticket/371
-        # Once this is fixed the email settings page will hang off the
-        # IGSGroup marker.
-        assert group
-        emailSettings = getattr(self.site_root.CodeTemplates.group, 'email_settings', None)
-        assert emailSettings, 'No "email_settings" folder in "CodeTemplates/group"'
-        group.manage_clone(emailSettings, 'email_settings')
-        assert hasattr(group.aq_explicit, 'email_settings'), \
-          '"%s/email_settings" not created' % group.getId()
-
-        interfaces =  ('Products.GSContent.interfaces.IGSContentFolder',)
-        add_marker_interfaces(group.email_settings, interfaces)
-
-        # Only group members can see the email settings.
-        justUsers = ['GroupAdmin','GroupMember','Manager', 'Owner']
-        group.email_settings.manage_permission('View', justUsers)
-        group.email_settings.manage_permission('Access contents information',
-                                               justUsers)
-        
     def set_group_privacy(self, group, groupPrivacy):
         assert hasattr(group, 'is_group')
         assert group.is_group
