@@ -5,17 +5,6 @@
          Start Group
       </span>
     </title>
-    <tal:block metal:fill-slot="style">
-      <style type="text/css">
-        .email-share {
-          background-repeat:no-repeat;
-          display:inline;
-          padding-left:1.39em;
-        }
-      </style>
-      <link rel="stylesheet" type="text/css" 
-        href="/++resource++jquery-ui-1.8.5-css/ui-lightness/jquery-ui-1.8.5.custom.css" />
-    </tal:block>
   </head>
   <body>
     <div metal:fill-slot="messages" tal:condition="view/status" 
@@ -56,6 +45,7 @@
           <tal:block 
             replace="structure provider:groupserver.FormWidgets"/>
         </tal:block>
+        <div class="noFloat">&#160;</div>
         <p id="group-preview" style="padding:0.69em;"
           class="preview ui-state-highlight ui-corner-all" >
           The new group will have the <strong>name</strong>
@@ -65,7 +55,7 @@
           <code class="email"><span class="groupId">&#8230;</span>@<span tal:content="view/emailDomain">?</span></code>
           or by using the web.
           The <strong>web address</strong> for the group will be 
-          <code class="url email-share"><span tal:content="view/siteInfo/url">&#8230;</span>/groups/<span class="groupId">&#8230;</span></code>.
+          <code class="url"><span tal:content="view/siteInfo/url">&#8230;</span>/groups/<span class="groupId">&#8230;</span></code>.
           <span id="visiblity-preview">The group and posts will be
             visible to anyone, including search engines, and anyone
             can join the group.</span>
