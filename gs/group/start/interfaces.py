@@ -21,7 +21,7 @@ class NotAValidGroupId(ValidationError):
         return retval
         
     def __str__(self):
-         return unicode(self).encode('ascii', 'ignore')
+        return unicode(self).encode('ascii', 'ignore')
          
     def doc(self):
         return self.__str__()
@@ -43,7 +43,7 @@ class GroupIdUsed(ValidationError):
         return retval
         
     def __str__(self):
-         return unicode(self).encode('ascii', 'ignore')
+        return unicode(self).encode('ascii', 'ignore')
          
     def doc(self):
         return self.__str__()
