@@ -30,7 +30,7 @@
 
   <utility 
     factory=".audit.AuditEventFactory"
-    name="ogn.site.start"
+    name="gs.group.start"
     permission="zope.Public" />
 
 </configure>
