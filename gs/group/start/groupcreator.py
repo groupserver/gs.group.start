@@ -33,6 +33,7 @@ class MoiraeForGroup(object):
                 
         group = self.create_group_folder(groupId)
         self.set_security(group)
+        self.add_marker(group)
         self.create_administration(group)
         self.set_group_properties(group, groupName)
         self.create_list(group, mailHost)
@@ -100,14 +101,16 @@ class MoiraeForGroup(object):
         memberGroup = '%s_member' % groupId
         self.site_root.acl_users.userFolderDelGroups([memberGroup])
 
+    def add_marker(self, group):
+        # Add the IGSGroupFolder, so the Zope Five pages work!
+        interfaces = ('Products.XWFChat.interfaces.IGSGroupFolder',)
+        add_marker_interfaces(group, interfaces)        
+
     def create_administration(self, group):
         assert group
         fss = group.manage_addProduct['FileSystemSite']
         fss.manage_addDirectoryView('GroupServer/admingroup')
 
-        # Add the IGSGroupFolder, so the Zope Five pages work!
-        interfaces = ('Products.XWFChat.interfaces.IGSGroupFolder',)
-        add_marker_interfaces(group, interfaces)
         # In an OGN goup, group and site administrators can add users.
         group.manage_permission('Manage users', 
                                 ['DivisionAdmin','GroupAdmin','Manager','Owner'],0)
