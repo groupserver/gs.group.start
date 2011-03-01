@@ -96,6 +96,9 @@ class MoiraeForGroup(object):
         group.manage_defined_roles('Add Role', {'role':'GroupAdmin'})
         # Associate the user-group with the group member role
         group.manage_addLocalGroupRoles(memberGroup, ['GroupMember'])
+        
+        #TODO: Ticket 611: 
+        # https://projects.iopen.net/groupserver/ticket/611
 
     def delete_user_group(self, groupId):
         memberGroup = '%s_member' % groupId
