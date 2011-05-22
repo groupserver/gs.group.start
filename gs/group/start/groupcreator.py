@@ -4,6 +4,9 @@ from Products.XWFCore.XWFUtils import add_marker_interfaces,\
     get_the_actual_instance_from_zope
 from gs.group.privacy.interfaces import IGSChangePrivacy
 from audit import Auditor, START
+from groupfolder import GSGroupFolder
+from event import GSGroupCreatedEvent
+from zope.event import notify
 
 class MoiraeForGroup(object):
     template = 'standard'
@@ -33,7 +36,6 @@ class MoiraeForGroup(object):
                 
         group = self.create_group_folder(groupId)
         self.set_security(group)
-        self.add_marker(group)
         self.create_administration(group)
         self.set_group_properties(group, groupName)
         self.create_list(group, mailHost)
@@ -41,8 +43,10 @@ class MoiraeForGroup(object):
         self.create_files_area(group)
         self.set_group_privacy(group, groupPrivacy)
         
+        notify(GSGroupCreatedEvent(group))
+
         groupInfo = GSGroupInfo(group)
-        
+
         auditor = Auditor(self.site_root, self.siteInfo)
         auditor.info(START, adminInfo, groupInfo, groupName, 
                         groupPrivacy)
@@ -62,9 +66,11 @@ class MoiraeForGroup(object):
 
     def create_group_folder(self, groupId):
         # Create the group folder
-        self.groupsFolder.manage_addFolder(groupId)
+        ob = GSGroupFolder(groupId)
+        self.groupsFolder._setObject(groupId, ob)
         group = getattr(self.groupsFolder, groupId)
         assert group
+
         return group
 
     def delete_group_folder(self, groupId):
@@ -103,11 +109,6 @@ class MoiraeForGroup(object):
     def delete_user_group(self, groupId):
         memberGroup = '%s_member' % groupId
         self.site_root.acl_users.userFolderDelGroups([memberGroup])
-
-    def add_marker(self, group):
-        # Add the IGSGroupFolder, so the Zope Five pages work!
-        interfaces = ('Products.XWFChat.interfaces.IGSGroupFolder',)
-        add_marker_interfaces(group, interfaces)        
 
     def create_administration(self, group):
         assert group
