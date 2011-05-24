@@ -33,10 +33,10 @@
     name="gs.group.start"
     permission="zope.Public" />
 
+  <!-- Create a default subscriber for the Add Group event -->
   <subscriber
      for="Products.XWFChat.interfaces.IGSGroupFolder
           gs.group.start.event.IGSGroupCreatedEvent"
      handler=".groupfolder.groupAddedHandler" />  
-
 
 </configure>
