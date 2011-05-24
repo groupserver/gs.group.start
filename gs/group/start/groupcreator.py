@@ -1,4 +1,6 @@
 # coding=utf-8
+from zope.cachedescriptors.property import Lazy
+from zope.event import notify
 from Products.GSGroup.groupInfo import GSGroupInfo
 from Products.XWFCore.XWFUtils import add_marker_interfaces,\
     get_the_actual_instance_from_zope
@@ -6,7 +8,9 @@ from gs.group.privacy.interfaces import IGSChangePrivacy
 from audit import Auditor, START
 from groupfolder import GSGroupFolder
 from event import GSGroupCreatedEvent
-from zope.event import notify
+
+#--=mpj17=-- TODO: Figure out how much of this can be turned into a
+# subscriber-based system.
 
 class MoiraeForGroup(object):
     template = 'standard'
@@ -14,11 +18,11 @@ class MoiraeForGroup(object):
     def __init__(self, siteInfo):
         self.siteInfo = siteInfo
 
-    @property
+    @Lazy
     def groupsFolder(self):
         return getattr(self.siteInfo.siteObj, 'groups')
 
-    @property
+    @Lazy
     def site_root(self):
         retval = self.siteInfo.siteObj.aq_parent.aq_parent
         assert hasattr(retval, 'site_root'),\
@@ -35,7 +39,7 @@ class MoiraeForGroup(object):
             groupId = groupId.encode('ascii', 'ignore')        
                 
         group = self.create_group_folder(groupId)
-        self.set_security(group)
+        self.set_security(group, adminInfo)
         self.create_administration(group)
         self.set_group_properties(group, groupName)
         self.create_list(group, mailHost)
@@ -70,7 +74,6 @@ class MoiraeForGroup(object):
         self.groupsFolder._setObject(groupId, ob)
         group = getattr(self.groupsFolder, groupId)
         assert group
-
         return group
 
     def delete_group_folder(self, groupId):
@@ -87,7 +90,7 @@ class MoiraeForGroup(object):
         group.manage_addProperty('group_template', self.template, 'string')
         group.manage_changeProperties(title=groupName)
 
-    def set_security(self, group):
+    def set_security(self, group, adminInfo):
         '''\
         Set the Group Security
         
@@ -103,9 +106,11 @@ class MoiraeForGroup(object):
         # Associate the user-group with the group member role
         group.manage_addLocalGroupRoles(memberGroup, ['GroupMember'])
         
-        #TODO: Ticket 611: 
-        # https://projects.iopen.net/groupserver/ticket/611
-
+        # Make the admin a group admin so he or she receives the 
+        #   Join notifications. See Ticket 611 for more information
+        #   <https://projects.iopen.net/groupserver/ticket/611>
+        group.manage_addLocalRoles(adminInfo.id, ('GroupAdmin',))
+        
     def delete_user_group(self, groupId):
         memberGroup = '%s_member' % groupId
         self.site_root.acl_users.userFolderDelGroups([memberGroup])
