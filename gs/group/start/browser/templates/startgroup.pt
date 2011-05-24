@@ -76,6 +76,7 @@
         jQuery.noConflict()
         jQuery(document).ready( function () {
             GSPopupFormHelp.init('#start-group');
+            jQuery('#form\\.grpName').focus();
         });
       </script>
       <script type="text/javascript"
