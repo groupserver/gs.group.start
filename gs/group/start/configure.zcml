@@ -9,7 +9,7 @@
     name="existing_id_check"
     class=".checkid.CheckIdForm"
     permission="zope2.Public"/>
-    
+  
   <browser:page
     for="Products.GSContent.interfaces.IGSSiteFolder"
     name="startgroup.html"
@@ -32,6 +32,13 @@
     factory=".audit.AuditEventFactory"
     name="gs.group.start"
     permission="zope.Public" />
+
+  <!--Link for the Site Admin page-->
+  <browser:viewlet name="gs-start-a-group-link"
+    manager="gs.site.change.base.interfaces.ISiteAdminLinks"
+    template="browser/templates/startlink.pt"
+    permission="zope2.ManageProperties"
+    weight="1" />
 
   <!-- Create a default subscriber for the Add Group event -->
   <subscriber
