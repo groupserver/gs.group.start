@@ -42,7 +42,7 @@
 
   <!-- Create a default subscriber for the Add Group event -->
   <subscriber
-     for="Products.XWFChat.interfaces.IGSGroupFolder
+     for="gs.group.base.interfaces.IGSGroupMarker
           gs.group.start.event.IGSGroupCreatedEvent"
      handler=".groupfolder.groupAddedHandler" />  
 
