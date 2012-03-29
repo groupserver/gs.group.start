@@ -3,12 +3,12 @@ from zope.interface import implements, implementedBy
 from OFS.Folder import Folder
 from zope.component.interfaces import ObjectEvent
 from zope.component.interfaces import IObjectEvent
-
-from Products.XWFChat.interfaces import IGSGroupFolder
+from gs.group.base.interfaces import IGSGroupMarker
+from gs.group.type.discussion.interfaces import IGSDiscussionGroup
 
 # Standard group folder
 class GSGroupFolder(Folder):
-    implements(IGSGroupFolder)
+    implements(IGSDiscussionGroup)
 
 # Group Added Event
 class GSGroupAddedEvent(ObjectEvent):
@@ -20,8 +20,8 @@ def groupAddedHandler(groupFolder, event):
         how to subscribe to the event.
         
     """
-    assert IGSGroupFolder.providedBy(groupFolder), \
-       "groupFolder did not implement IGSGroupFolder!"
+    assert IGSGroupMarker.providedBy(groupFolder), \
+       "groupFolder did not implement IGSGroupMarker!"
     
     return
 
