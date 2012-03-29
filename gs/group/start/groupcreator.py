@@ -73,6 +73,7 @@ class MoiraeForGroup(object):
         ob = GSGroupFolder(groupId)
         self.groupsFolder._setObject(groupId, ob)
         group = getattr(self.groupsFolder, groupId)
+        add_marker_interfaces(group, ['gs.group.type.discussion.interfaces.IGSDiscussionGroup'])
         assert group
         return group
 

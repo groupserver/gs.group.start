@@ -4,11 +4,10 @@ from OFS.Folder import Folder
 from zope.component.interfaces import ObjectEvent
 from zope.component.interfaces import IObjectEvent
 from gs.group.base.interfaces import IGSGroupMarker
-from gs.group.type.discussion.interfaces import IGSDiscussionGroup
 
 # Standard group folder
 class GSGroupFolder(Folder):
-    implements(IGSDiscussionGroup)
+    implements(IGSGroupMarker)
 
 # Group Added Event
 class GSGroupAddedEvent(ObjectEvent):
