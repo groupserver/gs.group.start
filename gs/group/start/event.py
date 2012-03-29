@@ -1,3 +1,4 @@
+# coding=utf-8
 from zope.interface import implements, implementedBy
 from OFS.Folder import Folder
 from zope.component.interfaces import ObjectEvent
@@ -13,4 +14,4 @@ class IGSGroupCreatedEvent(IObjectEvent):
 
 class GSGroupCreatedEvent(ObjectEvent):
     implements(IGSGroupCreatedEvent)
-        
+
