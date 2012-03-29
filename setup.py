@@ -32,10 +32,14 @@ setup(name='gs.group.start',
     zip_safe=True,
     install_requires=[
         'setuptools',
+        'gs.content.form',
+        'gs.group.base',
+        'gs.group.type.discussion',
         'gs.group.member.join',
         'gs.group.privacy',
         'Products.XWFCore',
-        'Products.GSGroup'
+        'Products.GSGroup',
+        'Products.GSAuditTrail'
         # -*- Extra requirements: -*-
     ],
     entry_points="""
