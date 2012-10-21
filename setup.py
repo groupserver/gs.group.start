@@ -32,14 +32,20 @@ setup(name='gs.group.start',
     zip_safe=True,
     install_requires=[
         'setuptools',
+        'pytz', 
+        'zope.cachedescriptors',
+        'zope.component',
+        'zope.event',
+        'zope.interface',
+        'zope.schema',
         'gs.content.form',
         'gs.group.base',
-        'gs.group.type.discussion',
+        'gs.group.type.discussion', # For the marker interface
         'gs.group.member.join',
         'gs.group.privacy',
         'Products.XWFCore',
-        'Products.GSGroup',
         'Products.GSAuditTrail'
+        'Products.CustomUserFolder',
         # -*- Extra requirements: -*-
     ],
     entry_points="""
