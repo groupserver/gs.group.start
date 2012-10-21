@@ -118,9 +118,6 @@ class MoiraeForGroup(object):
 
     def create_administration(self, group):
         assert group
-        fss = group.manage_addProduct['FileSystemSite']
-        fss.manage_addDirectoryView('GroupServer/admingroup')
-
         # In an OGN goup, group and site administrators can add users.
         group.manage_permission('Manage users', 
                                 ['DivisionAdmin','GroupAdmin','Manager','Owner'],0)
@@ -133,7 +130,6 @@ class MoiraeForGroup(object):
                                 ['DivisionAdmin','Manager','Owner'],0)
         group.manage_permission('Add Folders', 
                                 ['DivisionAdmin','Manager','Owner'],0)
-        assert hasattr(group.aq_explicit, 'admingroup')
                 
     def create_list(self, group, mailhost):
         assert group, 'No group'
