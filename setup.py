@@ -27,12 +27,12 @@ setup(name='gs.group.start',
     url='http://www.onlinegroups.net/',
     license='other',
     packages=find_packages(exclude=['ez_setup']),
-    namespace_packages=['gs','gs.group'],
+    namespace_packages=['gs', 'gs.group'],
     include_package_data=True,
     zip_safe=True,
     install_requires=[
         'setuptools',
-        'pytz', 
+        'pytz',
         'zope.cachedescriptors',
         'zope.component',
         'zope.event',
@@ -40,7 +40,7 @@ setup(name='gs.group.start',
         'zope.schema',
         'gs.content.form',
         'gs.group.base',
-        'gs.group.type.discussion', # For the marker interface
+        'gs.group.type.discussion',  # For the marker interface
         'gs.group.member.join',
         'gs.group.privacy',
         'Products.XWFCore',
@@ -51,4 +51,3 @@ setup(name='gs.group.start',
     entry_points="""
     # -*- Entry points: -*-
     """,)
-

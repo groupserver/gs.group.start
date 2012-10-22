@@ -1,25 +1,28 @@
 # coding=utf-8
-from Products.Five import BrowserView
+from gs.content.form import SiteForm
 
-class CheckIdForm(BrowserView):
+
+class CheckIdForm(SiteForm):
+
     def __init__(self, site, request):
-        BrowserView.__init__(self, site, request)
+        super(CheckIdForm, self).__init__(site, request)
         self.idToCheck = request['id']
-        
+
     def __call__(self):
         checker = CheckId(self.context)
         return checker.exists(self.idToCheck) and '1' or '0'
+
 
 class CheckId(object):
 
     def __init__(self, context):
         self.context = context
-        
+
     def exists(self, idToCheck):
         return self.existing_group(idToCheck)\
             or self.existing_site(idToCheck)\
             or self.existing_user(idToCheck)
-            
+
     def existing_group(self, groupId):
         # Group IDs must be unique *ignoring* case, because the ID is
         #   used as the email address.
@@ -38,4 +41,3 @@ class CheckId(object):
         #   but ban it just in case
         acl_users = self.context.acl_users
         return userId in acl_users.getUserNames()
-

@@ -12,9 +12,10 @@ from event import GSGroupCreatedEvent
 #--=mpj17=-- TODO: Figure out how much of this can be turned into a
 # subscriber-based system.
 
+
 class MoiraeForGroup(object):
     template = 'standard'
-    
+
     def __init__(self, siteInfo):
         self.siteInfo = siteInfo
 
@@ -34,10 +35,10 @@ class MoiraeForGroup(object):
         assert groupId, 'No group ID'
         assert groupPrivacy, 'No group privacy'
         assert adminInfo, 'No admin'
-        
+
         if type(groupId) == unicode:
-            groupId = groupId.encode('ascii', 'ignore')        
-                
+            groupId = groupId.encode('ascii', 'ignore')
+
         group = self.create_group_folder(groupId)
         self.set_security(group, adminInfo)
         self.create_administration(group)
@@ -46,13 +47,13 @@ class MoiraeForGroup(object):
         self.create_messages_area(group)
         self.create_files_area(group)
         self.set_group_privacy(group, groupPrivacy)
-        
+
         notify(GSGroupCreatedEvent(group))
 
         groupInfo = GSGroupInfo(group)
 
         auditor = Auditor(self.site_root, self.siteInfo)
-        auditor.info(START, adminInfo, groupInfo, groupName, 
+        auditor.info(START, adminInfo, groupInfo, groupName,
                         groupPrivacy)
 
         assert groupInfo
@@ -60,9 +61,9 @@ class MoiraeForGroup(object):
 
     def delete(self, groupId):
         assert groupId, 'No group ID'
-        
+
         if type(groupId) == unicode:
-            groupId = groupId.encode('ascii', 'ignore')        
+            groupId = groupId.encode('ascii', 'ignore')
 
         self.delete_group_folder(groupId)
         self.delete_user_group(groupId)
@@ -73,13 +74,14 @@ class MoiraeForGroup(object):
         ob = GSGroupFolder(groupId)
         self.groupsFolder._setObject(groupId, ob)
         group = getattr(self.groupsFolder, groupId)
-        add_marker_interfaces(group, ['gs.group.type.discussion.interfaces.IGSDiscussionGroup'])
+        ifs = ['gs.group.type.discussion.interfaces.IGSDiscussionGroup']
+        add_marker_interfaces(group, ifs)
         assert group
         return group
 
     def delete_group_folder(self, groupId):
         # Create the group folder
-        self.groupsFolder.manage_delObjects([groupId,])
+        self.groupsFolder.manage_delObjects([groupId, ])
         assert not(hasattr(self.groupsFolder, groupId))
 
     def set_group_properties(self, group, groupName):
@@ -94,7 +96,7 @@ class MoiraeForGroup(object):
     def set_security(self, group, adminInfo):
         '''\
         Set the Group Security
-        
+
         Create the user-group, and create the GroupMember and GroupAdmin
         roles.'''
         # Secure the group
@@ -102,16 +104,16 @@ class MoiraeForGroup(object):
         # Create the user-group
         self.site_root.acl_users.userFolderAddGroup(memberGroup)
         # Add the roles to the group
-        group.manage_defined_roles('Add Role', {'role':'GroupMember'})
-        group.manage_defined_roles('Add Role', {'role':'GroupAdmin'})
+        group.manage_defined_roles('Add Role', {'role': 'GroupMember'})
+        group.manage_defined_roles('Add Role', {'role': 'GroupAdmin'})
         # Associate the user-group with the group member role
         group.manage_addLocalGroupRoles(memberGroup, ['GroupMember'])
-        
-        # Make the admin a group admin so he or she receives the 
+
+        # Make the admin a group admin so he or she receives the
         #   Join notifications. See Ticket 611 for more information
         #   <https://projects.iopen.net/groupserver/ticket/611>
         group.manage_addLocalRoles(adminInfo.id, ('GroupAdmin',))
-        
+
     def delete_user_group(self, groupId):
         memberGroup = '%s_member' % groupId
         self.site_root.acl_users.userFolderDelGroups([memberGroup])
@@ -119,18 +121,16 @@ class MoiraeForGroup(object):
     def create_administration(self, group):
         assert group
         # In an OGN goup, group and site administrators can add users.
-        group.manage_permission('Manage users', 
-                                ['DivisionAdmin','GroupAdmin','Manager','Owner'],0)
+        gRoles = ['DivisionAdmin', 'GroupAdmin', 'Manager', 'Owner']
+        group.manage_permission('Manage users', gRoles, 0)
         # In an OGN goup, only site administrators can alter the properties
-        group.manage_permission('Manage properties', 
-                                ['DivisionAdmin','Manager','Owner'],0)
+        siteRoles = ['DivisionAdmin', 'Manager', 'Owner']
+        group.manage_permission('Manage properties', siteRoles, 0)
         # Without the Add XML Template permission the admin will not be
         #   able to paste the content_en in!
-        group.manage_permission('Add XML Template', 
-                                ['DivisionAdmin','Manager','Owner'],0)
-        group.manage_permission('Add Folders', 
-                                ['DivisionAdmin','Manager','Owner'],0)
-                
+        group.manage_permission('Add XML Template', siteRoles, 0)
+        group.manage_permission('Add Folders', siteRoles, 0)
+
     def create_list(self, group, mailhost):
         assert group, 'No group'
         assert mailhost, 'No mailhost'
@@ -139,34 +139,35 @@ class MoiraeForGroup(object):
             'The ListManager already has a list for "%s".' % group.getId()
         mailto = '%s@%s' % (group.getId(), mailhost)
         xwfmailingList = listManager.manage_addProduct['XWFMailingListManager']
-        xwfmailingList.manage_addXWFMailingList(group.getId(), mailto, 
+        xwfmailingList.manage_addXWFMailingList(group.getId(), mailto,
                                                 group.title_or_id().lower())
         assert hasattr(listManager.aq_explicit, group.getId()), \
             'The list "%s" was not created in ListManager.' % group.getId()
-
-        groupList = getattr(self.site_root.ListManager.aq_explicit, group.getId())
+        listManager = self.site_root.ListManager
+        groupList = getattr(listManager.aq_explicit, group.getId())
         groupList.manage_addProperty('siteId', self.siteInfo.id, 'string')
         groupList.manage_addProperty('use_rdb', True, 'boolean')
-        # Delete the GroupServer 0.9 "archive", as it is now handled by the 
+        # Delete the GroupServer 0.9 "archive", as it is now handled by the
         #   relational database.
         try:
             groupList.manage_delObjects(['archive'])
         except:
             pass
         return groupList
-        
+
     def delete_list(self, groupId):
         listManager = self.site_root.ListManager
-        listManager.manage_delObjects([groupId,])
-        
+        listManager.manage_delObjects([groupId, ])
+
     def create_messages_area(self, group):
         assert group
         xwfmail = group.manage_addProduct['XWFMailingListManager']
         xwfmail.manage_addXWFVirtualMailingListArchive2('messages', 'Messages')
         assert group.messages, 'Messages area not added to "s"' % group.getId()
         messages = group.messages
-        messages.manage_changeProperties(xwf_mailing_list_manager_path='ListManager',
-                                         xwf_mailing_list_ids=[group.getId()])
+        messages.manage_changeProperties(
+                xwf_mailing_list_manager_path='ListManager',
+                xwf_mailing_list_ids=[group.getId()])
 
     def create_files_area(self, group):
         assert group
@@ -174,12 +175,12 @@ class MoiraeForGroup(object):
         xwffiles.manage_addXWFVirtualFileFolder2('files', 'Files')
         assert hasattr(group.aq_explicit, 'files'), \
           'Files area not added to "%s"' % group.getId()
-    
+
     def set_group_privacy(self, group, groupPrivacy):
         assert hasattr(group, 'is_group')
         assert group.is_group
         assert hasattr(group, 'messages')
-        # Set the privacy: Which must be done **AFTER** the folder is 
+        # Set the privacy: Which must be done **AFTER** the folder is
         #   made into a group
         g = get_the_actual_instance_from_zope(group)
         assert g
@@ -192,4 +193,3 @@ class MoiraeForGroup(object):
             privacyChanger.set_group_private()
         else:
             privacyChanger.set_group_secret()
-
