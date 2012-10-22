@@ -36,15 +36,17 @@ setup(name='gs.group.start',
         'zope.cachedescriptors',
         'zope.component',
         'zope.event',
+        'zope.formlib',
         'zope.interface',
         'zope.schema',
+        'Zope2',
         'gs.content.form',
         'gs.group.base',
         'gs.group.type.discussion',  # For the marker interface
         'gs.group.member.join',
         'gs.group.privacy',
         'Products.XWFCore',
-        'Products.GSAuditTrail'
+        'Products.GSAuditTrail',
         'Products.CustomUserFolder',
         # -*- Extra requirements: -*-
     ],
