@@ -1,5 +1,5 @@
 <div id="gs-group-start">
-  <h2>Starting a Group</h2>
+  <h2>Start a Group</h2>
   <p>
     To start a group carry out the following tasks.
   </p>
@@ -8,8 +8,8 @@
     <li>Enter the name of your new group in the 
       <samp class="entry">Group Name</samp> entry.
     </li>
-    <li>You may chose an identifier for your group by altering the
-      default identifier in the 
+    <li><strong class="label">(Optional)</strong> Chose an identifier for 
+      your group by altering the default identifier in the 
       <samp class="entry">Group ID</samp> entry.
       The identifier will be used to form both the email address and web 
       address for your group.
@@ -70,6 +70,7 @@
         <li>You will be made a member,</li>
         <li>You will be sent a <cite>Welcome</cite> email, and</li>
         <li>You will be shown the homepage of your new group.</li>
+      </ul>
     </li>
   </ol>
 </div>
