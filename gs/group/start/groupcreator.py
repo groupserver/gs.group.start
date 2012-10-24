@@ -126,9 +126,9 @@ class MoiraeForGroup(object):
         # In an OGN goup, only site administrators can alter the properties
         siteRoles = ['DivisionAdmin', 'Manager', 'Owner']
         group.manage_permission('Manage properties', siteRoles, 0)
-        # Without the Add XML Template permission the admin will not be
-        #   able to paste the content_en in!
-        group.manage_permission('Add XML Template', siteRoles, 0)
+        # Without the Add Page Templates permission the admin will not be
+        #   able to add content!
+        group.manage_permission('Add Page Templates', siteRoles, 0)
         group.manage_permission('Add Folders', siteRoles, 0)
 
     def create_list(self, group, mailhost):
