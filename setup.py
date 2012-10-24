@@ -40,11 +40,14 @@ setup(name='gs.group.start',
         'zope.interface',
         'zope.schema',
         'Zope2',
+        'gs.content.layout',
         'gs.content.form',
         'gs.group.base',
         'gs.group.type.discussion',  # For the marker interface
         'gs.group.member.join',
         'gs.group.privacy',
+        'gs.help',  # For the Admin Help viewlet manager
+        'gs.site.change.base',  # For the site-admin links viewlet manager
         'Products.XWFCore',
         'Products.GSAuditTrail',
         'Products.CustomUserFolder',
