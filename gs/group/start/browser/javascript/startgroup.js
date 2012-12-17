@@ -1,4 +1,4 @@
-// JavaScript for handling all the interlocks associated with Start a Group.
+(// JavaScript for handling all the interlocks associated with Start a Group.
 var StartAGroup = function () {
     // Private variables
     var grpName = '#form\\.grpName';
@@ -15,7 +15,7 @@ var StartAGroup = function () {
                 ' posts. People must apply to join the group.',
       'secret': 'The group and posts will be <strong>visible</strong> '+
                 'to logged in members only. People must be invited '   +
-                'to join the group.',
+                'to join the group.'
     }
     var idChkTimeout = null;
     
@@ -145,17 +145,17 @@ var StartAGroup = function () {
             var e = {
                 onpaste: grpNameChanged, // IE name for the paste event
                 paste:   grpNameChanged, // Gecko name for the paste event
-                keyup:   grpNameChanged, // Standard key-up event
+                keyup:   grpNameChanged  // Standard key-up event
             };
             jQuery(grpName).bind(e).trigger('paste');
             var f = {
                 onpaste: grpIdChanged, // IE name for the paste event
                 paste:   grpIdChanged, // Gecko name for the paste event
-                keyup:   grpIdChanged, // Standard key-up event
+                keyup:   grpIdChanged  // Standard key-up event
             }
             jQuery(grpId).bind(f).trigger('paste', true);
             jQuery(privacyButtons).change(grpPrivacyChanged).change();
-        },
+        }
     }
 }(); // OGNStartASiteGrp
 
