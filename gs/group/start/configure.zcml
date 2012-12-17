@@ -17,7 +17,7 @@
     permission="zope2.ManageProperties"/>
     
   <browser:resource
-    name="startgroup-20101110.js"
+    name="startgroup-20121217.js"
     file="browser/javascript/startgroup.js"
     permission="zope2.Public"/>
     
