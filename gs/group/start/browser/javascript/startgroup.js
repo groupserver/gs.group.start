@@ -1,4 +1,4 @@
-(// JavaScript for handling all the interlocks associated with Start a Group.
+// JavaScript for handling all the interlocks associated with Start a Group.
 var StartAGroup = function () {
     // Private variables
     var grpName = '#form\\.grpName';
