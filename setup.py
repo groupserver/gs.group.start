@@ -1,4 +1,4 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 import os
 from setuptools import setup, find_packages
 from version import get_version
@@ -40,7 +40,7 @@ setup(name='gs.group.start',
         'zope.interface',
         'zope.schema',
         'Zope2',
-        'gs.content.js.jquery',
+        'gs.content.js.jquery.base',
         'gs.content.layout',
         'gs.content.form',
         'gs.group.base',
