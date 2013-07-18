@@ -1,83 +1,90 @@
-<html metal:use-macro="context/@@groupserver_site_home_layout/page">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@groupserver_layout/page">
   <head>
     <title metal:fill-slot="title">
       <span tal:replace="string:${view/label}: ${view/siteInfo/name}">
-         Start Group
+        Start Group
       </span>
     </title>
+    <link metal:fill-slot="metadata" rel="up" href="/"
+          tal:attributes="title string:${view/siteInfo/name} Home" />
   </head>
   <body>
     <tal:block content="structure provider:groupserver.FormStatusMessage"
-      define="errors view/errors; status view/status; widgets view/widgets"
-      metal:fill-slot="messages">&#160;</tal:block>
-    <tal:block metal:fill-slot="body">
-      <form enctype="multipart/form-data"  method="post" action="."
-        tal:attributes="action request/URL" id="start-group">
-        <h1 tal:content="view/label">Start Group</h1>
+               define="errors view/errors; status view/status; widgets view/widgets"
+               metal:fill-slot="messages">&#160;</tal:block>
+    <ul metal:fill-slot="breadcrumb">
+      <li class="site">
+        <a tal:attributes="title string:${view/siteInfo/name} Homepage"
+           href="/" title="Home" class="icon-alone">
+          <span aria-hidden="true" data-icon="&#x2302;"></span>
+          <span class="screen-reader-text"
+                tal:content="string:${view/siteInfo/name} Homepage">Home</span></a>
+      </li>
+      <li tal:content="view/label">Stuff</li>
+    </ul>
+    <form metal:fill-slot="body" enctype="multipart/form-data"  method="post" 
+          action="."  tal:attributes="action request/URL" id="start-group">
+      <h1 tal:content="view/label">Start group</h1>
+      <tal:block 
+        define="widgets python:[view.widgets['grpName'], view.widgets['grpId']]">
         <tal:block 
-          define="widgets python:[view.widgets['grpName'], view.widgets['grpId']]">
-          <tal:block 
-            replace="structure provider:groupserver.FormWidgets"/>
-        </tal:block>
-        <div id="group-id-error" style="display:none;"
-          class="widget-error ui-state-error ui-corner-all">
-          <p>
-            <span style="float: left; margin-right: 0.39em;" 
-              class="ui-icon ui-icon-alert">&#160;</span>
-            <strong>Group ID In Use:</strong>
-            The Group ID <code>above</code> is already being used.
-            Please pick another group ID.
-          </p>
-        </div><!--group-id-error-->
-        <tal:block define="widgets python:[view.widgets['grpPrivacy']]">
-          <tal:block 
-            replace="structure provider:groupserver.FormWidgets"/>
-        </tal:block>
-        <div class="noFloat">&#160;</div>
-        <p id="group-preview" style="padding:0.69em;"
-          class="preview ui-state-highlight ui-corner-all" >
-          The new group will have the <strong>name</strong>
-          <cite id="group-title-preview" class="grpFn">&#8230;</cite>.
-          Members can post to the group by sending <strong>email</strong>
-          to
-          <code class="email"><span class="groupId">&#8230;</span>@<span tal:content="view/emailDomain">?</span></code>
-          or by using the web.
-          The <strong>web address</strong> for the group will be 
-          <code class="url"><span tal:content="view/siteInfo/url">&#8230;</span>/groups/<span class="groupId">&#8230;</span></code>.
-          <span id="visiblity-preview">The group and posts will be
+          replace="structure provider:groupserver.FormWidgets"/>
+      </tal:block>
+      <p id="group-id-error" style="display:none;" class="alert">
+        <strong class="label alert-label">Group ID In Use:</strong>
+        The Group ID <code>above</code> is already being used.
+        Please pick another group ID.
+      </p><!--group-id-error-->
+      <tal:block define="widgets python:[view.widgets['grpPrivacy']]">
+        <tal:block 
+          replace="structure provider:groupserver.FormWidgets"/>
+      </tal:block>
+      <div id="gs-group-start-info" role="region" 
+           aria-labelledby="gs-group-start-info-h">
+        <h3 id="gs-group-start-info-h">New Group</h3>
+        <ul id="group-preview" class="preview">
+          <li>
+            The new group will have the <strong>name</strong>
+            <cite id="group-title-preview" class="grpFn">&#8230;</cite>.
+          </li>
+          <li>
+            Members will post to the group by using the web or by sending 
+            an <strong>email</strong> to
+            <code class="email"><span class="groupId">&#8230;</span>@<span tal:content="view/emailDomain">?</span></code>.
+          </li>
+          <li>
+            The <strong>web address</strong> for the group will be 
+            <code class="url"><span tal:content="view/siteInfo/url">&#8230;</span>/groups/<span class="groupId">&#8230;</span></code>.
+          </li>
+          <li>
+            <span id="visiblity-preview">The group and posts will be
             visible to anyone, including search engines, and anyone
             can join the group.</span>
-        </p>
-        <div class="buttons" tal:condition="view/availableActions">
-          <tal:block repeat="action view/actions">
-            <div class="formelementbutton">
-              <span tal:replace="structure action/render">Button</span>
-            </div>
-          </tal:block>
-        </div><!--buttons-->
-      </form>
-    </tal:block>
-    <tal:block metal:fill-slot="javascript">
-      <script type="text/javascript"
-        src="/++resource++check_required-20071214.js">&#160;</script>
-      <script type="text/javascript"
-        tal:define="widgets view/widgets; 
-          button string:#form\\.actions\\.start"
-        tal:content="provider:groupserver.RequiredWidgetsJavaScript">
-        alert("I have not been replaced.");
-      </script>
-      <script type="text/javascript"
-        src="/++resource++popup_help-20071218.js">&#160;</script>
-      <script type="text/javascript">
-        jQuery.noConflict()
-        jQuery(document).ready( function () {
-            GSPopupFormHelp.init('#start-group');
-            jQuery('#form\\.grpName').focus();
-        });
-      </script>
-      <script type="text/javascript"
-        src="/++resource++startgroup-20121217.js">&#160;</script>
-    </tal:block>
+          </li>
+        </ul><!--group-preview-->
+        <div id="gs-group-start-preview-secret" data-alert="alert"
+             style="display:none;" class="alert">
+          Secret groups are <strong>hard</strong> to use: you, and the
+          other group members, have to be logged in to even see that the
+          group <em>exists.</em>
+          <strong>Private</strong> groups also hide the messages posted
+          to the group, but the members can see that they have to log in
+          to view them.
+        </div><!--gs-group-start-preview-secret-->
+      </div><!--gs-group-start-info-->
+      <div class="buttons" tal:condition="view/availableActions">
+        <tal:block repeat="action view/actions">
+          <div class="formelementbutton">
+            <span tal:replace="structure action/render">Button</span>
+          </div>
+        </tal:block>
+      </div><!--buttons-->
+    </form>
+    <script type="text/javascript" metal:fill-slot="javascript"
+            src="/++resource++gs-group-start-20130712.js"
+            defer="true">&#160;</script>
   </body>
 </html>
-

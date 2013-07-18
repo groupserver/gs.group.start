@@ -1,67 +1,67 @@
+jQuery.noConflict()
+
 // JavaScript for handling all the interlocks associated with Start a Group.
-var StartAGroup = function () {
+function StartAGroup(grpName, grpId, privacyButtons) {
     // Private variables
-    var grpName = '#form\\.grpName';
-    var grpId = '#form\\.grpId';
-    var privacyButtons = 'input:radio[name=form\\.grpPrivacy]';
-    var existingIdCheckURL =  '/existing_id_check';
-    var grpIdUserMod = false;
-    var privacyExpln = {
-      'public': 'The group and posts will be <strong>visible</strong> '+
+    var groupName = null, groupId = null,
+        existingIdCheckURL =  '/existing_id_check',
+        grpIdUserMod = false,
+        privacyExpln = {
+            'public': 'The group and posts will be <strong>visible</strong> '+
                 ' to anyone, including search engines, and anyone can '+
                 'join the group.',
-      'private': 'The group will be  <strong>visible</strong> to '+
+            'private': 'The group will be  <strong>visible</strong> to '+
                 'anyone, but only logged in members can view the' +
                 ' posts. People must apply to join the group.',
-      'secret': 'The group and posts will be <strong>visible</strong> '+
+            'secret': 'The group and posts will be <strong>visible</strong> '+
                 'to logged in members only. People must be invited '   +
                 'to join the group.'
-    }
-    var idChkTimeout = null;
-    
+        }, idChkTimeout = null;
+
+    groupName = jQuery(grpName);
+    groupId = jQuery(grpId);
+
     // Private methods
     // Group name
-    grpNameChanged = function(event) {
+    function grpNameChanged(event) {
         if (!grpIdUserMod) {
             // HACK: Delay updating the name by 100ms so the group-name 
             // text entry has a chance to update
             window.setTimeout(grpNameChangeTimeout, 100);
         } 
-    };
+    }
     
-    grpNameChangeTimeout = function() {
+    function grpNameChangeTimeout() {
         // If the user has not modified the ID then update that
         // based on the name.
-        newId = grpIdFromName(jQuery(grpName).val());
-        jQuery(grpId).val(newId);
-        jQuery(grpId).trigger('keyup', true);
+        newId = grpIdFromName(groupName.val());
+        groupId.val(newId).trigger('keyup', true);
         updateGrpNamePreview();
-    };
-    grpIdFromName = function(origGrpName) {
+    }
+    
+    function grpIdFromName(origGrpName) {
         // Get an group ID from a group name
-        var newGrpId = null;
-        var re1 = /[ ]/g;
-        var re2 = /[^\w-_]/g;
+        var newGrpId = null, re1 = /[ ]/g, re2 = /[^\w-_]/g;
         newGrpId = origGrpName;
         newGrpId = newGrpId.replace(re1, '-');
         newGrpId = newGrpId.replace(re2, '');
         newGrpId = newGrpId.toLowerCase();
         return newGrpId;
-    };
-    updateGrpNamePreview = function() {
-        var newName = null;
-        var grpNames  = null;
+    }
+
+    function updateGrpNamePreview() {
+        var newName = null, grpNames  = null;
         
-        newName = jQuery(grpName).val();
+        newName = groupName.val();
         if (newName == '') {
           newName = '&#8230;';
         }
         grpNames = jQuery('.preview .grpFn');
         grpNames.html(newName);
-    };
+    }
 
     // Group Id
-    grpIdChanged = function(event, fakeIfSet) {
+    function grpIdChanged(event, fakeIfSet) {
         // Callback for someone changing the group ID
         //
         // --=mpj17=-- For a while now I have been working on a way to
@@ -77,10 +77,10 @@ var StartAGroup = function () {
             grpIdUserMod = true;
         }
         window.setTimeout(grpIdChangeTimeout, 100);
-    };
-    grpIdChangeTimeout = function() {
-        var newId = null;
-        var grpIdV = jQuery(grpId).val();
+    }
+
+    function grpIdChangeTimeout() {
+        var newId = null, grpIdV = groupId.val();
 
         newId = grpIdV;
         if (newId == '') {
@@ -88,10 +88,11 @@ var StartAGroup = function () {
         }
         jQuery('.preview .groupId').html(newId);
         checkGroupId()
-    };
-    checkGroupId = function() {
+    }
+
+    function checkGroupId() {
         var id = null;
-        id = jQuery('#form\\.grpId').val();
+        id = groupId.val();
         
         if (idChkTimeout != null) {
             clearTimeout(idChkTimeout);
@@ -100,12 +101,12 @@ var StartAGroup = function () {
         if (id != '') {
             idChkTimeout = setTimeout(fireGrpIdAjaxCheck, 250);
         }
-    };
-    fireGrpIdAjaxCheck = function() {
-        var id = null;
-        var d = null;
+    }
+
+    function fireGrpIdAjaxCheck() {
+        var id = null, d = null;
         
-        id = jQuery('#form\\.grpId').val()
+        id = groupId.val()
         d = {
           type: "POST",
           url: existingIdCheckURL,
@@ -114,13 +115,13 @@ var StartAGroup = function () {
           success: checkGroupIdReturn
         };
         jQuery.ajax(d);
-    };
-    checkGroupIdReturn = function(data, textStatus) {
-        var exists = null;
-        var id = null;
+    }
+
+    function checkGroupIdReturn(data, textStatus) {
+        var exists = null, id = null;
         exists = data == '1'
         if (exists) {
-          id = jQuery(grpId).val();
+          id = groupId.val();
           jQuery('#group-id-error code').text(id);
           jQuery('#group-id-error').show();
         } else {
@@ -128,38 +129,48 @@ var StartAGroup = function () {
         }
         // TODO: Disable the submit button. This requires interacting
         //       with the required-widgets.
-    };
+    }
 
     // Privacy
-    grpPrivacyChanged = function(event) {
-        var currentPrivacy = null;
-        var selected = null;
+    function grpPrivacyChanged(event) {
+        var currentPrivacy = null, selected = null, secret = null;
         selected = jQuery('input:radio[name=form\\.grpPrivacy]:checked');
         currentPrivacy = selected.val();
         jQuery('#visiblity-preview').html(privacyExpln[currentPrivacy]);
+        secret = jQuery('#gs-group-start-preview-secret')
+        if ((currentPrivacy == 'secret') && (secret.is(':hidden'))) {
+            secret.show();
+        }
+        else if ((currentPrivacy != 'secret') && (secret.is(':visible'))) {
+            secret.hide();
+        }
     }
     
     // Public methods and properties
     return {
         init: function () {
-            var e = {
+            var e = null, f = null;
+            e = {
                 onpaste: grpNameChanged, // IE name for the paste event
                 paste:   grpNameChanged, // Gecko name for the paste event
                 keyup:   grpNameChanged  // Standard key-up event
             };
-            jQuery(grpName).bind(e).trigger('paste');
-            var f = {
+            groupName.bind(e).trigger('paste');
+            f = {
                 onpaste: grpIdChanged, // IE name for the paste event
                 paste:   grpIdChanged, // Gecko name for the paste event
                 keyup:   grpIdChanged  // Standard key-up event
             }
-            jQuery(grpId).bind(f).trigger('paste', true);
+            groupId.bind(f).trigger('paste', true);
             jQuery(privacyButtons).change(grpPrivacyChanged).change();
         }
     }
-}(); // OGNStartASiteGrp
+} // OGNStartASiteGrp
 
-jQuery(document).ready( function () {
-    StartAGroup.init(); 
+jQuery(window).load( function () {
+    var sag = null;
+    sag = StartAGroup('#form\\.grpName', '#form\\.grpId', 
+                     'input:radio[name=form\\.grpPrivacy]')
+    sag.init()
+    jQuery('#form\\.grpName').focus();
 });
-
