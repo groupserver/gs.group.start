@@ -1,4 +1,4 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 from zope.cachedescriptors.property import Lazy
 from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
@@ -11,7 +11,7 @@ from groupcreator import MoiraeForGroup
 
 
 class StartGroupForm(SiteForm):
-    label = u'Start a Group'
+    label = u'Start a group'
     pageTemplateFileName = 'browser/templates/startgroup.pt'
     template = ZopeTwoPageTemplateFile(pageTemplateFileName)
 
