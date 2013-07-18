@@ -25,8 +25,9 @@
       </li>
       <li tal:content="view/label">Stuff</li>
     </ul>
-    <form metal:fill-slot="body" enctype="multipart/form-data"  method="post" 
-          action="."  tal:attributes="action request/URL" id="start-group">
+    <form metal:fill-slot="body" enctype="multipart/form-data" method="post"
+          action="." tal:attributes="action request/URL" id="start-group"
+          class="gs-content-js-required">
       <h1 tal:content="view/label">Start group</h1>
       <tal:block 
         define="widgets python:[view.widgets['grpName'], view.widgets['grpId']]">
