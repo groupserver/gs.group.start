@@ -7,15 +7,25 @@ function StartAGroup(grpName, grpId, privacyButtons) {
         existingIdCheckURL =  '/existing_id_check',
         grpIdUserMod = false,
         privacyExpln = {
-            'public': 'The group and posts will be <strong>visible</strong> '+
-                ' to anyone, including search engines, and anyone can '+
-                'join the group.',
-            'private': 'The group will be  <strong>visible</strong> to '+
-                'anyone, but only logged in members can view the' +
-                ' posts. People must apply to join the group.',
-            'secret': 'The group and posts will be <strong>visible</strong> '+
-                'to logged in members only. People must be invited '   +
-                'to join the group.'
+            'public': 'The group will be <strong>public:</strong> <ul>'+
+                      '<li>The <strong>group and posts</strong> will be '+
+                      'visible to anyone, including search engines.</li>'+
+                      '<li>Anyone can <strong>join</strong> the '+
+                      'group.</li></ul>',
+            'private': 'The group will be <strong>private:</strong> <ul>'+
+                       '<li>The <strong>group</strong> will be visible to '+
+                       'anyone.</li>' +
+                       '<li>Only logged in <em>members</em> can view the '+
+                       '<strong>posts.</strong></li>'+
+                       '<li>People must <em>request membership</em> '+
+                       'to <strong>join</strong> the group.</li></ul>',
+            'secret': 'The group will be <strong>secret:</strong> <ul>'+
+                       '<li>The <strong>group</strong> will only be visible '+
+                       'to logged in <em>members.</em></li>' +
+                       '<li>Only logged in <em>members</em> can '+
+                       'view the <strong>posts.</strong></li>'+
+                       '<li>You must <strong>invite</strong> '+
+                       'each person to join the group.</li></ul>',
         }, idChkTimeout = null;
 
     groupName = jQuery(grpName);
