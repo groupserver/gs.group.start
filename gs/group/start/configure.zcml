@@ -17,8 +17,12 @@
     permission="zope2.ManageProperties"/>
     
   <browser:resource
-    name="startgroup-20121217.js"
+    name="gs-group-start-20130712.js"
     file="browser/javascript/startgroup.js"
+    permission="zope2.Public"/>
+  <browser:resource
+    name="gs-group-start-min-20130712.js"
+    file="browser/javascript/startgroup-min.js"
     permission="zope2.Public"/>
     
   <!--Help-->
