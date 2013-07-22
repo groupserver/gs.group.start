@@ -14,4 +14,4 @@ t=jQuery("#gs-group-start-preview-secret");if((u=="secret")&&(t.is(":hidden"))){
 u={onpaste:q,paste:q,keyup:q};j.bind(u).trigger("paste");t={onpaste:f,paste:f,keyup:f};
 h.bind(t).trigger("paste",true);jQuery(c).change(a).change()}}}jQuery(window).load(function(){var a=null;
 a=StartAGroup("#form\\.grpName","#form\\.grpId","input:radio[name=form\\.grpPrivacy]");
-a.init();jQuery("#form\\.grpName").focus()});
+a.init()});

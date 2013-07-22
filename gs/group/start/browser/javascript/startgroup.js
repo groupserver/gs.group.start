@@ -181,6 +181,5 @@ jQuery(window).load( function () {
     var sag = null;
     sag = StartAGroup('#form\\.grpName', '#form\\.grpId', 
                      'input:radio[name=form\\.grpPrivacy]')
-    sag.init()
-    jQuery('#form\\.grpName').focus();
+    sag.init();
 });

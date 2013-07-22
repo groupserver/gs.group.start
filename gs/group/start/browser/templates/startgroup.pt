@@ -84,8 +84,13 @@
         </tal:block>
       </div><!--buttons-->
     </form>
-    <script type="text/javascript" metal:fill-slot="javascript"
-            src="/++resource++gs-group-start-20130712.js"
-            defer="true">&#160;</script>
+    <tal:block metal:fill-slot="javascript">
+      <script type="text/javascript"
+              src="/++resource++gs-group-start-20130712.js"
+              defer="true">&#160;</script>
+      <script type="text/javascript">
+        document.getElementById('form.grpName').focus();
+      </script>
+    </tal:block>
   </body>
 </html>
