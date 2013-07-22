@@ -45,7 +45,7 @@
       </tal:block>
       <div id="gs-group-start-info" role="region" 
            aria-labelledby="gs-group-start-info-h">
-        <h3 id="gs-group-start-info-h">New Group</h3>
+        <h3 id="gs-group-start-info-h">New group summary</h3>
         <ul id="group-preview" class="preview">
           <li>
             The new group will have the <strong>name</strong>
