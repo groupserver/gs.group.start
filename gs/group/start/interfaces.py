@@ -1,4 +1,4 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 import re
 from zope.interface import Interface
 from zope.schema import Choice, TextLine, ASCIILine, ValidationError
@@ -79,5 +79,5 @@ class IAboutGroup(Interface):
                     description=u'How visible the group, and the '
                         u'group messages will be.',
                     vocabulary=secruityVocab,
-                    default='public',
+                    default='private',
                     required=True)
