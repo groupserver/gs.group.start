@@ -1,13 +1,27 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+# Copyright © 2013 OnlineGroups.net and Contributors.
+# All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+##############################################################################
+from __future__ import absolute_import
 from zope.cachedescriptors.property import Lazy
 from zope.event import notify
 from Products.GSGroup.groupInfo import GSGroupInfo
 from Products.XWFCore.XWFUtils import add_marker_interfaces,\
     get_the_actual_instance_from_zope
 from gs.group.privacy.interfaces import IGSChangePrivacy
-from audit import Auditor, START
-from groupfolder import GSGroupFolder
-from event import GSGroupCreatedEvent
+from .audit import Auditor, START
+from .groupfolder import GSGroupFolder
+from .event import GSGroupCreatedEvent
 
 #--=mpj17=-- TODO: Figure out how much of this can be turned into a
 # subscriber-based system.

@@ -1,13 +1,26 @@
 # -*- coding: utf-8 -*-
+##############################################################################
+#
+# Copyright © 2013 OnlineGroups.net and Contributors.
+# All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+##############################################################################
+from __future__ import absolute_import
 from zope.cachedescriptors.property import Lazy
 from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
-from Products.XWFCore.XWFUtils import getOption
-from gs.content.form import SiteForm
+from gs.content.form import SiteForm, radio_widget
 from gs.group.member.join.interfaces import IGSJoiningUser
-from gs.content.form.radio import radio_widget
-from interfaces import IAboutGroup
-from groupcreator import MoiraeForGroup
+from Products.XWFCore.XWFUtils import getOption
+from .interfaces import IAboutGroup
+from .groupcreator import MoiraeForGroup
 
 
 class StartGroupForm(SiteForm):
