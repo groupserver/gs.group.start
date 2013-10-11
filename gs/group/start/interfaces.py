@@ -1,9 +1,23 @@
 # -*- coding: utf-8 -*-
+##############################################################################
+#
+# Copyright © 2013 OnlineGroups.net and Contributors.
+# All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+##############################################################################
+from __future__ import absolute_import
 import re
 from zope.interface import Interface
 from zope.schema import Choice, TextLine, ASCIILine, ValidationError
 from Products.GSGroup.interfacesprivacy import secruityVocab
-from checkid import CheckId
+from .checkid import CheckId
 
 ID_RE = r'^[a-zA-Z0-9-_]+$'
 check_id = re.compile(ID_RE).match  # --=mpj17=-- Mmmm, curry
