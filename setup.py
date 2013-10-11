@@ -46,13 +46,18 @@ setup(name='gs.group.start',
     install_requires=[
         'setuptools',
         'pytz',
+        'zope.browserpage',
+        'zope.browserresource',
         'zope.cachedescriptors',
         'zope.component',
         'zope.event',
         'zope.formlib',
         'zope.interface',
         'zope.schema',
+        'zope.viewlet',  # For the <browser:viewlet /> config
         'Zope2',
+        'gs.content.email.base',
+        'gs.content.email.layout',
         'gs.content.js.jquery.base',
         'gs.content.layout',
         'gs.content.form',
@@ -62,10 +67,9 @@ setup(name='gs.group.start',
         'gs.group.privacy',
         'gs.help',  # For the Admin Help viewlet manager
         'gs.site.change.base',  # For the site-admin links viewlet manager
-        'Products.XWFCore',
         'Products.GSAuditTrail',
-        'Products.CustomUserFolder',
-        # -*- Extra requirements: -*-
+        'Products.GSGroup',
+        'Products.XWFCore',
     ],
     entry_points="""
     # -*- Entry points: -*-
