@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <configure xmlns="http://namespaces.zope.org/zope"
-  xmlns:browser="http://namespaces.zope.org/browser"
-  xmlns:five="http://namespaces.zope.org/five"
-  i18n_domain="groupserver">
-  
+           xmlns:browser="http://namespaces.zope.org/browser"
+           i18n_domain="groupserver">
+
+  <include package="zope.viewlet" file="meta.zcml" />  
+
   <browser:page
-    for="Products.GSContent.interfaces.IGSSiteFolder"
-    name="existing_id_check"
-    class=".checkid.CheckIdForm"
-    permission="zope2.Public"/>
-  
-  <browser:page
-    for="Products.GSContent.interfaces.IGSSiteFolder"
     name="startgroup.html"
+    for="Products.GSContent.interfaces.IGSSiteFolder"
     class=".startgroup.StartGroupForm"
     permission="zope2.ManageProperties"/>
-    
   <browser:resource
     name="gs-group-start-20130712.js"
     file="browser/javascript/startgroup.js"
@@ -24,6 +18,26 @@
     name="gs-group-start-min-20130712.js"
     file="browser/javascript/startgroup-min.js"
     permission="zope2.Public"/>
+  <!-- The AJAX page to perform the ID check -->
+  <browser:page
+    name="existing_id_check"
+    for="Products.GSContent.interfaces.IGSSiteFolder"
+    class=".checkid.CheckIdForm"
+    permission="zope2.Public"/>
+
+  <!-- The notifications -->
+  <browser:page
+    name="gs-group-start.html"
+    for="Products.GSContent.interfaces.IGSSiteFolder"
+    class=".notifications.StartedMessage"
+    template="browser/templates/started.pt"
+    permission="zope2.View"/>
+  <browser:page
+    name="gs-group-start.txt"
+    for="Products.GSContent.interfaces.IGSSiteFolder"
+    class=".notifications.StartedMessageText"
+    template="browser/templates/started-txt.pt"
+    permission="zope2.View"/>  
     
   <!--Help-->
   <browser:viewlet name="gs-start-a-site-help"

@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@groupserver_email_layout/page">
+  <head>
+    <title metal:fill-slot="title">Welcome:
+    <span tal:replace="view/groupInfo/name">This group</span>:
+    <span tal:replace="view/siteInfo/name">Site</span></title>
+  </head>
+  <body>
+    <div metal:fill-slot="body"
+         tal:define="userInfo options/adminInfo | view/loggedInUserInfo;">
+      <h2 tal:content="view/groupInfo/name">This Group</h2>
+      <p>
+        Dear
+        <span tal:content="userInfo/name">New Member</span>,
+      </p>
+      <p>
+        <span tal:content="view/groupInfo/name">This Group</span>
+        has been started. The page for the group is at
+        <a tal:attributes="href view/groupInfo/url"
+           href="#"><code tal:content="view/groupInfo/url">the url</code>.</a>
+      </p>
+      <!--Troubleshooting/return/warranty/damage information-->
+      <p>
+        If you have any problems, email us at
+        <a tal:attributes="href view/supportEmail"
+           href="#"><code tal:content="view/siteInfo/get_support_email">this address</code></a>
+      </p>
+      <!--Website address-->
+      <p class="closing">
+        Kind regards,<br/>
+        <span>The 
+        <span tal:content="view/siteInfo/name">Site</span> 
+        Team</span>
+      </p>
+    </div>
+  </body>
+</html>
+

@@ -19,8 +19,9 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from gs.content.form import SiteForm, radio_widget
 from gs.group.member.join.interfaces import IGSJoiningUser
 from Products.XWFCore.XWFUtils import getOption
-from .interfaces import IAboutGroup
 from .groupcreator import MoiraeForGroup
+from .interfaces import IAboutGroup
+from .notify import StartNotifier
 
 
 class StartGroupForm(SiteForm):
@@ -50,10 +51,13 @@ class StartGroupForm(SiteForm):
                               self.loggedInUser)
 
         joiningUser = IGSJoiningUser(self.loggedInUser)
-        joiningUser.join(newGroup)
+        joiningUser.silent_join(newGroup)
+
+        notifier = StartNotifier(self.context, self.request)
+        for adminInfo in self.siteInfo.site_admins:
+            notifier.notify(adminInfo)
 
         self.request.RESPONSE.redirect(newGroup.relative_url())
-
         self.status = u'The group <a href="%s">%s</a> has been started.' %\
             (newGroup.relative_url(), newGroup.name)
 
