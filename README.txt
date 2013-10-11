@@ -7,7 +7,7 @@ Privacy information about a group
 
 :Author: `Michael JasonSmith`_
 :Contact: Michael JasonSmith <mpj17@onlinegroups.net>
-:Date: 2013-03-25
+:Date: 2013-10-11
 :Organization: `GroupServer.org`_
 :Copyright: This document is licensed under a
   `Creative Commons Attribution-Share Alike 3.0 New Zealand License`_
@@ -32,13 +32,28 @@ Start a Group
 The *Start a Group* form takes three fields: a name, a group identifier,
 and a privacy setting. The associated JavaScript creates a default ID from
 the name. It also uses the `Check Identifier`_ form to ensure that the
-identifier is unique.
+identifier is unique. If it is then the *Group started* notification_ is
+sent to all site administrators after `group creation`_.
+
+Notification
+~~~~~~~~~~~~
+
+The notification ``gs-group-started.html`` (which renders in the group
+context, along with its ``.txt`` equivalent) is used to inform all the site
+administrators that the group has been started. It is similar to the *Group
+welcome* notification [#join]_, but with less general detail as leaving and
+viewing profiles is less important when administrators start a group.
+Because the notification is sent to all the administrators, including the
+one that created the group, the notification is written in *agentless*
+passive voice.
 
 Check Identifier
 ----------------
 
-The *Check Identifier* form takes an identifier as input. It returns ``1``
-if a group with that identifier exists, or ``0`` otherwise [#ID]_.
+The JavaScript resource ``/gs-group-start-20130712.js`` (and the minified
+``-min-*.js`` equivalent) uses the *Check identifier* form to see if a
+group exists. The form takes an identifier as input, and returns ``1`` if a
+group with that identifier exists, or ``0`` otherwise [#ID]_.
 
 
 Group Creation
@@ -75,7 +90,7 @@ group.
 Resources
 =========
 
-- Code repository: https://source.iopen.net/groupserver/gs.group.start
+- Code repository: https://source.iopen.net/groupserver/gs.group.start/
 - Questions and comments to http://groupserver.org/groups/development
 - Report bugs at https://redmine.iopen.net/projects/groupserver
 
@@ -86,8 +101,12 @@ Resources
 .. _Creative Commons Attribution-Share Alike 3.0 New Zealand License:
    http://creativecommons.org/licenses/by-sa/3.0/nz/
 
+.. [#join] See <https://source.iopen.net/groupserver/gs.group.member.join>.
+
 .. [#ID] The need to check the group identifier to ensure it is unique is
          because the all the mailing instances exist in the same
          ``ListManager`` folder. In addition the identifier for each list
          must mach the identifier for the group. See
          `Bug 117. <https://redmine.iopen.net/issues/117>`_
+
+..  LocalWords:  Organization html txt
