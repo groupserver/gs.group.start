@@ -23,7 +23,7 @@ class StartedMessage(GroupEmail):
 
     @Lazy
     def supportEmail(self):
-        m = u'Hi!\n\nI started the group {0}\n    {1}\nand...'
+        m = u'Hi!\n\nThe group {0}\n    {1}\nwas started and...'
         msg = m.format(self.groupInfo.name, self.groupInfo.url)
         sub = quote('Group started')
         r = 'mailto:{0}?Subject={1}&body={2}'

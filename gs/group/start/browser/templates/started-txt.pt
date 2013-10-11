@@ -1,7 +1,7 @@
 <tal:block xmlns:tal="http://xml.zope.org/namespaces/tal"
            define="userInfo options/adminInfo | view/loggedInUserInfo;">Dear <tal:block content="userInfo/name">New Member</tal:block>,
 
-<tal:block define="m string:${view/groupInfo/name} has been started. The page for the group is at"
+<tal:block define="m string:The group ${view/groupInfo/name} has been started. The page for the group is at"
            content="python:view.fill(m)">m</tal:block>
 
     <tal:block content="view/groupInfo/url">URL</tal:block>

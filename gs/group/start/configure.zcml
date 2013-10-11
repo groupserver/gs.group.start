@@ -5,6 +5,14 @@
 
   <include package="zope.viewlet" file="meta.zcml" />  
 
+  <!--Link for the Site Admin page-->
+  <browser:viewlet name="gs-start-a-group-link"
+    manager="gs.site.change.base.interfaces.ISiteAdminLinks"
+    template="browser/templates/startlink.pt"
+    permission="zope2.ManageProperties"
+    weight="1" />
+
+  <!-- The page to start a group -->
   <browser:page
     name="startgroup.html"
     for="Products.GSContent.interfaces.IGSSiteFolder"
@@ -28,16 +36,28 @@
   <!-- The notifications -->
   <browser:page
     name="gs-group-start.html"
-    for="Products.GSContent.interfaces.IGSSiteFolder"
+    for="gs.group.base.interfaces.IGSGroupMarker"
     class=".notifications.StartedMessage"
     template="browser/templates/started.pt"
     permission="zope2.View"/>
   <browser:page
     name="gs-group-start.txt"
-    for="Products.GSContent.interfaces.IGSSiteFolder"
+    for="gs.group.base.interfaces.IGSGroupMarker"
     class=".notifications.StartedMessageText"
     template="browser/templates/started-txt.pt"
     permission="zope2.View"/>  
+
+  <!-- The audit information -->
+  <utility 
+    factory=".audit.AuditEventFactory"
+    name="gs.group.start"
+    permission="zope.Public" />
+
+  <!-- Create a default subscriber for the Add Group event -->
+  <subscriber
+     for="gs.group.base.interfaces.IGSGroupMarker
+          gs.group.start.event.IGSGroupCreatedEvent"
+     handler=".groupfolder.groupAddedHandler" />  
     
   <!--Help-->
   <browser:viewlet name="gs-start-a-site-help"
@@ -45,23 +65,5 @@
     template="browser/templates/help.pt"
     permission="zope.Public"
     weight="1" />
-
-  <utility 
-    factory=".audit.AuditEventFactory"
-    name="gs.group.start"
-    permission="zope.Public" />
-
-  <!--Link for the Site Admin page-->
-  <browser:viewlet name="gs-start-a-group-link"
-    manager="gs.site.change.base.interfaces.ISiteAdminLinks"
-    template="browser/templates/startlink.pt"
-    permission="zope2.ManageProperties"
-    weight="1" />
-
-  <!-- Create a default subscriber for the Add Group event -->
-  <subscriber
-     for="gs.group.base.interfaces.IGSGroupMarker
-          gs.group.start.event.IGSGroupCreatedEvent"
-     handler=".groupfolder.groupAddedHandler" />  
 
 </configure>
