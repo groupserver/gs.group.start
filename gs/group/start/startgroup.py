@@ -53,7 +53,7 @@ class StartGroupForm(SiteForm):
         joiningUser = IGSJoiningUser(self.loggedInUser)
         joiningUser.silent_join(newGroup)
 
-        notifier = StartNotifier(self.context, self.request)
+        notifier = StartNotifier(newGroup.groupObj, self.request)
         for adminInfo in self.siteInfo.site_admins:
             notifier.notify(adminInfo)
 
