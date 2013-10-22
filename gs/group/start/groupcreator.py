@@ -45,13 +45,22 @@ class MoiraeForGroup(object):
         return retval
 
     def create(self, groupName, groupId, groupPrivacy, mailHost, adminInfo):
-        assert groupName, 'No group name'
-        assert groupId, 'No group ID'
-        assert groupPrivacy, 'No group privacy'
-        assert adminInfo, 'No admin'
-
+        if not groupName:
+            raise ValueError('No group name')
+        if not groupId:
+            raise ValueError('No group identifier')
+        if type(groupId) not in (unicode, str):
+            m = 'Group identifier a {0}, not a string'
+            raise TypeError(m.format(type(groupId)))
         if type(groupId) == unicode:
             groupId = groupId.encode('ascii', 'ignore')
+
+        if not groupPrivacy:
+            raise ValueError('No group privacy')
+        if not mailHost:
+            raise ValueError('No mail host')
+        if not adminInfo:
+            raise ValueError('No administrator information')
 
         group = self.create_group_folder(groupId)
         self.set_security(group, adminInfo)
