@@ -1,4 +1,4 @@
-jQuery.noConflict()
+jQuery.noConflict();
 
 // JavaScript for handling all the interlocks associated with Start a Group.
 function StartAGroup(grpName, grpId, privacyButtons) {
@@ -17,15 +17,16 @@ function StartAGroup(grpName, grpId, privacyButtons) {
                        'anyone.</li>' +
                        '<li>Only logged in <em>members</em> can view the '+
                        '<strong>posts.</strong></li>'+
-                       '<li>People must <em>request membership</em> '+
-                       'to <strong>join</strong> the group.</li></ul>',
+                       '<li>People must either <em>request membership</em> '+
+                       'or be <em>invited</em> to <strong>join</strong> the '+
+                       'group.</li></ul>',
             'secret': 'The group will be <strong>secret:</strong> <ul>'+
                        '<li>The <strong>group</strong> will only be visible '+
                        'to logged in <em>members.</em></li>' +
                        '<li>Only logged in <em>members</em> can '+
                        'view the <strong>posts.</strong></li>'+
                        '<li>You must <strong>invite</strong> '+
-                       'each person to join the group.</li></ul>',
+                       'each person to join the group.</li></ul>'
         }, idChkTimeout = null;
 
     groupName = jQuery(grpName);
@@ -180,6 +181,6 @@ function StartAGroup(grpName, grpId, privacyButtons) {
 jQuery(window).load( function () {
     var sag = null;
     sag = StartAGroup('#form\\.grpName', '#form\\.grpId', 
-                     'input:radio[name=form\\.grpPrivacy]')
+                      'input:radio[name=form\\.grpPrivacy]');
     sag.init();
 });
