@@ -54,6 +54,8 @@ setup(name='gs.group.start',
         'zope.formlib',
         'zope.interface',
         'zope.schema',
+        'zope.tal',
+        'zope.tales',
         'zope.viewlet',  # For the <browser:viewlet /> config
         'Zope2',
         'gs.content.email.base',
