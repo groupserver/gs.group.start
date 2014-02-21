@@ -31,11 +31,10 @@
       <!--Website address-->
       <p class="closing">
         Kind regards,<br/>
-        <span>The 
-        <span tal:content="view/siteInfo/name">Site</span> 
+        <span>The
+        <span tal:content="view/siteInfo/name">Site</span>
         Team</span>
       </p>
     </div>
   </body>
 </html>
-

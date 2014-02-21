@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Copyright © 2013 OnlineGroups.net and Contributors. -->
+<!-- All Rights Reserved. -->
+
+<!-- This software is subject to the provisions of the Zope Public -->
+<!-- License, Version 2.1 (ZPL).  A copy of the ZPL should accompany this -->
+<!-- distribution. -->
+
+<!-- THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED -->
+<!-- WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED -->
+<!-- WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND -->
+<!-- FITNESS FOR A PARTICULAR PURPOSE. -->
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:browser="http://namespaces.zope.org/browser"
            i18n_domain="groupserver">
 
-  <include package="zope.viewlet" file="meta.zcml" />  
+  <include package="zope.viewlet" file="meta.zcml" />
 
   <!--Link for the Site Admin page-->
-  <browser:viewlet name="gs-start-a-group-link"
+  <browser:viewlet
+    name="gs-start-a-group-link"
     manager="gs.site.change.base.interfaces.ISiteAdminLinks"
     template="browser/templates/startlink.pt"
     permission="zope2.ManageProperties"
@@ -45,22 +57,23 @@
     for="gs.group.base.interfaces.IGSGroupMarker"
     class=".notifications.StartedMessageText"
     template="browser/templates/started-txt.pt"
-    permission="zope2.View"/>  
+    permission="zope2.View"/>
 
   <!-- The audit information -->
-  <utility 
-    factory=".audit.AuditEventFactory"
+  <utility
     name="gs.group.start"
+    factory=".audit.AuditEventFactory"
     permission="zope.Public" />
 
   <!-- Create a default subscriber for the Add Group event -->
   <subscriber
      for="gs.group.base.interfaces.IGSGroupMarker
           gs.group.start.event.IGSGroupCreatedEvent"
-     handler=".groupfolder.groupAddedHandler" />  
-    
+     handler=".groupfolder.groupAddedHandler" />
+
   <!--Help-->
-  <browser:viewlet name="gs-start-a-site-help"
+  <browser:viewlet
+    name="gs-start-a-site-help"
     manager="gs.help.interfaces.IAdminHelp"
     template="browser/templates/help.pt"
     permission="zope.Public"
