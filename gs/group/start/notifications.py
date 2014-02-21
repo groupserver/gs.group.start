@@ -12,6 +12,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
+from __future__ import unicode_literals
 from urllib import quote
 from zope.cachedescriptors.property import Lazy
 from gs.content.email.base import GroupEmail, TextMixin
@@ -23,7 +24,7 @@ class StartedMessage(GroupEmail):
 
     @Lazy
     def supportEmail(self):
-        m = u'Hi!\n\nThe group {0}\n    {1}\nwas started and...'
+        m = 'Hi!\n\nThe group {0}\n    {1}\nwas started and...'
         msg = m.format(self.groupInfo.name, self.groupInfo.url)
         sub = quote('Group started')
         r = 'mailto:{0}?Subject={1}&body={2}'
