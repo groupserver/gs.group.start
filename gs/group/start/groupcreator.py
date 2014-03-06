@@ -18,6 +18,7 @@ from zope.event import notify
 from Products.GSGroup.groupInfo import GSGroupInfo
 from Products.XWFCore.XWFUtils import add_marker_interfaces,\
     get_the_actual_instance_from_zope
+from gs.core import to_ascii
 from gs.group.privacy.interfaces import IGSChangePrivacy
 from .audit import Auditor, START
 from .groupfolder import GSGroupFolder
@@ -83,14 +84,15 @@ class MoiraeForGroup(object):
         return groupInfo
 
     def delete(self, groupId):
-        assert groupId, 'No group ID'
+        if not groupId:
+            raise ValueError('No group ID')
+        if not isinstance(groupId, basestring):
+            raise TypeError('groupId ({0}) is not a string'.format(groupId))
+        gid = to_ascii(groupId)
 
-        if type(groupId) == unicode:
-            groupId = groupId.encode('ascii', 'ignore')
-
-        self.delete_group_folder(groupId)
-        self.delete_user_group(groupId)
-        self.delete_list(groupId)
+        self.delete_group_folder(gid)
+        self.delete_user_group(gid)
+        self.delete_list(gid)
 
     def create_group_folder(self, groupId):
         # Create the group folder
