@@ -13,15 +13,14 @@
 #
 ##############################################################################
 from __future__ import absolute_import, unicode_literals
-from datetime import datetime
-SUBSYSTEM = 'gs.group.start'
 from logging import getLogger
+SUBSYSTEM = 'gs.group.start'
 log = getLogger(SUBSYSTEM)
-from pytz import UTC
+from random import SystemRandom
 from zope.component.interfaces import IFactory
 from zope.interface import implements, implementedBy
-from Products.GSAuditTrail import IAuditEvent, BasicAuditEvent, \
-    AuditQuery, event_id_from_data
+from gs.core import to_id, to_ascii, to_unicode_or_bust, curr_time as now
+from Products.GSAuditTrail import IAuditEvent, BasicAuditEvent, AuditQuery
 from Products.XWFCore.XWFUtils import munge_date
 
 UNKNOWN = '0'
@@ -68,14 +67,18 @@ class StartEvent(BasicAuditEvent):
     def __unicode__(self):
         retval = '%s (%s) started the group %s (%s) on '\
             '%s (%s). The new group is called %s and is %s.' %\
-           (self.userInfo.name, self.userInfo.id,
-            self.groupInfo.name, self.groupInfo.id,
-            self.siteInfo.name, self.siteInfo.id,
-            self.instanceDatum, self.supplementaryDatum)
+           (to_unicode_or_bust(self.userInfo.name),
+                to_unicode_or_bust(self.userInfo.id),
+                to_unicode_or_bust(self.groupInfo.name),
+                to_unicode_or_bust(self.groupInfo.id),
+                to_unicode_or_bust(self.siteInfo.name),
+                to_unicode_or_bust(self.siteInfo.id),
+                to_unicode_or_bust(self.instanceDatum),
+                to_unicode_or_bust(self.supplementaryDatum))
         return retval
 
     def __str__(self):
-        retval = unicode(self).encode('ascii', 'ignore')
+        retval = to_ascii(unicode(self))
         return retval
 
     @property
@@ -97,13 +100,16 @@ class StopEvent(BasicAuditEvent):
 
     def __unicode__(self):
         retval = '%s (%s) stoped the group %s (%s) on %s (%s)' %\
-           (self.userInfo.name, self.userInfo.id,
-            self.groupInfo.name, self.groupInfo.id,
-            self.siteInfo.name, self.siteInfo.id)
+           (to_unicode_or_bust(self.userInfo.name),
+                to_unicode_or_bust(self.userInfo.id),
+                to_unicode_or_bust(self.groupInfo.name),
+                to_unicode_or_bust(self.groupInfo.id),
+                to_unicode_or_bust(self.siteInfo.name),
+                to_unicode_or_bust(self.siteInfo.id))
         return retval
 
     def __str__(self):
-        retval = unicode(self).encode('ascii', 'ignore')
+        retval = to_ascii(unicode(self))
         return retval
 
     @property
@@ -124,9 +130,16 @@ class Auditor(object):
 
     def info(self, code, adminInfo, groupInfo=None, instanceDatum='',
                 supplementaryDatum=''):
-        d = datetime.now(UTC)
-        eventId = event_id_from_data(adminInfo, adminInfo,
-            self.siteInfo, code, instanceDatum, supplementaryDatum)
+        d = now()
+        eventId = to_id(to_unicode_or_bust(adminInfo.id)
+                        + unicode(d)
+                        + unicode(SystemRandom().randint(0, 1024))
+                        + to_unicode_or_bust(adminInfo.name)
+                        + to_unicode_or_bust(self.siteInfo.id)
+                        + to_unicode_or_bust(self.siteInfo.name)
+                        + to_unicode_or_bust(code)
+                        + to_unicode_or_bust(instanceDatum)
+                        + to_unicode_or_bust(supplementaryDatum))
 
         e = self.factory(self.context, eventId, code, d, adminInfo, None,
                 self.siteInfo, groupInfo, instanceDatum, supplementaryDatum,
