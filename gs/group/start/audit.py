@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright © 2013 OnlineGroups.net and Contributors.
+# Copyright © 2013, 2014 OnlineGroups.net and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -12,17 +12,17 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
+from __future__ import absolute_import, unicode_literals
 from datetime import datetime
+SUBSYSTEM = 'gs.group.start'
+from logging import getLogger
+log = getLogger(SUBSYSTEM)
 from pytz import UTC
 from zope.component.interfaces import IFactory
 from zope.interface import implements, implementedBy
 from Products.GSAuditTrail import IAuditEvent, BasicAuditEvent, \
     AuditQuery, event_id_from_data
 from Products.XWFCore.XWFUtils import munge_date
-
-SUBSYSTEM = 'gs.group.start'
-import logging
-log = logging.getLogger(SUBSYSTEM)
 
 UNKNOWN = '0'
 START = '1'
@@ -32,8 +32,8 @@ START_FAILED = '2'
 class AuditEventFactory(object):
     implements(IFactory)
 
-    title = u'Group Start Audit-Event Factory'
-    description = u'Creates a GroupServer audit event for starting a group'
+    title = 'Group Start Audit-Event Factory'
+    description = 'Creates a GroupServer audit event for starting a group'
 
     def __call__(self, context, event_id, code, date,
         userInfo, instanceUserInfo, siteInfo, groupInfo=None,
@@ -62,8 +62,8 @@ class StartEvent(BasicAuditEvent):
                             None, siteInfo, groupInfo, name, privacy, SUBSYSTEM)
 
     def __unicode__(self):
-        retval = u'%s (%s) started the group %s (%s) on '\
-            u'%s (%s). The new group is called %s and is %s.' %\
+        retval = '%s (%s) started the group %s (%s) on '\
+            '%s (%s). The new group is called %s and is %s.' %\
            (self.userInfo.name, self.userInfo.id,
             self.groupInfo.name, self.groupInfo.id,
             self.siteInfo.name, self.siteInfo.id,
@@ -76,11 +76,11 @@ class StartEvent(BasicAuditEvent):
 
     @property
     def xhtml(self):
-        cssClass = u'audit-event groupserver-group-start-%s' %\
+        cssClass = 'audit-event groupserver-group-start-%s' %\
           self.code
-        retval = u'<span class="%s">The %s group %s was started</span>' % \
+        retval = '<span class="%s">The %s group %s was started</span>' % \
                     (cssClass, self.supplementaryDatum, self.instanceDatum)
-        retval = u'%s (%s)' % \
+        retval = '%s (%s)' % \
           (retval, munge_date(self.context, self.date))
         return retval
 
