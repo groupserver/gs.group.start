@@ -27,6 +27,7 @@ from Products.XWFCore.XWFUtils import munge_date
 UNKNOWN = '0'
 START = '1'
 START_FAILED = '2'
+STOP = '3'
 
 
 class AuditEventFactory(object):
@@ -41,6 +42,9 @@ class AuditEventFactory(object):
         if code == START:
             event = StartEvent(context, event_id, date, userInfo, siteInfo,
                                 groupInfo, instanceDatum, supplementaryDatum)
+        if code == STOP:
+            event = StopEvent(context, event_id, date, userInfo, siteInfo,
+                                groupInfo)
         else:
             event = BasicAuditEvent(context, event_id, UNKNOWN, date,
               userInfo, instanceUserInfo, siteInfo, groupInfo,
@@ -76,12 +80,38 @@ class StartEvent(BasicAuditEvent):
 
     @property
     def xhtml(self):
-        cssClass = 'audit-event groupserver-group-start-%s' %\
-          self.code
+        cssClass = 'audit-event gs-group-start-%s' % self.code
         retval = '<span class="%s">The %s group %s was started</span>' % \
                     (cssClass, self.supplementaryDatum, self.instanceDatum)
-        retval = '%s (%s)' % \
-          (retval, munge_date(self.context, self.date))
+        retval = '%s (%s)' % (retval, munge_date(self.context, self.date))
+        return retval
+
+
+class StopEvent(BasicAuditEvent):
+    ''' An audit-trail event representing a person stopping a group.'''
+    implements(IAuditEvent)
+
+    def __init__(self, context, id, d, adminInfo, siteInfo, groupInfo):
+        BasicAuditEvent.__init__(self, context, id, START, d, adminInfo,
+                            None, siteInfo, groupInfo, None, None, SUBSYSTEM)
+
+    def __unicode__(self):
+        retval = '%s (%s) stoped the group %s (%s) on %s (%s)' %\
+           (self.userInfo.name, self.userInfo.id,
+            self.groupInfo.name, self.groupInfo.id,
+            self.siteInfo.name, self.siteInfo.id)
+        return retval
+
+    def __str__(self):
+        retval = unicode(self).encode('ascii', 'ignore')
+        return retval
+
+    @property
+    def xhtml(self):
+        cssClass = 'audit-event gs-group-start-%s' % self.code
+        retval = '<span class="%s">The group %s was stopped</span>' % \
+                    (cssClass, self.groupInfo.name)
+        retval = '%s (%s)' % (retval, munge_date(self.context, self.date))
         return retval
 
 

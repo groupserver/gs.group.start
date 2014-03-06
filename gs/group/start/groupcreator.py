@@ -14,13 +14,14 @@
 ##############################################################################
 from __future__ import absolute_import
 from zope.cachedescriptors.property import Lazy
+from zope.component import createObject
 from zope.event import notify
 from Products.GSGroup.groupInfo import GSGroupInfo
 from Products.XWFCore.XWFUtils import add_marker_interfaces,\
     get_the_actual_instance_from_zope
 from gs.core import to_ascii
 from gs.group.privacy.interfaces import IGSChangePrivacy
-from .audit import Auditor, START
+from .audit import Auditor, START, STOP
 from .groupfolder import GSGroupFolder
 from .event import GSGroupCreatedEvent
 
@@ -83,12 +84,16 @@ class MoiraeForGroup(object):
         assert groupInfo
         return groupInfo
 
-    def delete(self, groupId):
+    def delete(self, context, groupId, adminInfo):
         if not groupId:
             raise ValueError('No group ID')
         if not isinstance(groupId, basestring):
             raise TypeError('groupId ({0}) is not a string'.format(groupId))
         gid = to_ascii(groupId)
+
+        groupInfo = createObject('groupserver.GroupInfo', context, gid)
+        auditor = Auditor(self.site_root, self.siteInfo)
+        auditor.info(STOP, adminInfo, groupInfo)
 
         self.delete_group_folder(gid)
         self.delete_user_group(gid)
