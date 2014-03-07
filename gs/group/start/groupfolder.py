@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright © 2013 OnlineGroups.net and Contributors.
+# Copyright © 2013, 2014 OnlineGroups.net and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -14,19 +14,12 @@
 ##############################################################################
 from zope.interface import implements
 from OFS.Folder import Folder
-from zope.component.interfaces import ObjectEvent
-from zope.component.interfaces import IObjectEvent
 from gs.group.base.interfaces import IGSGroupMarker
 
 
 # Standard group folder
 class GSGroupFolder(Folder):
     implements(IGSGroupMarker)
-
-
-# Group Added Event
-class GSGroupAddedEvent(ObjectEvent):
-    implements(IObjectEvent)
 
 
 def groupAddedHandler(groupFolder, event):

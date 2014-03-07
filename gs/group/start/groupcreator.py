@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright © 2013 OnlineGroups.net and Contributors.
+# Copyright © 2013, 2014 OnlineGroups.net and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -23,7 +23,7 @@ from gs.core import to_ascii
 from gs.group.privacy.interfaces import IGSChangePrivacy
 from .audit import Auditor, START, STOP
 from .groupfolder import GSGroupFolder
-from .event import GSGroupCreatedEvent
+from .event import GSGroupCreatedEvent, GSGroupDeletedEvent
 
 #--=mpj17=-- TODO: Figure out how much of this can be turned into a
 # subscriber-based system.
@@ -51,11 +51,10 @@ class MoiraeForGroup(object):
             raise ValueError('No group name')
         if not groupId:
             raise ValueError('No group identifier')
-        if type(groupId) not in (unicode, str):
+        if not isinstance(groupId, basestring):
             m = 'Group identifier a {0}, not a string'
             raise TypeError(m.format(type(groupId)))
-        if type(groupId) == unicode:
-            groupId = groupId.encode('ascii', 'ignore')
+        gid = to_ascii(groupId)
 
         if not groupPrivacy:
             raise ValueError('No group privacy')
@@ -64,7 +63,7 @@ class MoiraeForGroup(object):
         if not adminInfo:
             raise ValueError('No administrator information')
 
-        group = self.create_group_folder(groupId)
+        group = self.create_group_folder(gid)
         self.set_security(group, adminInfo)
         self.create_administration(group)
         self.set_group_properties(group, groupName)
@@ -92,6 +91,9 @@ class MoiraeForGroup(object):
         gid = to_ascii(groupId)
 
         groupInfo = createObject('groupserver.GroupInfo', context, gid)
+
+        notify(GSGroupDeletedEvent(groupInfo.groupObj))
+
         auditor = Auditor(self.site_root, self.siteInfo)
         auditor.info(STOP, adminInfo, groupInfo)
 
@@ -124,8 +126,7 @@ class MoiraeForGroup(object):
         group.manage_changeProperties(title=groupName)
 
     def set_security(self, group, adminInfo):
-        '''\
-        Set the Group Security
+        '''Set the Group Security
 
         Create the user-group, and create the GroupMember and GroupAdmin
         roles.'''

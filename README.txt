@@ -1,9 +1,9 @@
 ==================
 ``gs.group.start``
 ==================
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Privacy information about a group
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
+Start a group
+~~~~~~~~~~~~~
 
 :Author: `Michael JasonSmith`_
 :Contact: Michael JasonSmith <mpj17@onlinegroups.net>

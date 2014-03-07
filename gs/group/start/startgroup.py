@@ -12,7 +12,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 from zope.cachedescriptors.property import Lazy
 from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
@@ -25,7 +25,7 @@ from .notify import StartNotifier
 
 
 class StartGroupForm(SiteForm):
-    label = u'Start a group'
+    label = 'Start a group'
     pageTemplateFileName = 'browser/templates/startgroup.pt'
     template = ZopeTwoPageTemplateFile(pageTemplateFileName)
 
@@ -43,7 +43,7 @@ class StartGroupForm(SiteForm):
         retval = getOption(self.context, 'emailDomain', '')
         return retval
 
-    @form.action(label=u'Start', failure='handle_start_action_failure')
+    @form.action(label='Start', failure='handle_start_action_failure')
     def handle_start(self, action, data):
         groupMoirae = MoiraeForGroup(self.siteInfo)
         newGroup = groupMoirae.create(data['grpName'], data['grpId'],
@@ -58,11 +58,11 @@ class StartGroupForm(SiteForm):
             notifier.notify(adminInfo)
 
         self.request.RESPONSE.redirect(newGroup.relative_url())
-        self.status = u'The group <a href="%s">%s</a> has been started.' %\
+        self.status = 'The group <a href="%s">%s</a> has been started.' %\
             (newGroup.relative_url(), newGroup.name)
 
     def handle_start_action_failure(self, action, data, errors):
         if len(errors) == 1:
-            self.status = u'<p>There is an error:</p>'
+            self.status = '<p>There is an error:</p>'
         else:
-            self.status = u'<p>There are errors:</p>'
+            self.status = '<p>There are errors:</p>'

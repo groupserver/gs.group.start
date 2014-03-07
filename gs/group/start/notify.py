@@ -52,10 +52,9 @@ class StartNotifier(object):
 
     def notify(self, adminInfo):
         s = 'New group: {0}'.format(self.groupInfo.name)
-        subject = s.encode(UTF8)
         text = self.textTemplate(adminInfo=adminInfo)
         html = self.htmlTemplate(adminInfo=adminInfo)
         ms = MessageSender(self.context, adminInfo)
-        ms.send_message(subject, text, html)
+        ms.send_message(s, text, html)
         self.request.response.setHeader(to_ascii('Content-Type'),
                                         self.oldContentType)

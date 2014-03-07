@@ -24,3 +24,12 @@ class IGSGroupCreatedEvent(IObjectEvent):
 
 class GSGroupCreatedEvent(ObjectEvent):
     implements(IGSGroupCreatedEvent)
+
+
+class IGSGroupDeletedEvent(IObjectEvent):
+    """ An event issued *before* a group has been deleted, and all core
+        changes to the group have been made."""
+
+
+class GSGroupDeletedEvent(ObjectEvent):
+    implements(IGSGroupDeletedEvent)
