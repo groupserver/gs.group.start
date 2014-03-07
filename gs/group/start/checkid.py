@@ -12,7 +12,9 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
+from __future__ import unicode_literals
 from gs.content.form import SiteForm
+from gs.core import to_ascii
 
 
 class CheckIdForm(SiteForm):
@@ -23,7 +25,9 @@ class CheckIdForm(SiteForm):
 
     def __call__(self):
         checker = CheckId(self.context)
-        return checker.exists(self.idToCheck) and '1' or '0'
+        r = '1' if checker.exists(self.idToCheck) else '0'
+        retval = to_ascii(r)
+        return retval
 
 
 class CheckId(object):
@@ -32,25 +36,35 @@ class CheckId(object):
         self.context = context
 
     def exists(self, idToCheck):
-        return self.existing_group(idToCheck)\
-            or self.existing_site(idToCheck)\
-            or self.existing_user(idToCheck)
+        retval = (self.existing_group(idToCheck)
+                    or self.existing_site(idToCheck)
+                    or self.existing_user(idToCheck))
+        assert type(retval) == bool
+        return retval
 
     def existing_group(self, groupId):
         # Group IDs must be unique *ignoring* case, because the ID is
         #   used as the email address.
         listManager = self.context.ListManager
-        ids = [lid.lower() for lid in listManager.objectIds()]
-        return groupId.lower() in ids
+        retval = (listManager.hasObject(groupId)
+                    or listManager.hasObject(groupId.lower()))
+        assert type(retval) == bool
+        return retval
 
     def existing_site(self, siteId):
         # Having a group with the same ID as a site may cause issues, so
         #   we ban it.
-        ids = [sid.lower() for sid in self.context.Content.objectIds()]
-        return siteId.lower() in ids
+        content = self.context.Content
+        retval = (content.hasObject(siteId)
+                    or content.hasObject(siteId.lower()))
+        assert type(retval) == bool
+        return retval
 
     def existing_user(self, userId):
         # A group with the same ID as a user is unlkely to cause issues,
         #   but ban it just in case
         acl_users = self.context.acl_users
-        return userId in acl_users.getUserNames()
+        retval = (acl_users.hasObject(userId)
+                    or acl_users.hasObject(userId.lower()))
+        assert type(retval) == bool
+        return retval
