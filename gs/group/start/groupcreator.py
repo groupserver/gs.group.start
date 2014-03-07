@@ -63,7 +63,7 @@ class MoiraeForGroup(object):
         if not adminInfo:
             raise ValueError('No administrator information')
 
-        group = self.create_group_folder(gid)
+        group = self.create_group_folder(gid.lower())
         self.set_security(group, adminInfo)
         self.create_administration(group)
         self.set_group_properties(group, groupName)
