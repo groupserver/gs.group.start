@@ -1,12 +1,24 @@
+"use strict";
+// JavaScript for handling all the interlocks associated with Start a Group.
+//
+// Copyright © 2014 OnlineGroups.net and Contributors.
+// All Rights Reserved.
+//
+// This software is subject to the provisions of the Zope Public License,
+// Version 2.1 (ZPL). http://groupserver.org/downloads/license/
+//
+// THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+// WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+// WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND
+// FITNESS FOR A PARTICULAR PURPOSE.
 jQuery.noConflict();
 
-// JavaScript for handling all the interlocks associated with Start a Group.
 function StartAGroup(grpName, grpId, privacyButtons) {
     // Private variables
-    var groupName = null, groupId = null,
-        existingIdCheckURL =  '/existing_id_check',
-        grpIdUserMod = false,
-        privacyExpln = {
+    var groupName=null, groupId=null,
+        existingIdCheckURL='/existing_id_check',
+        grpIdUserMod=false,
+        privacyExpln={
             'public': 'The group will be <strong>public:</strong> <ul>'+
                       '<li>The <strong>group and posts</strong> will be '+
                       'visible to anyone, including search engines.</li>'+
@@ -27,7 +39,8 @@ function StartAGroup(grpName, grpId, privacyButtons) {
                        'view the <strong>posts.</strong></li>'+
                        '<li>You must <strong>invite</strong> '+
                        'each person to join the group.</li></ul>'
-        }, idChkTimeout = null;
+        }, 
+        idChkTimeout=null;
 
     groupName = jQuery(grpName);
     groupId = jQuery(grpId);
@@ -45,6 +58,7 @@ function StartAGroup(grpName, grpId, privacyButtons) {
     function grpNameChangeTimeout() {
         // If the user has not modified the ID then update that
         // based on the name.
+        var newId=null;
         newId = grpIdFromName(groupName.val());
         groupId.val(newId).trigger('keyup', true);
         updateGrpNamePreview();
@@ -52,7 +66,7 @@ function StartAGroup(grpName, grpId, privacyButtons) {
     
     function grpIdFromName(origGrpName) {
         // Get an group ID from a group name
-        var newGrpId = null, re1 = /[ ]/g, re2 = /[^\w-_]/g;
+        var newGrpId=null, re1=/[ ]/g, re2=/[^\w-_]/g;
         newGrpId = origGrpName;
         newGrpId = newGrpId.replace(re1, '-');
         newGrpId = newGrpId.replace(re2, '');
@@ -61,7 +75,7 @@ function StartAGroup(grpName, grpId, privacyButtons) {
     }
 
     function updateGrpNamePreview() {
-        var newName = null, grpNames  = null;
+        var newName=null, grpNames=null;
         
         newName = groupName.val();
         if (newName == '') {
@@ -75,13 +89,14 @@ function StartAGroup(grpName, grpId, privacyButtons) {
     function grpIdChanged(event, fakeIfSet) {
         // Callback for someone changing the group ID
         //
-        // --=mpj17=-- For a while now I have been working on a way to
-        // distinguish between *real* events, triggered by the user, and
-        // *fake* events that the code generates. This is the current
-        // state of the art. The fakeIfSet argument will not be set by
-        // a real event handler. Therefore, all it takes to ensure that
-        // I can tell the difference between an actual event and a fake
-        // event is to ensure I pass *something* as the fakeIfSet 
+        // --=mpj17=-- For a while now I have been working on a
+        // way to distinguish between *real* events, triggered by
+        // the user, and *fake* events that the code
+        // generates. This is the current state of the art. The
+        // fakeIfSet argument will not be set by a real event
+        // handler. Therefore, all it takes to ensure that I can
+        // tell the difference between an actual event and a fake
+        // event is to ensure I pass *something* as the fakeIfSet
         // argument.
         
         if (fakeIfSet == undefined) {
@@ -91,8 +106,8 @@ function StartAGroup(grpName, grpId, privacyButtons) {
     }
 
     function grpIdChangeTimeout() {
-        var newId = null, grpIdV = groupId.val();
-
+        var newId=null, grpIdV=null;
+        grpIdV = groupId.val();
         newId = grpIdV;
         if (newId == '') {
           newId = '&#8230;';
@@ -102,7 +117,7 @@ function StartAGroup(grpName, grpId, privacyButtons) {
     }
 
     function checkGroupId() {
-        var id = null;
+        var id=null;
         id = groupId.val();
         
         if (idChkTimeout != null) {
@@ -115,9 +130,9 @@ function StartAGroup(grpName, grpId, privacyButtons) {
     }
 
     function fireGrpIdAjaxCheck() {
-        var id = null, d = null;
+        var id=null, d=null;
         
-        id = groupId.val()
+        id = groupId.val();
         d = {
           type: "POST",
           url: existingIdCheckURL,
@@ -129,8 +144,8 @@ function StartAGroup(grpName, grpId, privacyButtons) {
     }
 
     function checkGroupIdReturn(data, textStatus) {
-        var exists = null, id = null;
-        exists = data == '1'
+        var exists=null, id=null;
+        exists = data == '1';
         if (exists) {
           id = groupId.val();
           jQuery('#group-id-error code').text(id);
@@ -138,13 +153,13 @@ function StartAGroup(grpName, grpId, privacyButtons) {
         } else {
           jQuery('#group-id-error').hide();
         }
-        // TODO: Disable the submit button. This requires interacting
-        //       with the required-widgets.
+        // TODO: Disable the submit button. This requires
+        //       interacting with the required-widgets.
     }
 
     // Privacy
     function grpPrivacyChanged(event) {
-        var currentPrivacy = null, selected = null, secret = null;
+        var currentPrivacy=null, selected=null, secret=null;
         selected = jQuery('input:radio[name=form\\.grpPrivacy]:checked');
         currentPrivacy = selected.val();
         jQuery('#visiblity-preview').html(privacyExpln[currentPrivacy]);
@@ -160,7 +175,7 @@ function StartAGroup(grpName, grpId, privacyButtons) {
     // Public methods and properties
     return {
         init: function () {
-            var e = null, f = null;
+            var e=null, f=null;
             e = {
                 onpaste: grpNameChanged, // IE name for the paste event
                 paste:   grpNameChanged, // Gecko name for the paste event
@@ -179,7 +194,7 @@ function StartAGroup(grpName, grpId, privacyButtons) {
 } // OGNStartASiteGrp
 
 jQuery(window).load( function () {
-    var sag = null;
+    var sag=null;
     sag = StartAGroup('#form\\.grpName', '#form\\.grpId', 
                       'input:radio[name=form\\.grpPrivacy]');
     sag.init();
