@@ -114,7 +114,8 @@ class MoiraeForGroup(object):
     def delete_group_folder(self, groupId):
         # Create the group folder
         self.groupsFolder.manage_delObjects([groupId, ])
-        assert not(hasattr(self.groupsFolder, groupId))
+        assert not(hasattr(self.groupsFolder.aq_expliciit, groupId)), \
+            'Tried to delete {0} but it remains'.format(groupId)
 
     def set_group_properties(self, group, groupName):
         # Set the correct properties
@@ -208,15 +209,18 @@ class MoiraeForGroup(object):
           'Files area not added to "%s"' % group.getId()
 
     def set_group_privacy(self, group, groupPrivacy):
-        assert hasattr(group, 'is_group')
-        assert group.is_group
-        assert hasattr(group, 'messages')
         # Set the privacy: Which must be done **AFTER** the folder is
         #   made into a group
+        if ((not hasattr(group, 'is_group')) or (not group.is_group)):
+            raise TypeError('The group does not appear to be a group.')
+        if not hasattr(group, 'messages'):
+            raise AttributeError('No messages in the group.')
+
         g = get_the_actual_instance_from_zope(group)
         assert g
         gi = GSGroupInfo(g)
         assert gi.groupObj
+
         privacyChanger = IGSChangePrivacy(gi)
         if groupPrivacy == 'public':
             privacyChanger.set_group_public()
