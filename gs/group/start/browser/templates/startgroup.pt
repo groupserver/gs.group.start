@@ -86,7 +86,7 @@
     </form>
     <tal:block metal:fill-slot="javascript">
       <script type="text/javascript"
-              src="/++resource++gs-group-start-20130712.js"
+              src="/++resource++gs-group-start-min-20140408.js"
               defer="defer"> </script>
       <script type="text/javascript">
         document.getElementById('form.grpName').focus();

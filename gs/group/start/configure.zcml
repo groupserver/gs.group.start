@@ -31,11 +31,11 @@
     class=".startgroup.StartGroupForm"
     permission="zope2.ManageProperties"/>
   <browser:resource
-    name="gs-group-start-20130712.js"
+    name="gs-group-start-20140408.js"
     file="browser/javascript/startgroup.js"
     permission="zope2.Public"/>
   <browser:resource
-    name="gs-group-start-min-20130712.js"
+    name="gs-group-start-min-20140408.js"
     file="browser/javascript/startgroup-min.js"
     permission="zope2.Public"/>
   <!-- The AJAX page to perform the ID check -->
