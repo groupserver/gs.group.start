@@ -29,9 +29,9 @@
           action="." tal:attributes="action request/URL" id="start-group"
           class="gs-content-js-required">
       <h1 tal:content="view/label">Start group</h1>
-      <tal:block 
+      <tal:block
         define="widgets python:[view.widgets['grpName'], view.widgets['grpId']]">
-        <tal:block 
+        <tal:block
           replace="structure provider:groupserver.FormWidgets"/>
       </tal:block>
       <p id="group-id-error" style="display:none;" class="alert">
@@ -40,10 +40,10 @@
         Please pick another group ID.
       </p><!--group-id-error-->
       <tal:block define="widgets python:[view.widgets['grpPrivacy']]">
-        <tal:block 
+        <tal:block
           replace="structure provider:groupserver.FormWidgets"/>
       </tal:block>
-      <div id="gs-group-start-info" role="region" 
+      <div id="gs-group-start-info" role="region"
            aria-labelledby="gs-group-start-info-h">
         <h3 id="gs-group-start-info-h">New group summary</h3>
         <ul id="group-preview" class="preview">
@@ -52,12 +52,12 @@
             <cite id="group-title-preview" class="grpFn">&#8230;</cite>.
           </li>
           <li>
-            Members will post to the group by using the web or by sending 
+            Members will post to the group by using the web or by sending
             an <strong>email</strong> to
             <code class="email"><span class="groupId">&#8230;</span>@<span tal:content="view/emailDomain">?</span></code>.
           </li>
           <li>
-            The <strong>web address</strong> for the group will be 
+            The <strong>web address</strong> for the group will be
             <code class="url"><span tal:content="view/siteInfo/url">&#8230;</span>/groups/<span class="groupId">&#8230;</span></code>.
           </li>
           <li>
@@ -87,7 +87,7 @@
     <tal:block metal:fill-slot="javascript">
       <script type="text/javascript"
               src="/++resource++gs-group-start-20130712.js"
-              defer="true">&#160;</script>
+              defer="defer"> </script>
       <script type="text/javascript">
         document.getElementById('form.grpName').focus();
       </script>
