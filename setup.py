@@ -12,11 +12,17 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
+import codecs
 import os
 from setuptools import setup, find_packages
 from version import get_version
 
 version = get_version()
+
+with codecs.open('README.txt', encoding='utf-8') as f:
+    long_description = f.read()
+with codecs.open(os.path.join("docs", "HISTORY.txt"), encoding='utf-8') as f:
+    long_description += '\n' + f.read()
 
 setup(name='gs.group.start',
     version=version,
@@ -37,7 +43,7 @@ setup(name='gs.group.start',
     keywords='group security privacy',
     author='Michael JasonSmith',
     author_email='mpj17@onlinegroups.net',
-    url='http://groupserver.org/',
+    url='https://source.iopen.net/groupserver/gs.group.start/',
     license='ZPL 2.1',
     packages=find_packages(exclude=['ez_setup']),
     namespace_packages=['gs', 'gs.group'],
