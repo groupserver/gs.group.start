@@ -114,7 +114,7 @@ class MoiraeForGroup(object):
     def delete_group_folder(self, groupId):
         # Create the group folder
         self.groupsFolder.manage_delObjects([groupId, ])
-        assert not(hasattr(self.groupsFolder.aq_expliciit, groupId)), \
+        assert not(hasattr(self.groupsFolder.aq_explicit, groupId)), \
             'Tried to delete {0} but it remains'.format(groupId)
 
     def set_group_properties(self, group, groupName):
