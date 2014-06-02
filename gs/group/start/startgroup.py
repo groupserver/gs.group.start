@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright © 2013 OnlineGroups.net and Contributors.
+# Copyright © 2013, 2014 OnlineGroups.net and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -14,6 +14,7 @@
 ##############################################################################
 from __future__ import absolute_import, unicode_literals
 from zope.cachedescriptors.property import Lazy
+from zope.component import createObject
 from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from gs.content.form import SiteForm, radio_widget
@@ -49,6 +50,11 @@ class StartGroupForm(SiteForm):
         newGroup = groupMoirae.create(data['grpName'], data['grpId'],
                               data['grpPrivacy'], self.emailDomain,
                               self.loggedInUser)
+
+        # Clear the groups cache, closing Bug 4015
+        # <https://redmine.iopen.net/issues/4105>
+        groupsInfo = createObject('groupserver.GroupsInfo', self.context)
+        groupsInfo.clear_groups_cache()
 
         joiningUser = IGSJoiningUser(self.loggedInUser)
         joiningUser.silent_join(newGroup)
