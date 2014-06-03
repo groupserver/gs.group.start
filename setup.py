@@ -27,8 +27,7 @@ with codecs.open(os.path.join("docs", "HISTORY.txt"), encoding='utf-8') as f:
 setup(name='gs.group.start',
     version=version,
     description="Start a GroupServer Group",
-    long_description=open("README.txt").read() + "\n" +
-                      open(os.path.join("docs", "HISTORY.txt")).read(),
+    long_description=long_description,
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         "Environment :: Web Environment",
