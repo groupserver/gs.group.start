@@ -17,7 +17,7 @@ from zope.cachedescriptors.property import Lazy
 from zope.component import createObject
 from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
-from gs.content.form import SiteForm, radio_widget
+from gs.content.form.base import (SiteForm, radio_widget)
 from gs.group.member.join.interfaces import IGSJoiningUser
 from Products.XWFCore.XWFUtils import getOption
 from .groupcreator import MoiraeForGroup

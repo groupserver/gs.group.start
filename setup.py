@@ -67,7 +67,7 @@ setup(name='gs.group.start',
         'gs.content.email.layout',
         'gs.content.js.jquery.base',
         'gs.content.layout',
-        'gs.content.form',
+        'gs.content.form.base',
         'gs.core',
         'gs.group.base',
         'gs.group.type.discussion',  # For the marker interface

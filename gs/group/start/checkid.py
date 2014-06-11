@@ -13,7 +13,7 @@
 #
 ##############################################################################
 from __future__ import unicode_literals
-from gs.content.form import SiteForm
+from gs.content.form.base import SiteForm
 from gs.core import to_ascii
 
 
