@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+############################################################################
 #
-# Copyright © 2013 OnlineGroups.net and Contributors.
+# Copyright © 2013, 2014 OnlineGroups.net and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -11,7 +11,7 @@
 # WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
 # FOR A PARTICULAR PURPOSE.
 #
-##############################################################################
+############################################################################
 from __future__ import absolute_import, unicode_literals
 import re
 from zope.interface import Interface
@@ -19,6 +19,7 @@ from zope.schema import Choice, TextLine, ASCIILine, ValidationError
 from gs.core import to_ascii
 from Products.GSGroup.interfacesprivacy import secruityVocab
 from .checkid import CheckId
+from . import GSMessageFactory as _
 
 ID_RE = r'^[a-zA-Z0-9-_]+$'
 check_id = re.compile(ID_RE).match  # --=mpj17=-- Mmmm, curry
@@ -31,9 +32,11 @@ class NotAValidGroupId(ValidationError):
         self.value = value
 
     def __unicode__(self):
-        retval = 'The text "%s" is not a valid group identifier. A '\
-            'group ID can only contain letters, numbers, dashes '\
-            'and underscores. Please pick another ID.' % self.value
+        retval = _(
+            'invalid-id-msg',
+            'The text "${id}" is not a valid group identifier. A group ID '
+            'can only contain letters, numbers, dashes and underscores. '
+            'Please pick another ID.', mapping={'id': self.value})
         return retval
 
     def __str__(self):
@@ -57,8 +60,10 @@ class GroupIdUsed(ValidationError):
         self.value = value
 
     def __unicode__(self):
-        retval = 'The identifier "%s" is already being used. Please ' \
-            'pick another ID.' % self.value
+        retval = _(
+            'used-id-msg',
+            'The identifier "${id}" is already being used. Please pick '
+            'another ID.', mapping={'id': self.value})
         return retval
 
     def __str__(self):
@@ -80,20 +85,23 @@ class GroupId(ASCIILine):
 
 class IAboutGroup(Interface):
     'A Little About Your First Group'
-    grpName = TextLine(title='Group Name',
-                description='The name of your first group. You can change it '
-                    'later',
-                required=True)
+    grpName = TextLine(
+        title=_('Group name'),
+        description=_('The name of your first group. You can change it '
+                      'later'),
+        required=True)
 
-    grpId = GroupId(title='Group ID',
-                description='The identifier for your group. It is used to '
-                    'create the URL and the email address for the group. You '
-                    'can only change it now.',
-                required=True)
+    grpId = GroupId(
+        title=_('Group ID'),
+        description=_('The identifier for your group. It is used to create '
+                      'the URL and the email address for the group. You '
+                      'can only change it now.'),
+        required=True)
 
-    grpPrivacy = Choice(title='Group Privacy',
-                    description='How visible the group, and the group messages '
-                        'will be.',
-                    vocabulary=secruityVocab,
-                    default='private',
-                    required=True)
+    grpPrivacy = Choice(
+        title=_('Group Privacy'),
+        description=_('How visible the group, and the group messages will '
+                      'be.'),
+        vocabulary=secruityVocab,
+        default='private',
+        required=True)

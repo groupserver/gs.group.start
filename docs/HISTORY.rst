@@ -1,6 +1,15 @@
 Changelog
 =========
 
+2.3.0 (2014-10-24)
+------------------
+
+* Adding internationalisation
+* Using GitHub_ as the main code repository, and naming the
+  reStructuredText files as such.
+
+.. _GitHub: https://github.com/groupserver/gs.group.start/
+
 2.2.6 (2014-06-13)
 ------------------
 

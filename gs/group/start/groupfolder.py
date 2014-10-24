@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+############################################################################
 #
 # Copyright © 2013, 2014 OnlineGroups.net and Contributors.
 # All Rights Reserved.
@@ -11,7 +11,7 @@
 # WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
 # FOR A PARTICULAR PURPOSE.
 #
-##############################################################################
+############################################################################
 from zope.interface import implements
 from OFS.Folder import Folder
 from gs.group.base.interfaces import IGSGroupMarker
@@ -29,5 +29,5 @@ def groupAddedHandler(groupFolder, event):
 
     """
     assert IGSGroupMarker.providedBy(groupFolder), \
-       "groupFolder did not implement IGSGroupMarker!"
+        "groupFolder did not implement IGSGroupMarker!"
     return
