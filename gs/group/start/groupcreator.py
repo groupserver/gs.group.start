@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+############################################################################
 #
 # Copyright © 2013, 2014 OnlineGroups.net and Contributors.
 # All Rights Reserved.
@@ -11,7 +11,7 @@
 # WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
 # FOR A PARTICULAR PURPOSE.
 #
-##############################################################################
+############################################################################
 from __future__ import absolute_import
 from zope.cachedescriptors.property import Lazy
 from zope.component import createObject
@@ -78,7 +78,7 @@ class MoiraeForGroup(object):
 
         auditor = Auditor(self.site_root, self.siteInfo)
         auditor.info(START, adminInfo, groupInfo, groupName,
-                        groupPrivacy)
+                     groupPrivacy)
 
         assert groupInfo
         return groupInfo
@@ -170,7 +170,8 @@ class MoiraeForGroup(object):
         assert not(hasattr(listManager.aq_explicit, group.getId())), \
             'The ListManager already has a list for "%s".' % group.getId()
         mailto = '%s@%s' % (group.getId(), mailhost)
-        xwfmailingList = listManager.manage_addProduct['XWFMailingListManager']
+        xwfmailingList = \
+            listManager.manage_addProduct['XWFMailingListManager']
         xwfmailingList.manage_addXWFMailingList(group.getId(), mailto,
                                                 group.title_or_id().lower())
         assert hasattr(listManager.aq_explicit, group.getId()), \
@@ -194,19 +195,21 @@ class MoiraeForGroup(object):
     def create_messages_area(self, group):
         assert group
         xwfmail = group.manage_addProduct['XWFMailingListManager']
-        xwfmail.manage_addXWFVirtualMailingListArchive2('messages', 'Messages')
-        assert group.messages, 'Messages area not added to "s"' % group.getId()
+        xwfmail.manage_addXWFVirtualMailingListArchive2('messages',
+                                                        'Messages')
+        assert group.messages, \
+            'Messages area not added to "s"' % group.getId()
         messages = group.messages
         messages.manage_changeProperties(
-                xwf_mailing_list_manager_path='ListManager',
-                xwf_mailing_list_ids=[group.getId()])
+            xwf_mailing_list_manager_path='ListManager',
+            xwf_mailing_list_ids=[group.getId()])
 
     def create_files_area(self, group):
         assert group
         xwffiles = group.manage_addProduct['XWFFileLibrary2']
         xwffiles.manage_addXWFVirtualFileFolder2('files', 'Files')
         assert hasattr(group.aq_explicit, 'files'), \
-          'Files area not added to "%s"' % group.getId()
+            'Files area not added to "%s"' % group.getId()
 
     def set_group_privacy(self, group, groupPrivacy):
         # Set the privacy: Which must be done **AFTER** the folder is
