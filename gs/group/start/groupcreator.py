@@ -203,7 +203,7 @@ class MoiraeForGroup(object):
             'Messages area not added to "s"' % group.getId()
         messages = group.messages
         messages.manage_changeProperties(
-            xwf_mailing_list_manager_path='ListManager',
+            xwf_mailing_list_manager_path=b'ListManager',
             xwf_mailing_list_ids=[group.getId()])
 
     def create_files_area(self, group):
