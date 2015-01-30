@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ############################################################################
 #
-# Copyright © 2013, 2014 OnlineGroups.net and Contributors.
+# Copyright © 2013, 2014, 2015 OnlineGroups.net and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -12,7 +12,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ############################################################################
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 from zope.cachedescriptors.property import Lazy
 from zope.component import createObject
 from zope.event import notify
@@ -119,11 +119,13 @@ class MoiraeForGroup(object):
 
     def set_group_properties(self, group, groupName):
         # Set the correct properties
-        group.manage_addProperty('is_group', True, 'boolean')
-        group.manage_addProperty('short_name', groupName.lower(), 'string')
+        group.manage_addProperty(b'is_group', True, b'boolean')
+        group.manage_addProperty(b'short_name', groupName.lower(),
+                                 b'string')
         rlg = 'people in %s' % groupName
-        group.manage_addProperty('real_life_group', rlg, 'string')
-        group.manage_addProperty('group_template', self.template, 'string')
+        group.manage_addProperty(b'real_life_group', rlg, b'string')
+        group.manage_addProperty(b'group_template', self.template,
+                                 b'string')
         group.manage_changeProperties(title=groupName)
 
     def set_security(self, group, adminInfo):
@@ -132,36 +134,36 @@ class MoiraeForGroup(object):
         Create the user-group, and create the GroupMember and GroupAdmin
         roles.'''
         # Secure the group
-        memberGroup = '%s_member' % group.getId()
+        memberGroup = to_ascii('%s_member' % group.getId())
         # Create the user-group
         self.site_root.acl_users.userFolderAddGroup(memberGroup)
         # Add the roles to the group
-        group.manage_defined_roles('Add Role', {'role': 'GroupMember'})
-        group.manage_defined_roles('Add Role', {'role': 'GroupAdmin'})
+        group.manage_defined_roles(b'Add Role', {b'role': b'GroupMember'})
+        group.manage_defined_roles(b'Add Role', {b'role': b'GroupAdmin'})
         # Associate the user-group with the group member role
-        group.manage_addLocalGroupRoles(memberGroup, ['GroupMember'])
+        group.manage_addLocalGroupRoles(memberGroup, [b'GroupMember'])
 
         # Make the admin a group admin so he or she receives the
         #   Join notifications. See Ticket 611 for more information
         #   <https://projects.iopen.net/groupserver/ticket/611>
-        group.manage_addLocalRoles(adminInfo.id, ('GroupAdmin',))
+        group.manage_addLocalRoles(adminInfo.id, (b'GroupAdmin',))
 
     def delete_user_group(self, groupId):
-        memberGroup = '%s_member' % groupId
+        memberGroup = to_ascii('%s_member' % groupId)
         self.site_root.acl_users.userFolderDelGroups([memberGroup])
 
     def create_administration(self, group):
         assert group
         # In an OGN goup, group and site administrators can add users.
-        gRoles = ['DivisionAdmin', 'GroupAdmin', 'Manager', 'Owner']
-        group.manage_permission('Manage users', gRoles, 0)
+        gRoles = [b'DivisionAdmin', b'GroupAdmin', b'Manager', b'Owner']
+        group.manage_permission(b'Manage users', gRoles, 0)
         # In an OGN goup, only site administrators can alter the properties
-        siteRoles = ['DivisionAdmin', 'Manager', 'Owner']
-        group.manage_permission('Manage properties', siteRoles, 0)
+        siteRoles = [b'DivisionAdmin', b'Manager', b'Owner']
+        group.manage_permission(b'Manage properties', siteRoles, 0)
         # Without the Add Page Templates permission the admin will not be
         #   able to add content!
-        group.manage_permission('Add Page Templates', siteRoles, 0)
-        group.manage_permission('Add Folders', siteRoles, 0)
+        group.manage_permission(b'Add Page Templates', siteRoles, 0)
+        group.manage_permission(b'Add Folders', siteRoles, 0)
 
     def create_list(self, group, mailhost):
         assert group, 'No group'
@@ -171,19 +173,19 @@ class MoiraeForGroup(object):
             'The ListManager already has a list for "%s".' % group.getId()
         mailto = '%s@%s' % (group.getId(), mailhost)
         xwfmailingList = \
-            listManager.manage_addProduct['XWFMailingListManager']
+            listManager.manage_addProduct[b'XWFMailingListManager']
         xwfmailingList.manage_addXWFMailingList(group.getId(), mailto,
                                                 group.title_or_id().lower())
         assert hasattr(listManager.aq_explicit, group.getId()), \
             'The list "%s" was not created in ListManager.' % group.getId()
         listManager = self.site_root.ListManager
         groupList = getattr(listManager.aq_explicit, group.getId())
-        groupList.manage_addProperty('siteId', self.siteInfo.id, 'string')
-        groupList.manage_addProperty('use_rdb', True, 'boolean')
+        groupList.manage_addProperty(b'siteId', self.siteInfo.id, b'string')
+        groupList.manage_addProperty(b'use_rdb', True, b'boolean')
         # Delete the GroupServer 0.9 "archive", as it is now handled by the
         #   relational database.
         try:
-            groupList.manage_delObjects(['archive'])
+            groupList.manage_delObjects([b'archive'])
         except:
             pass
         return groupList
@@ -194,8 +196,8 @@ class MoiraeForGroup(object):
 
     def create_messages_area(self, group):
         assert group
-        xwfmail = group.manage_addProduct['XWFMailingListManager']
-        xwfmail.manage_addXWFVirtualMailingListArchive2('messages',
+        xwfmail = group.manage_addProduct[b'XWFMailingListManager']
+        xwfmail.manage_addXWFVirtualMailingListArchive2(b'messages',
                                                         'Messages')
         assert group.messages, \
             'Messages area not added to "s"' % group.getId()
@@ -206,8 +208,8 @@ class MoiraeForGroup(object):
 
     def create_files_area(self, group):
         assert group
-        xwffiles = group.manage_addProduct['XWFFileLibrary2']
-        xwffiles.manage_addXWFVirtualFileFolder2('files', 'Files')
+        xwffiles = group.manage_addProduct[b'XWFFileLibrary2']
+        xwffiles.manage_addXWFVirtualFileFolder2(b'files', 'Files')
         assert hasattr(group.aq_explicit, 'files'), \
             'Files area not added to "%s"' % group.getId()
 
