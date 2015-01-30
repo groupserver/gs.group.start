@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+############################################################################
 #
 # Copyright © 2013 OnlineGroups.net and Contributors.
 # All Rights Reserved.
@@ -11,7 +11,7 @@
 # WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
 # FOR A PARTICULAR PURPOSE.
 #
-##############################################################################
+############################################################################
 from __future__ import unicode_literals
 from gs.content.form.base import SiteForm
 from gs.core import to_ascii
@@ -37,8 +37,8 @@ class CheckId(object):
 
     def exists(self, idToCheck):
         retval = (self.existing_group(idToCheck)
-                    or self.existing_site(idToCheck)
-                    or self.existing_user(idToCheck))
+                  or self.existing_site(idToCheck)
+                  or self.existing_user(idToCheck))
         assert type(retval) == bool
         return retval
 
@@ -47,7 +47,7 @@ class CheckId(object):
         #   used as the email address.
         listManager = self.context.ListManager
         retval = (listManager.hasObject(groupId)
-                    or listManager.hasObject(groupId.lower()))
+                  or listManager.hasObject(groupId.lower()))
         assert type(retval) == bool
         return retval
 
@@ -56,7 +56,7 @@ class CheckId(object):
         #   we ban it.
         content = self.context.Content
         retval = (content.hasObject(siteId)
-                    or content.hasObject(siteId.lower()))
+                  or content.hasObject(siteId.lower()))
         assert type(retval) == bool
         return retval
 
@@ -65,6 +65,6 @@ class CheckId(object):
         #   but ban it just in case
         acl_users = self.context.acl_users
         retval = (acl_users.hasObject(userId)
-                    or acl_users.hasObject(userId.lower()))
+                  or acl_users.hasObject(userId.lower()))
         assert type(retval) == bool
         return retval
