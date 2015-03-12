@@ -1,20 +1,24 @@
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: gs.group.start\n"
 "POT-Creation-Date: 2015-03-12 18:31+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"PO-Revision-Date: 2015-03-12 18:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/gs-group-start/language/fr/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Domain: DOMAIN\n"
+"Language: fr\n"
 "Language-Code: en\n"
 "Language-Name: English\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: DOMAIN\n"
 
-#. Default: "The identifier for your group. It is used to create the URL and the email address for the group. You can only change it now."
+#. Default: "The identifier for your group. It is used to create the URL and
+#. the email address for the group. You can only change it now."
 #: ./interfaces.py:97
 msgid "group-id-help"
 msgstr ""
@@ -44,7 +48,9 @@ msgstr ""
 msgid "group-privacy-label"
 msgstr ""
 
-#. Default: "The text \"${id}\" is not a valid group identifier. A group ID can only contain letters, numbers, dashes and underscores. Please pick another ID."
+#. Default: "The text \"${id}\" is not a valid group identifier. A group ID
+#. can only contain letters, numbers, dashes and underscores. Please pick
+#. another ID."
 #: ./interfaces.py:35
 msgid "invalid-id-msg"
 msgstr ""
@@ -79,8 +85,8 @@ msgstr ""
 msgid "start-status"
 msgstr ""
 
-#. Default: "The identifier \"${id}\" is already being used. Please pick another ID."
+#. Default: "The identifier \"${id}\" is already being used. Please pick
+#. another ID."
 #: ./interfaces.py:63
 msgid "used-id-msg"
 msgstr ""
-

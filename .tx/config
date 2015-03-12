@@ -1,0 +1,9 @@
+[main]
+host = https://www.transifex.com
+
+[gs-group-start.gs-group-start-pot]
+file_filter = gs/group/start/locales/<lang>/LC_MESSAGES/gs.group.start.po
+source_file = gs/group/start/locales/en/LC_MESSAGES/gs.group.start.po
+source_lang = en
+type = PO
+
