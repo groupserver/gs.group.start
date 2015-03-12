@@ -62,6 +62,7 @@ setup(
         'zope.event',
         'zope.formlib',
         'zope.interface',
+        'zope.i18n[compile]',
         'zope.schema',
         'zope.tal',
         'zope.tales',
