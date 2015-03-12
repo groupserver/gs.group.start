@@ -5,26 +5,26 @@
   </p>
   <ol>
     <li>Go to the Start a Group page.</li>
-    <li>Enter the name of your new group in the 
+    <li>Enter the name of your new group in the
       <samp class="entry">Group Name</samp> entry.
     </li>
-    <li><strong class="label">(Optional)</strong> Chose an identifier for 
-      your group by altering the default identifier in the 
+    <li><strong class="label">(Optional)</strong> Chose an identifier for
+      your group by altering the default identifier in the
       <samp class="entry">Group ID</samp> entry.
-      The identifier will be used to form both the email address and web 
+      The identifier will be used to form both the email address and web
       address for your group.
       <ul>
-        <li>The <strong>default</strong> identifier will be a lower case 
-          version of the group name with punctuation removed and 
-          spaces replaced by the dash character 
+        <li>The <strong>default</strong> identifier will be a lower case
+          version of the group name with punctuation removed and
+          spaces replaced by the dash character
           (<code>-</code>).</li>
-        <li>The identifier can only contain letters, numbers, dashes 
+        <li>The identifier can only contain letters, numbers, dashes
           (<code>-</code>) and underscores (<code>_</code>).</li>
         <li>The identifier must be unique: there cannot be another site
           or group with the same identifier, including your own site.
           The page will check to see if there is already a site or group
           with the same identifier.</li>
-        <li>The identifier cannot be changed once the group has been 
+        <li>The identifier cannot be changed once the group has been
           created.</li>
       </ul>
     </li>
