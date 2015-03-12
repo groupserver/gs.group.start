@@ -86,21 +86,24 @@ class GroupId(ASCIILine):
 class IAboutGroup(Interface):
     'A Little About Your First Group'
     grpName = TextLine(
-        title=_('Group name'),
-        description=_('The name of your first group. You can change it '
+        title=_('group-name-label', 'Group name'),
+        description=_('group-name-help',
+                      'The name of your first group. You can change it '
                       'later'),
         required=True)
 
     grpId = GroupId(
-        title=_('Group ID'),
-        description=_('The identifier for your group. It is used to create '
+        title=_('group-id-label', 'Group ID'),
+        description=_('group-id-help',
+                      'The identifier for your group. It is used to create '
                       'the URL and the email address for the group. You '
                       'can only change it now.'),
         required=True)
 
     grpPrivacy = Choice(
-        title=_('Group Privacy'),
-        description=_('How visible the group, and the group messages will '
+        title=_('group-privacy-label', 'Group Privacy'),
+        description=_('group-privacy-help',
+                      'How visible the group, and the group messages will '
                       'be.'),
         vocabulary=secruityVocab,
         default='private',

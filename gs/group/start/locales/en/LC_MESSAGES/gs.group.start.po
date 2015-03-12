@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-10-24 21:17+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"POT-Creation-Date: 2015-03-12 18:31+0000\n"
+"PO-Revision-Date: 2015-03-12 11:33-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -14,77 +14,73 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: ./browser/templates/startlink.pt:1
-msgid "<a href=\"/startgroup.html\"><strong>Start</strong> a group.</a>"
-msgstr ""
+#. Default: "The identifier for your group. It is used to create the URL and the email address for the group. You can only change it now."
+#: ./interfaces.py:97
+msgid "group-id-help"
+msgstr "The identifier for your group. It is used to create the URL and the email address for the group. You can only change it now."
 
-#: ./startgroup.py:78
-msgid "<p>There are errors:</p>"
-msgstr ""
-
-#: ./startgroup.py:76
-msgid "<p>There is an error:</p>"
-msgstr ""
-
-#: ./interfaces.py:95
-msgid "Group ID"
-msgstr ""
-
-#: ./interfaces.py:102
-msgid "Group Privacy"
-msgstr ""
-
-#: ./interfaces.py:89
-msgid "Group name"
-msgstr ""
-
-#: ./interfaces.py:103
-msgid "How visible the group, and the group messages will be."
-msgstr ""
-
-#: ./startgroup.py:48
-msgid "Start"
-msgstr ""
-
-#: ./startgroup.py:30
-msgid "Start a group"
-msgstr ""
-
+#. Default: "Group ID"
 #: ./interfaces.py:96
-msgid "The identifier for your group. It is used to create the URL and the email address for the group. You can only change it now."
-msgstr ""
+msgid "group-id-label"
+msgstr "Group ID"
 
+#. Default: "The name of your first group. You can change it later"
 #: ./interfaces.py:90
-msgid "The name of your first group. You can change it later"
-msgstr ""
+msgid "group-name-help"
+msgstr "The name of your first group. You can change it later."
 
-#. Default: "<strong class=\"label alert-label\">Group ID In Use:</strong> The Group ID <code>above</code> is already being used. Please pick another group ID."
-#: ./browser/templates/startgroup.pt:39
-msgid "group-id-used"
-msgstr ""
+#. Default: "Group name"
+#: ./interfaces.py:89
+msgid "group-name-label"
+msgstr "Group name"
 
-#. Default: "<li> The new group will have the <strong>name</strong> <cite id=\"group-title-preview\" class=\"grpFn\">…</cite>. </li> <li> Members will post to the group by using the web or by sending an <strong>email</strong> to <code class=\"email\"><span class=\"groupId\">…</span>@<span>${DYNAMIC_CONTENT}</span></code>. </li> <li> The <strong>web address</strong> for the group will be <code class=\"url\"><span>${DYNAMIC_CONTENT}</span>/groups/<span class=\"groupId\">…</span></code>. </li> <li> <span id=\"visiblity-preview\">The group and posts will be visible to anyone, including search engines, and anyone can join the group.</span> </li>"
-#: ./browser/templates/startgroup.pt:65
-msgid "group-preview"
-msgstr ""
+#. Default: "How visible the group, and the group messages will be."
+#: ./interfaces.py:105
+msgid "group-privacy-help"
+msgstr "How visible the group, and the group messages will be."
+
+#. Default: "Group Privacy"
+#: ./interfaces.py:104
+msgid "group-privacy-label"
+msgstr "Group privacy"
 
 #. Default: "The text \"${id}\" is not a valid group identifier. A group ID can only contain letters, numbers, dashes and underscores. Please pick another ID."
 #: ./interfaces.py:35
 msgid "invalid-id-msg"
-msgstr ""
+msgstr "The text \"${id}\" is not a valid group identifier. A group ID can only contain letters, numbers, dashes and underscores. Please pick another ID."
 
-#. Default: "Secret groups are <strong>hard</strong> to use: you, and the other group members, have to be logged in to even see that the group <em>exists.</em> <strong>Private</strong> groups also hide the messages posted to the group, but the members can see that they have to log in to view them."
-#: ./browser/templates/startgroup.pt:73
-msgid "secret-group-warning"
-msgstr ""
+#. Default: "There are errors:"
+#: ./startgroup.py:79
+msgid "multiple-errors"
+msgstr "There are errors:"
+
+#. Default: "There is an error:"
+#: ./startgroup.py:77
+msgid "single-error"
+msgstr "There is an error:"
+
+#. Default: "<strong>Start</strong> a group."
+#: ./browser/templates/startlink.pt:4
+msgid "site-home-start-link"
+msgstr "<strong>Start</strong> a group."
+
+#. Default: "Start"
+#: ./startgroup.py:48
+msgid "start-button"
+msgstr "Start"
+
+#. Default: "Start a group"
+#: ./startgroup.py:30
+msgid "start-page-label"
+msgstr "Start a group"
 
 #. Default: "The group ${groupName} has been started."
-#: ./startgroup.py:70
+#: ./startgroup.py:71
 msgid "start-status"
-msgstr ""
+msgstr "The group ${groupName} has been started."
 
 #. Default: "The identifier \"${id}\" is already being used. Please pick another ID."
 #: ./interfaces.py:63
 msgid "used-id-msg"
-msgstr ""
+msgstr "The identifier \"${id}\" is already being used. Please pick another ID."
 

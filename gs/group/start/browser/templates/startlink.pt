@@ -1,6 +1,6 @@
 <li xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="gs.group.start"
-    i18n:translate=""
     id="gs-group-start-link">
-  <a href="/startgroup.html"><strong>Start</strong> a group.</a>
+  <a href="/startgroup.html"
+     i18n:translate="site-home-start-link"><strong>Start</strong> a group.</a>
 </li>

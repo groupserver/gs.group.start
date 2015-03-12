@@ -27,7 +27,7 @@ from . import GSMessageFactory as _
 
 
 class StartGroupForm(SiteForm):
-    label = _('Start a group')
+    label = _('start-page-label', 'Start a group')
     pageTemplateFileName = 'browser/templates/startgroup.pt'
     template = ZopeTwoPageTemplateFile(pageTemplateFileName)
 
@@ -45,7 +45,8 @@ class StartGroupForm(SiteForm):
         retval = getOption(self.context, 'emailDomain', '')
         return retval
 
-    @form.action(label=_('Start'), failure='handle_start_action_failure')
+    @form.action(label=_('start-button', 'Start'), name='start',
+                 failure='handle_start_action_failure')
     def handle_start(self, action, data):
         groupMoirae = MoiraeForGroup(self.siteInfo)
         newGroup = groupMoirae.create(data['grpName'], data['grpId'],
@@ -73,6 +74,7 @@ class StartGroupForm(SiteForm):
 
     def handle_start_action_failure(self, action, data, errors):
         if len(errors) == 1:
-            self.status = _('<p>There is an error:</p>')
+            s = _('single-error', 'There is an error:')
         else:
-            self.status = _('<p>There are errors:</p>')
+            s = _('multiple-errors','There are errors:')
+        self.status = '<p>{0}</p>'.format(s)

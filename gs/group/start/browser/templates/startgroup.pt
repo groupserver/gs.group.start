@@ -20,10 +20,11 @@
     <ul metal:fill-slot="breadcrumb">
       <li class="site">
         <a tal:attributes="title string:${view/siteInfo/name} Homepage"
+           i18n:attributes="title site-home;"
            href="/" title="Home" class="icon-alone">
           <span aria-hidden="true" data-icon="&#x2302;"></span>
           <span class="screen-reader-text"
-                tal:content="string:${view/siteInfo/name} Homepage">Home</span></a>
+                i18n:translate="site-home"><span class="site" i18n:name="siteName"/> Homepage</span></a>
       </li>
       <li tal:content="view/label">Stuff</li>
     </ul>
@@ -49,20 +50,22 @@
       <div id="gs-group-start-info" role="region"
            aria-labelledby="gs-group-start-info-h">
         <h3 id="gs-group-start-info-h">New group summary</h3>
-        <ul id="group-preview" class="preview"
-            i18n:translate="group-preview">
-          <li>
+        <ul id="group-preview" class="preview">
+          <li i18n:translate="group-preview-name">
             The new group will have the <strong>name</strong>
-            <cite id="group-title-preview" class="grpFn">&#8230;</cite>.
+            <cite id="group-title-preview" class="grpFn"
+                  i18n:name="groupName">&#8230;</cite>.
           </li>
-          <li>
+          <li i18n:translate="group-preview-email">
             Members will post to the group by using the web or by sending
             an <strong>email</strong> to
-            <code class="email"><span class="groupId">&#8230;</span>@<span tal:content="view/emailDomain">?</span></code>.
+            <code class="email"
+                  i18n:name="groupEmail"><span class="groupId">&#8230;</span>@<span tal:content="view/emailDomain">?</span></code>.
           </li>
-          <li>
+          <li i18n:translate="group-preview-web">
             The <strong>web address</strong> for the group will be
-            <code class="url"><span tal:content="view/siteInfo/url">&#8230;</span>/groups/<span class="groupId">&#8230;</span></code>.
+            <code class="url"
+                  i18n:name="groupUrl"><span tal:content="view/siteInfo/url">&#8230;</span>/groups/<span class="groupId">&#8230;</span></code>.
           </li>
           <li>
             <span id="visiblity-preview">The group and posts will be
