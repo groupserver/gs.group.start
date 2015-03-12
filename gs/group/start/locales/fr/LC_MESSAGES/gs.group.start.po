@@ -1,11 +1,12 @@
 # 
 # Translators:
+# Michael JasonSmith <mpj17@onlinegroups.net>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: gs.group.start\n"
 "POT-Creation-Date: 2015-03-12 18:31+0000\n"
-"PO-Revision-Date: 2015-03-12 18:34+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2015-03-12 18:42+0000\n"
+"Last-Translator: Michael JasonSmith <mpj17@onlinegroups.net>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/gs-group-start/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +27,7 @@ msgstr ""
 #. Default: "Group ID"
 #: ./interfaces.py:96
 msgid "group-id-label"
-msgstr ""
+msgstr "ID du groupe"
 
 #. Default: "The name of your first group. You can change it later"
 #: ./interfaces.py:90
@@ -36,7 +37,7 @@ msgstr ""
 #. Default: "Group name"
 #: ./interfaces.py:89
 msgid "group-name-label"
-msgstr ""
+msgstr "Nom du groupe"
 
 #. Default: "How visible the group, and the group messages will be."
 #: ./interfaces.py:105
@@ -46,7 +47,7 @@ msgstr ""
 #. Default: "Group Privacy"
 #: ./interfaces.py:104
 msgid "group-privacy-label"
-msgstr ""
+msgstr "Confidentialité du groupe"
 
 #. Default: "The text \"${id}\" is not a valid group identifier. A group ID
 #. can only contain letters, numbers, dashes and underscores. Please pick
@@ -58,32 +59,32 @@ msgstr ""
 #. Default: "There are errors:"
 #: ./startgroup.py:79
 msgid "multiple-errors"
-msgstr ""
+msgstr "Des erreurs sont présentes :"
 
 #. Default: "There is an error:"
 #: ./startgroup.py:77
 msgid "single-error"
-msgstr ""
+msgstr "Une erreur est survenue"
 
 #. Default: "<strong>Start</strong> a group."
 #: ./browser/templates/startlink.pt:4
 msgid "site-home-start-link"
-msgstr ""
+msgstr "<strong>Démarrer</strong> un groupe."
 
 #. Default: "Start"
 #: ./startgroup.py:48
 msgid "start-button"
-msgstr ""
+msgstr "Démarrer"
 
 #. Default: "Start a group"
 #: ./startgroup.py:30
 msgid "start-page-label"
-msgstr ""
+msgstr "Démarrer un groupe"
 
 #. Default: "The group ${groupName} has been started."
 #: ./startgroup.py:71
 msgid "start-status"
-msgstr ""
+msgstr "Le group ${groupName} a été démarré"
 
 #. Default: "The identifier \"${id}\" is already being used. Please pick
 #. another ID."
