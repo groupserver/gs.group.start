@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.3.3 (2015-03-18)
+------------------
+
+* Fixing broken internationalisation on the *Start a group* page,
+  with thanks and apologies to Lady Donna Dutchess
+
 2.3.2 (2015-03-12)
 ------------------
 
