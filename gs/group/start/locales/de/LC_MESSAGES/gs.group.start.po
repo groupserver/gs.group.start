@@ -1,4 +1,4 @@
-#
+# 
 # Translators:
 # Alice Rose <heldinz@posteo.de>, 2015
 # Clara Adele von Randow <cvrandow@freenet.de>, 2015
@@ -6,23 +6,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gs.group.start\n"
 "POT-Creation-Date: 2015-09-21 23:19+0000\n"
-"PO-Revision-Date: 2015-08-06 14:43+0000\n"
-"Last-Translator: Clara Adele von Randow <cvrandow@freenet.de>\n"
+"PO-Revision-Date: 2015-09-21 16:29-0700\n"
+"Last-Translator: Michael JasonSmith <mpj17@onlinegroups.net>\n"
 "Language-Team: German (http://www.transifex.com/groupserver/gs-group-start/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
-"Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 "Language: de\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Preferred-Encodings: utf-8 latin1\n"
 
+#. Default: "The identifier for your group. It is used to create the URL and
 #. the email address for the group. You can only change it now."
-#. Default: "The identifier for your group. It is used to create the URL and the email address for the group. You can only change it now."
 #: ./interfaces.py:97
-#, fuzzy
 msgid "group-id-help"
 msgstr "Das Kennzeichen Ihrer Gruppe. Es wird zum Erstellen der URL und der E-Mail-Adresse der Gruppe verwendet. Sie können es ausschließlich jetzt verändern."
 
@@ -31,7 +30,9 @@ msgstr "Das Kennzeichen Ihrer Gruppe. Es wird zum Erstellen der URL und der E-Ma
 msgid "group-id-label"
 msgstr "Gruppenkennzeichnung"
 
-#. Default: "<strong class=\"label alert-label\">Group ID In Use:</strong> The Group ID <code>above</code> is already being used. Please pick another group ID."
+#. Default: "<strong class=\"label alert-label\">Group ID In Use:</strong> The
+#. Group ID <code>above</code> is already being used. Please pick another
+#. group ID."
 #: ./browser/templates/startgroup.pt:38
 msgid "group-id-used"
 msgstr ""
@@ -46,7 +47,8 @@ msgstr "Der Name Ihrer ersten Gruppe. Sie können ihn später ändern."
 msgid "group-name-label"
 msgstr "Gruppenname"
 
-#. Default: "Members will post to the group by using the web or by sending an <strong>email</strong> to ${groupEmail}."
+#. Default: "Members will post to the group by using the web or by sending an
+#. <strong>email</strong> to ${groupEmail}."
 #: ./browser/templates/startgroup.pt:60
 msgid "group-preview-email"
 msgstr ""
@@ -56,7 +58,8 @@ msgstr ""
 msgid "group-preview-name"
 msgstr ""
 
-#. Default: "The <strong>web address</strong> for the group will be ${groupUrl}."
+#. Default: "The <strong>web address</strong> for the group will be
+#. ${groupUrl}."
 #: ./browser/templates/startgroup.pt:65
 msgid "group-preview-web"
 msgstr ""
@@ -71,11 +74,10 @@ msgstr "Wie einsehbar die Gruppe und die Nachrichten der Gruppe sein werden."
 msgid "group-privacy-label"
 msgstr "Privatsphäre der Gruppe"
 
+#. Default: "The text \"${id}\" is not a valid group identifier. A group ID
 #. can only contain letters, numbers, dashes and underscores. Please pick
 #. another ID."
-#. Default: "The text \"${id}\" is not a valid group identifier. A group ID can only contain letters, numbers, dashes and underscores. Please pick another ID."
 #: ./interfaces.py:35
-#, fuzzy
 msgid "invalid-id-msg"
 msgstr "Der Text \"${id}\" ist keine gültige Gruppenkennzeichnung. Eine Gruppenkennzeichnung kann ausschließlich Buchstaben, Zahlen, Gedankenstriche und Unterstriche beinhalten. Bitte wählen Sie eine andere Kennzeichnung."
 
@@ -84,7 +86,11 @@ msgstr "Der Text \"${id}\" ist keine gültige Gruppenkennzeichnung. Eine Gruppen
 msgid "multiple-errors"
 msgstr "Es sind mehrere Fehler aufgetreten:"
 
-#. Default: "Secret groups are <strong>hard</strong> to use: you, and the other group members, have to be logged in to even see that the group <em>exists.</em> <strong>Private</strong> groups also hide the messages posted to the group, but the members can see that they have to log in to view them."
+#. Default: "Secret groups are <strong>hard</strong> to use: you, and the
+#. other group members, have to be logged in to even see that the group
+#. <em>exists.</em> <strong>Private</strong> groups also hide the messages
+#. posted to the group, but the members can see that they have to log in to
+#. view them."
 #: ./browser/templates/startgroup.pt:74
 msgid "secret-group-warning"
 msgstr ""
@@ -119,10 +125,8 @@ msgstr "Eine Gruppe erstellen"
 msgid "start-status"
 msgstr "Die Gruppe ${groupName} wurde erstellt."
 
+#. Default: "The identifier \"${id}\" is already being used. Please pick
 #. another ID."
-#. Default: "The identifier \"${id}\" is already being used. Please pick another ID."
 #: ./interfaces.py:63
-#, fuzzy
 msgid "used-id-msg"
-msgstr "Die Kennzeichnung \"${id}\" ist schon in Benutzung. Bitte wählen Sie eine andere Kennzeichnung."
-
+msgstr "<Die Kennzeichnung \"${id}\" ist schon in Benutzung. Bitte wählen Sie eine andere Kennzeichnung."

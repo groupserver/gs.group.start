@@ -1,24 +1,24 @@
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: gs.group.start\n"
 "POT-Creation-Date: 2015-09-21 23:19+0000\n"
-"PO-Revision-Date: 2015-03-12 18:34+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Spanish (Venezuela) (http://www.transifex.com/projects/p/gs-group-start/language/es_VE/)\n"
+"PO-Revision-Date: 2015-09-21 23:25+0000\n"
+"Last-Translator: Michael JasonSmith <mpj17@onlinegroups.net>\n"
+"Language-Team: Spanish (Venezuela) (http://www.transifex.com/groupserver/gs-group-start/language/es_VE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
-"Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 "Language: es_VE\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Preferred-Encodings: utf-8 latin1\n"
 
+#. Default: "The identifier for your group. It is used to create the URL and
 #. the email address for the group. You can only change it now."
-#. Default: "The identifier for your group. It is used to create the URL and the email address for the group. You can only change it now."
 #: ./interfaces.py:97
 msgid "group-id-help"
 msgstr ""
@@ -28,7 +28,9 @@ msgstr ""
 msgid "group-id-label"
 msgstr ""
 
-#. Default: "<strong class=\"label alert-label\">Group ID In Use:</strong> The Group ID <code>above</code> is already being used. Please pick another group ID."
+#. Default: "<strong class=\"label alert-label\">Group ID In Use:</strong> The
+#. Group ID <code>above</code> is already being used. Please pick another
+#. group ID."
 #: ./browser/templates/startgroup.pt:38
 msgid "group-id-used"
 msgstr ""
@@ -43,7 +45,8 @@ msgstr ""
 msgid "group-name-label"
 msgstr ""
 
-#. Default: "Members will post to the group by using the web or by sending an <strong>email</strong> to ${groupEmail}."
+#. Default: "Members will post to the group by using the web or by sending an
+#. <strong>email</strong> to ${groupEmail}."
 #: ./browser/templates/startgroup.pt:60
 msgid "group-preview-email"
 msgstr ""
@@ -53,7 +56,8 @@ msgstr ""
 msgid "group-preview-name"
 msgstr ""
 
-#. Default: "The <strong>web address</strong> for the group will be ${groupUrl}."
+#. Default: "The <strong>web address</strong> for the group will be
+#. ${groupUrl}."
 #: ./browser/templates/startgroup.pt:65
 msgid "group-preview-web"
 msgstr ""
@@ -68,9 +72,9 @@ msgstr ""
 msgid "group-privacy-label"
 msgstr ""
 
+#. Default: "The text \"${id}\" is not a valid group identifier. A group ID
 #. can only contain letters, numbers, dashes and underscores. Please pick
 #. another ID."
-#. Default: "The text \"${id}\" is not a valid group identifier. A group ID can only contain letters, numbers, dashes and underscores. Please pick another ID."
 #: ./interfaces.py:35
 msgid "invalid-id-msg"
 msgstr ""
@@ -80,7 +84,11 @@ msgstr ""
 msgid "multiple-errors"
 msgstr ""
 
-#. Default: "Secret groups are <strong>hard</strong> to use: you, and the other group members, have to be logged in to even see that the group <em>exists.</em> <strong>Private</strong> groups also hide the messages posted to the group, but the members can see that they have to log in to view them."
+#. Default: "Secret groups are <strong>hard</strong> to use: you, and the
+#. other group members, have to be logged in to even see that the group
+#. <em>exists.</em> <strong>Private</strong> groups also hide the messages
+#. posted to the group, but the members can see that they have to log in to
+#. view them."
 #: ./browser/templates/startgroup.pt:74
 msgid "secret-group-warning"
 msgstr ""
@@ -115,9 +123,8 @@ msgstr ""
 msgid "start-status"
 msgstr ""
 
+#. Default: "The identifier \"${id}\" is already being used. Please pick
 #. another ID."
-#. Default: "The identifier \"${id}\" is already being used. Please pick another ID."
 #: ./interfaces.py:63
 msgid "used-id-msg"
 msgstr ""
-
