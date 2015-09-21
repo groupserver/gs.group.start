@@ -1,12 +1,14 @@
 # 
 # Translators:
+# Alice Rose <heldinz@posteo.de>, 2015
+# Clara Adele von Randow <cvrandow@freenet.de>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: gs.group.start\n"
 "POT-Creation-Date: 2015-03-12 18:31+0000\n"
-"PO-Revision-Date: 2015-03-12 18:34+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/gs-group-start/language/de/)\n"
+"PO-Revision-Date: 2015-08-06 14:43+0000\n"
+"Last-Translator: Clara Adele von Randow <cvrandow@freenet.de>\n"
+"Language-Team: German (http://www.transifex.com/groupserver/gs-group-start/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,72 +23,72 @@ msgstr ""
 #. the email address for the group. You can only change it now."
 #: ./interfaces.py:97
 msgid "group-id-help"
-msgstr ""
+msgstr "Das Kennzeichen Ihrer Gruppe. Es wird zum Erstellen der URL und der E-Mail-Adresse der Gruppe verwendet. Sie können es ausschließlich jetzt verändern."
 
 #. Default: "Group ID"
 #: ./interfaces.py:96
 msgid "group-id-label"
-msgstr ""
+msgstr "Gruppenkennzeichnung"
 
 #. Default: "The name of your first group. You can change it later"
 #: ./interfaces.py:90
 msgid "group-name-help"
-msgstr ""
+msgstr "Der Name Ihrer ersten Gruppe. Sie können ihn später ändern."
 
 #. Default: "Group name"
 #: ./interfaces.py:89
 msgid "group-name-label"
-msgstr ""
+msgstr "Gruppenname"
 
 #. Default: "How visible the group, and the group messages will be."
 #: ./interfaces.py:105
 msgid "group-privacy-help"
-msgstr ""
+msgstr "Wie einsehbar die Gruppe und die Nachrichten der Gruppe sein werden."
 
 #. Default: "Group Privacy"
 #: ./interfaces.py:104
 msgid "group-privacy-label"
-msgstr ""
+msgstr "Privatsphäre der Gruppe"
 
 #. Default: "The text \"${id}\" is not a valid group identifier. A group ID
 #. can only contain letters, numbers, dashes and underscores. Please pick
 #. another ID."
 #: ./interfaces.py:35
 msgid "invalid-id-msg"
-msgstr ""
+msgstr "Der Text \"${id}\" ist keine gültige Gruppenkennzeichnung. Eine Gruppenkennzeichnung kann ausschließlich Buchstaben, Zahlen, Gedankenstriche und Unterstriche beinhalten. Bitte wählen Sie eine andere Kennzeichnung."
 
 #. Default: "There are errors:"
 #: ./startgroup.py:79
 msgid "multiple-errors"
-msgstr ""
+msgstr "Es sind mehrere Fehler aufgetreten:"
 
 #. Default: "There is an error:"
 #: ./startgroup.py:77
 msgid "single-error"
-msgstr ""
+msgstr "Es ist ein Fehler aufgetreten:"
 
 #. Default: "<strong>Start</strong> a group."
 #: ./browser/templates/startlink.pt:4
 msgid "site-home-start-link"
-msgstr ""
+msgstr "Eine Gruppe <strong>erstellen</strong>."
 
 #. Default: "Start"
 #: ./startgroup.py:48
 msgid "start-button"
-msgstr ""
+msgstr "Erstellen"
 
 #. Default: "Start a group"
 #: ./startgroup.py:30
 msgid "start-page-label"
-msgstr ""
+msgstr "Eine Gruppe erstellen"
 
 #. Default: "The group ${groupName} has been started."
 #: ./startgroup.py:71
 msgid "start-status"
-msgstr ""
+msgstr "Die Gruppe ${groupName} wurde erstellt."
 
 #. Default: "The identifier \"${id}\" is already being used. Please pick
 #. another ID."
 #: ./interfaces.py:63
 msgid "used-id-msg"
-msgstr ""
+msgstr "Die Kennzeichnung \"${id}\" ist schon in Benutzung. Bitte wählen Sie eine andere Kennzeichnung."

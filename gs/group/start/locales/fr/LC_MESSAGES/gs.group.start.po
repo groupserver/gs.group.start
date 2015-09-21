@@ -1,13 +1,14 @@
 # 
 # Translators:
 # Michael JasonSmith <mpj17@onlinegroups.net>, 2015
+# Razique Mahroua <razique.mahroua@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: gs.group.start\n"
 "POT-Creation-Date: 2015-03-12 18:31+0000\n"
-"PO-Revision-Date: 2015-03-12 18:42+0000\n"
-"Last-Translator: Michael JasonSmith <mpj17@onlinegroups.net>\n"
-"Language-Team: French (http://www.transifex.com/projects/p/gs-group-start/language/fr/)\n"
+"PO-Revision-Date: 2015-03-14 18:12+0000\n"
+"Last-Translator: Razique Mahroua <razique.mahroua@gmail.com>\n"
+"Language-Team: French (http://www.transifex.com/groupserver/gs-group-start/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +23,7 @@ msgstr ""
 #. the email address for the group. You can only change it now."
 #: ./interfaces.py:97
 msgid "group-id-help"
-msgstr ""
+msgstr "L'identifiant pour votre groupe. Il est utilisé pour créer l'adresse et l'adresse e-mail pour ce groupe. Attention, il ne vous sera pas pas possible de le modifier plus tard."
 
 #. Default: "Group ID"
 #: ./interfaces.py:96
@@ -32,7 +33,7 @@ msgstr "ID du groupe"
 #. Default: "The name of your first group. You can change it later"
 #: ./interfaces.py:90
 msgid "group-name-help"
-msgstr ""
+msgstr "Le nom de votre premier groupe. Vous pourrez le modifier plus tard."
 
 #. Default: "Group name"
 #: ./interfaces.py:89
@@ -42,7 +43,7 @@ msgstr "Nom du groupe"
 #. Default: "How visible the group, and the group messages will be."
 #: ./interfaces.py:105
 msgid "group-privacy-help"
-msgstr ""
+msgstr "Contrôle la visibilité du groupe, ainsi que la visibilité de ses messages."
 
 #. Default: "Group Privacy"
 #: ./interfaces.py:104
@@ -54,7 +55,7 @@ msgstr "Confidentialité du groupe"
 #. another ID."
 #: ./interfaces.py:35
 msgid "invalid-id-msg"
-msgstr ""
+msgstr "The texte \"${id}\" n'est pas un identifiant de groupe valide. Un identifiant de groupe ne peut contenir que des lettres, des chiffres, des tirets, ainsi que des underscores. Veuillez choisir un autre identifiant."
 
 #. Default: "There are errors:"
 #: ./startgroup.py:79
@@ -90,4 +91,4 @@ msgstr "Le group ${groupName} a été démarré"
 #. another ID."
 #: ./interfaces.py:63
 msgid "used-id-msg"
-msgstr ""
+msgstr "L'identifiant \"${id}\" est déjà utilisé. Veuillez en choisir un autre."

@@ -4,6 +4,8 @@ Changelog
 2.3.4 (2015-09-21)
 ------------------
 
+* [DE] Updating the German translation, thanks to Cousin Clara
+* [FR] Updating the French translation, thanks to Razique Mahroua
 * Using ``Hello`` rather than ``Dear`` in the opening salutation
   of the notifications
 * Using ``subject`` rather than ``Subject`` in ``mailto:`` URIs
