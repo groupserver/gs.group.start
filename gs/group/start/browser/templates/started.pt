@@ -12,7 +12,7 @@
          tal:define="userInfo options/adminInfo | view/loggedInUserInfo;">
       <h2 tal:content="view/groupInfo/name">This Group</h2>
       <p>
-        Dear
+        Hello
         <span tal:content="userInfo/name">New Member</span>,
       </p>
       <p>
