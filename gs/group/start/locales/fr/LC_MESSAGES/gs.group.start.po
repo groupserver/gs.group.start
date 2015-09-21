@@ -1,27 +1,28 @@
-# 
+#
 # Translators:
 # Michael JasonSmith <mpj17@onlinegroups.net>, 2015
 # Razique Mahroua <razique.mahroua@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: gs.group.start\n"
-"POT-Creation-Date: 2015-03-12 18:31+0000\n"
+"POT-Creation-Date: 2015-09-21 23:19+0000\n"
 "PO-Revision-Date: 2015-03-14 18:12+0000\n"
 "Last-Translator: Razique Mahroua <razique.mahroua@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/groupserver/gs-group-start/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Domain: DOMAIN\n"
-"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Language-Code: en\n"
 "Language-Name: English\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+"Language: fr\n"
 
-#. Default: "The identifier for your group. It is used to create the URL and
 #. the email address for the group. You can only change it now."
+#. Default: "The identifier for your group. It is used to create the URL and the email address for the group. You can only change it now."
 #: ./interfaces.py:97
+#, fuzzy
 msgid "group-id-help"
 msgstr "L'identifiant pour votre groupe. Il est utilisé pour créer l'adresse et l'adresse e-mail pour ce groupe. Attention, il ne vous sera pas pas possible de le modifier plus tard."
 
@@ -29,6 +30,11 @@ msgstr "L'identifiant pour votre groupe. Il est utilisé pour créer l'adresse e
 #: ./interfaces.py:96
 msgid "group-id-label"
 msgstr "ID du groupe"
+
+#. Default: "<strong class=\"label alert-label\">Group ID In Use:</strong> The Group ID <code>above</code> is already being used. Please pick another group ID."
+#: ./browser/templates/startgroup.pt:38
+msgid "group-id-used"
+msgstr ""
 
 #. Default: "The name of your first group. You can change it later"
 #: ./interfaces.py:90
@@ -40,6 +46,21 @@ msgstr "Le nom de votre premier groupe. Vous pourrez le modifier plus tard."
 msgid "group-name-label"
 msgstr "Nom du groupe"
 
+#. Default: "Members will post to the group by using the web or by sending an <strong>email</strong> to ${groupEmail}."
+#: ./browser/templates/startgroup.pt:60
+msgid "group-preview-email"
+msgstr ""
+
+#. Default: "The new group will have the <strong>name</strong> ${groupName}."
+#: ./browser/templates/startgroup.pt:54
+msgid "group-preview-name"
+msgstr ""
+
+#. Default: "The <strong>web address</strong> for the group will be ${groupUrl}."
+#: ./browser/templates/startgroup.pt:65
+msgid "group-preview-web"
+msgstr ""
+
 #. Default: "How visible the group, and the group messages will be."
 #: ./interfaces.py:105
 msgid "group-privacy-help"
@@ -50,10 +71,11 @@ msgstr "Contrôle la visibilité du groupe, ainsi que la visibilité de ses mess
 msgid "group-privacy-label"
 msgstr "Confidentialité du groupe"
 
-#. Default: "The text \"${id}\" is not a valid group identifier. A group ID
 #. can only contain letters, numbers, dashes and underscores. Please pick
 #. another ID."
+#. Default: "The text \"${id}\" is not a valid group identifier. A group ID can only contain letters, numbers, dashes and underscores. Please pick another ID."
 #: ./interfaces.py:35
+#, fuzzy
 msgid "invalid-id-msg"
 msgstr "The texte \"${id}\" n'est pas un identifiant de groupe valide. Un identifiant de groupe ne peut contenir que des lettres, des chiffres, des tirets, ainsi que des underscores. Veuillez choisir un autre identifiant."
 
@@ -62,10 +84,20 @@ msgstr "The texte \"${id}\" n'est pas un identifiant de groupe valide. Un identi
 msgid "multiple-errors"
 msgstr "Des erreurs sont présentes :"
 
+#. Default: "Secret groups are <strong>hard</strong> to use: you, and the other group members, have to be logged in to even see that the group <em>exists.</em> <strong>Private</strong> groups also hide the messages posted to the group, but the members can see that they have to log in to view them."
+#: ./browser/templates/startgroup.pt:74
+msgid "secret-group-warning"
+msgstr ""
+
 #. Default: "There is an error:"
 #: ./startgroup.py:77
 msgid "single-error"
 msgstr "Une erreur est survenue"
+
+#. Default: "${siteName} Homepage"
+#: ./browser/templates/startgroup.pt:25
+msgid "site-home"
+msgstr ""
 
 #. Default: "<strong>Start</strong> a group."
 #: ./browser/templates/startlink.pt:4
@@ -87,8 +119,10 @@ msgstr "Démarrer un groupe"
 msgid "start-status"
 msgstr "Le group ${groupName} a été démarré"
 
-#. Default: "The identifier \"${id}\" is already being used. Please pick
 #. another ID."
+#. Default: "The identifier \"${id}\" is already being used. Please pick another ID."
 #: ./interfaces.py:63
+#, fuzzy
 msgid "used-id-msg"
 msgstr "L'identifiant \"${id}\" est déjà utilisé. Veuillez en choisir un autre."
+

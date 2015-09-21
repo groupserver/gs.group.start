@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-12 18:31+0000\n"
-"PO-Revision-Date: 2015-03-12 11:33-0700\n"
+"POT-Creation-Date: 2015-09-21 23:19+0000\n"
+"PO-Revision-Date: 2015-09-21 16:22-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,11 @@ msgstr "The identifier for your group. It is used to create the URL and the emai
 msgid "group-id-label"
 msgstr "Group ID"
 
+#. Default: "<strong class=\"label alert-label\">Group ID In Use:</strong> The Group ID <code>above</code> is already being used. Please pick another group ID."
+#: ./browser/templates/startgroup.pt:38
+msgid "group-id-used"
+msgstr ""
+
 #. Default: "The name of your first group. You can change it later"
 #: ./interfaces.py:90
 msgid "group-name-help"
@@ -33,6 +38,21 @@ msgstr "The name of your first group. You can change it later."
 #: ./interfaces.py:89
 msgid "group-name-label"
 msgstr "Group name"
+
+#. Default: "Members will post to the group by using the web or by sending an <strong>email</strong> to ${groupEmail}."
+#: ./browser/templates/startgroup.pt:60
+msgid "group-preview-email"
+msgstr "Members will post to the group by using the web or by sending an <b>email</b> to ${groupEmail}."
+
+#. Default: "The new group will have the <strong>name</strong> ${groupName}."
+#: ./browser/templates/startgroup.pt:54
+msgid "group-preview-name"
+msgstr ""
+
+#. Default: "The <strong>web address</strong> for the group will be ${groupUrl}."
+#: ./browser/templates/startgroup.pt:65
+msgid "group-preview-web"
+msgstr "The <b>web address</b> for the group will be ${groupUrl}."
 
 #. Default: "How visible the group, and the group messages will be."
 #: ./interfaces.py:105
@@ -54,10 +74,20 @@ msgstr "The text \"${id}\" is not a valid group identifier. A group ID can only 
 msgid "multiple-errors"
 msgstr "There are errors:"
 
+#. Default: "Secret groups are <strong>hard</strong> to use: you, and the other group members, have to be logged in to even see that the group <em>exists.</em> <strong>Private</strong> groups also hide the messages posted to the group, but the members can see that they have to log in to view them."
+#: ./browser/templates/startgroup.pt:74
+msgid "secret-group-warning"
+msgstr "Secret groups are <b>hard</b> to use: you, and the other group members, have to be logged in to even see that the group <i>exists.</i> <b>Private</b> groups also hide the messages posted to the group, but the members can see that they have to log in to view them."
+
 #. Default: "There is an error:"
 #: ./startgroup.py:77
 msgid "single-error"
 msgstr "There is an error:"
+
+#. Default: "${siteName} Homepage"
+#: ./browser/templates/startgroup.pt:25
+msgid "site-home"
+msgstr "${siteName} Homepage"
 
 #. Default: "<strong>Start</strong> a group."
 #: ./browser/templates/startlink.pt:4
@@ -81,6 +111,7 @@ msgstr "The group ${groupName} has been started."
 
 #. Default: "The identifier \"${id}\" is already being used. Please pick another ID."
 #: ./interfaces.py:63
+#, fuzzy
 msgid "used-id-msg"
 msgstr "The identifier \"${id}\" is already being used. Please pick another ID."
 

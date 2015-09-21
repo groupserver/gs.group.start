@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-12 18:31+0000\n"
+"POT-Creation-Date: 2015-09-21 23:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,6 +27,11 @@ msgstr ""
 msgid "group-id-label"
 msgstr ""
 
+#. Default: "<strong class=\"label alert-label\">Group ID In Use:</strong> The Group ID <code>above</code> is already being used. Please pick another group ID."
+#: ./browser/templates/startgroup.pt:38
+msgid "group-id-used"
+msgstr ""
+
 #. Default: "The name of your first group. You can change it later"
 #: ./interfaces.py:90
 msgid "group-name-help"
@@ -35,6 +40,21 @@ msgstr ""
 #. Default: "Group name"
 #: ./interfaces.py:89
 msgid "group-name-label"
+msgstr ""
+
+#. Default: "Members will post to the group by using the web or by sending an <strong>email</strong> to ${groupEmail}."
+#: ./browser/templates/startgroup.pt:60
+msgid "group-preview-email"
+msgstr ""
+
+#. Default: "The new group will have the <strong>name</strong> ${groupName}."
+#: ./browser/templates/startgroup.pt:54
+msgid "group-preview-name"
+msgstr ""
+
+#. Default: "The <strong>web address</strong> for the group will be ${groupUrl}."
+#: ./browser/templates/startgroup.pt:65
+msgid "group-preview-web"
 msgstr ""
 
 #. Default: "How visible the group, and the group messages will be."
@@ -57,9 +77,19 @@ msgstr ""
 msgid "multiple-errors"
 msgstr ""
 
+#. Default: "Secret groups are <strong>hard</strong> to use: you, and the other group members, have to be logged in to even see that the group <em>exists.</em> <strong>Private</strong> groups also hide the messages posted to the group, but the members can see that they have to log in to view them."
+#: ./browser/templates/startgroup.pt:74
+msgid "secret-group-warning"
+msgstr ""
+
 #. Default: "There is an error:"
 #: ./startgroup.py:77
 msgid "single-error"
+msgstr ""
+
+#. Default: "${siteName} Homepage"
+#: ./browser/templates/startgroup.pt:25
+msgid "site-home"
 msgstr ""
 
 #. Default: "<strong>Start</strong> a group."
