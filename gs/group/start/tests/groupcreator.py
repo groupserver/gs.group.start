@@ -13,7 +13,7 @@
 #
 ############################################################################
 from __future__ import absolute_import, unicode_literals, print_function
-from mock import MagicMock, patch
+from mock import MagicMock, patch, call
 from unittest import TestCase
 from gs.group.start.groupcreator import (MoiraeForGroup, )
 
@@ -92,3 +92,51 @@ class MoiraeForGroupFolderTest(TestCase):
         m.groupsFolder = MagicMock()
         with self.assertRaises(AttributeError):
             m.delete_group_folder('example')
+
+
+class MoiraeForGroupPropertiesTest(TestCase):
+    def test_set_properties(self):
+        m = MoiraeForGroup(MagicMock())
+        folder = MagicMock()
+        m.set_group_properties(folder, 'Example')
+
+        calls = [
+            call(b'is_group', True, b'boolean'),
+            call(b'short_name', 'example', b'string'),  # Note: lower case "example"
+            call(b'real_life_group', 'people in Example', b'string'),
+            call(b'group_template', b'standard', b'string'), ]
+        folder.manage_addProperty.assert_has_calls(calls)
+        folder.manage_changeProperties.assert_called_with(title='Example')
+
+    def test_set_security(self):
+        m = MoiraeForGroup(MagicMock())
+        m.site_root = MagicMock()
+        folder = MagicMock()
+        folder.getId.return_value = 'example'
+        adminInfo = MagicMock()
+        adminInfo.id = 'an_admin'
+        m.set_security(folder, adminInfo)
+
+        m.site_root.acl_users.userFolderAddGroup.assert_called_with('example_member')
+        self.assertEqual(2, folder.manage_defined_roles.call_count)
+        folder.manage_addLocalGroupRoles.assert_called_with(b'example_member', [b'GroupMember', ])
+        folder.manage_addLocalRoles.assert_called_with('an_admin', (b'GroupAdmin', ))
+
+    def test_del_user_group(self):
+        m = MoiraeForGroup(MagicMock())
+        m.site_root = MagicMock()
+        m.delete_user_group('example')
+
+        m.site_root.acl_users.userFolderDelGroups.assert_called_with([b'example_member'])
+
+    def test_create_administration(self):
+        m = MoiraeForGroup(MagicMock())
+        folder = MagicMock()
+        m.create_administration(folder)
+
+        calls = [
+            call(b'Manage users', [b'DivisionAdmin', b'GroupAdmin', b'Manager', b'Owner'], 0),
+            call(b'Manage properties', [b'DivisionAdmin', b'Manager', b'Owner'], 0),
+            call(b'Add Page Templates', [b'DivisionAdmin', b'Manager', b'Owner'], 0),
+            call(b'Add Folders', [b'DivisionAdmin', b'Manager', b'Owner'], 0), ]
+        folder.manage_permission.assert_has_calls(calls)
