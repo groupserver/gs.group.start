@@ -16,7 +16,10 @@ from __future__ import absolute_import, unicode_literals
 from unittest import TestSuite, main as unittest_main
 from gs.group.start.tests.checkid import (
     CheckIdUserTest, CheckIdSiteTest, CheckIdGroupTest, CheckIdExistsCheck, )
-testCases = (CheckIdUserTest, CheckIdSiteTest, CheckIdGroupTest, CheckIdExistsCheck, )
+from gs.group.start.tests.groupcreator import (
+    MoiraeForGroupExceptionTest, MoiraeForGroupFolderTest, )
+testCases = (CheckIdUserTest, CheckIdSiteTest, CheckIdGroupTest, CheckIdExistsCheck,
+             MoiraeForGroupExceptionTest, MoiraeForGroupFolderTest)
 
 
 def load_tests(loader, tests, pattern):
