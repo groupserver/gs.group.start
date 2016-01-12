@@ -1,11 +1,12 @@
 Changelog
 =========
 
-2.3.5 (2016-01-11)
+2.3.5 (2016-01-12)
 ------------------
 
-* [DE] Further updates to the German translation, thanks to Alice
-  Rose and `Stephan G. Blendinger`_
+* [DE] Updating the German translation, thanks to Alice and
+  `Stephan G. Blendinger`_
+* Adding unit tests
 
 .. _Stephan G. Blendinger:
    https://www.transifex.com/user/profile/stephanblendinger/
@@ -118,7 +119,7 @@ Changelog
 1.1.1 (2011-12-19)
 ------------------
 
-* Adding a link to the *Administer Site* page 
+* Adding a link to the *Administer Site* page
 * Switching to ``gs.group.type.discussion`` as the base group
   type, and purged ``Products.XWFChat`` from the codebase
 
