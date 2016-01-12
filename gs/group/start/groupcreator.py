@@ -170,16 +170,22 @@ class MoiraeForGroup(object):
         assert group, 'No group'
         assert mailhost, 'No mailhost'
         listManager = self.site_root.ListManager
-        assert not(hasattr(listManager.aq_explicit, group.getId())), \
-            'The ListManager already has a list for "%s".' % group.getId()
+        if hasattr(listManager.aq_explicit, group.getId()):
+            m = 'The ListManager already has a list for "{0}".'.format(group.getId())
+            raise ValueError(m)
         mailto = '%s@%s' % (group.getId(), mailhost)
         xwfmailingList = \
             listManager.manage_addProduct[b'XWFMailingListManager']
         xwfmailingList.manage_addXWFMailingList(group.getId(), mailto,
                                                 group.title_or_id().lower())
-        assert hasattr(listManager.aq_explicit, group.getId()), \
-            'The list "%s" was not created in ListManager.' % group.getId()
+        groupList = self.set_list_properties(group)
+        return groupList
+
+    def set_list_properties(self, group):
         listManager = self.site_root.ListManager
+        if not hasattr(listManager.aq_explicit, group.getId()):
+            m = 'The ListManager lacks a list for "{0}".'.format(group.getId())
+            raise ValueError(m)
         groupList = getattr(listManager.aq_explicit, group.getId())
         groupList.manage_addProperty(b'siteId', self.siteInfo.id, b'string')
         groupList.manage_addProperty(b'use_rdb', True, b'boolean')

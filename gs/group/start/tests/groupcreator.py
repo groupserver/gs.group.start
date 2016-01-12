@@ -65,7 +65,7 @@ class MoiraeForGroupExceptionTest(TestCase):
 
 
 class MoiraeForGroupFolderTest(TestCase):
-    'Test the creating and deleting the folder'
+    'Test the creating and deleting the group folder'
 
     @patch('gs.group.start.groupcreator.GSGroupFolder')
     @patch('gs.group.start.groupcreator.add_marker_interfaces')
@@ -95,6 +95,8 @@ class MoiraeForGroupFolderTest(TestCase):
 
 
 class MoiraeForGroupPropertiesTest(TestCase):
+    'Tets for the group properties'
+
     def test_set_properties(self):
         m = MoiraeForGroup(MagicMock())
         folder = MagicMock()
@@ -140,3 +142,145 @@ class MoiraeForGroupPropertiesTest(TestCase):
             call(b'Add Page Templates', [b'DivisionAdmin', b'Manager', b'Owner'], 0),
             call(b'Add Folders', [b'DivisionAdmin', b'Manager', b'Owner'], 0), ]
         folder.manage_permission.assert_has_calls(calls)
+
+
+class MoiraeForGroupListTest(TestCase):
+    'Tests for the mailing-list objects'
+
+    @patch.object(MoiraeForGroup, 'set_list_properties')
+    def test_create_list(self, m_slp):
+        m = MoiraeForGroup(MagicMock())
+        m.site_root = MagicMock()
+        del m.site_root.ListManager.aq_explicit.example  # So we do not throw a ValueError
+        folder = MagicMock()
+        folder.getId.return_value = 'example'
+        folder.title_or_id.return_value = 'Example'
+        m.create_list(folder, 'example.com')
+
+        m_ap = m.site_root.ListManager.manage_addProduct[b'XWFMailingListManager']
+        m_ap.manage_addXWFMailingList.assert_called_once_with(
+            'example', 'example@example.com', 'example')
+        m_slp.assert_called_once_with(folder)
+
+    def test_set_list_poperties(self):
+        m = MoiraeForGroup(MagicMock())
+        m.site_root = MagicMock()
+        m.siteInfo = MagicMock()
+        m.siteInfo.id = 'example_site'
+        folder = MagicMock()
+        folder.getId.return_value = 'example'
+        folder.title_or_id.return_value = 'Example'
+        m.set_list_properties(folder)
+
+        l = m.site_root.ListManager.aq_explicit.example
+        calls = [
+            call(b'siteId', 'example_site', b'string'),
+            call(b'use_rdb', True, b'boolean'), ]
+        l.manage_addProperty.assert_has_calls(calls)
+        l.manage_delObjects.assert_called_once_with([b'archive'])
+
+    def test_create_list_exists(self):
+        'Test that we cannot create an existing list'
+        m = MoiraeForGroup(MagicMock())
+        m.site_root = MagicMock()
+        folder = MagicMock()
+        folder.getId.return_value = 'example'
+        # The MagicMock will automatically provide the site_root.ListManger.example attribute
+        with self.assertRaises(ValueError):
+            m.create_list(folder, 'example.com')
+
+    def test_delete_list(self):
+        m = MoiraeForGroup(MagicMock())
+        m.site_root = MagicMock()
+        m.delete_list('example')
+
+        m.site_root.ListManager.manage_delObjects.assert_called_once_with(['example', ])
+
+
+class MoiraeForGroupFilesMessagesTest(TestCase):
+    'Tests for the files and messages folders'
+    def test_create_messages(self):
+        folder = MagicMock()
+        folder.getId.return_value = 'example'
+        m = MoiraeForGroup(MagicMock())
+        m.create_messages_area(folder)
+
+        m_ap = folder.manage_addProduct[b'XWFMailingListManager']
+        m_ap.manage_addXWFVirtualMailingListArchive2.assert_called_once_with(
+            b'messages', 'Messages')
+        folder.messages.manage_changeProperties.assert_called_once_with(
+            xwf_mailing_list_manager_path=b'ListManager',
+            xwf_mailing_list_ids=['example'])
+
+    def test_create_files(self):
+        folder = MagicMock()
+        folder.getId.return_value = 'example'
+        m = MoiraeForGroup(MagicMock())
+        m.create_files_area(folder)
+
+        m_ap = folder.manage_addProduct[b'XWFFileLibrary2']
+        m_ap.manage_addXWFVirtualFileFolder2.assert_called_once_with(
+            b'files', 'Files')
+
+
+class MoiraeForGroupPrivacyTest(TestCase):
+
+    @patch('gs.group.start.groupcreator.IGSChangePrivacy')
+    @patch('gs.group.start.groupcreator.get_the_actual_instance_from_zope')
+    @patch('gs.group.start.groupcreator.GSGroupInfo')
+    def test_set_privacy_public(self, m_GSGI, m_gaifz, m_IGSCP):
+        m = MoiraeForGroup(MagicMock())
+        folder = MagicMock()
+        m.set_group_privacy(folder, 'public')
+
+        changer = m_IGSCP()
+        changer.set_group_public.assert_called_once_with()
+
+    @patch('gs.group.start.groupcreator.IGSChangePrivacy')
+    @patch('gs.group.start.groupcreator.get_the_actual_instance_from_zope')
+    @patch('gs.group.start.groupcreator.GSGroupInfo')
+    def test_set_privacy_private(self, m_GSGI, m_gaifz, m_IGSCP):
+        m = MoiraeForGroup(MagicMock())
+        folder = MagicMock()
+        m.set_group_privacy(folder, 'private')
+
+        changer = m_IGSCP()
+        changer.set_group_private.assert_called_once_with()
+
+    @patch('gs.group.start.groupcreator.IGSChangePrivacy')
+    @patch('gs.group.start.groupcreator.get_the_actual_instance_from_zope')
+    @patch('gs.group.start.groupcreator.GSGroupInfo')
+    def test_set_privacy_secret(self, m_GSGI, m_gaifz, m_IGSCP):
+        m = MoiraeForGroup(MagicMock())
+        folder = MagicMock()
+        m.set_group_privacy(folder, 'secret')
+
+        changer = m_IGSCP()
+        changer.set_group_secret.assert_called_once_with()
+
+    def test_set_privacy_not_group(self):
+        'Test setting the privacy for something that is not a group'
+        m = MoiraeForGroup(MagicMock())
+        folder = MagicMock()
+        del folder.is_group
+
+        with self.assertRaises(TypeError):
+            m.set_group_privacy(folder, 'example')
+
+    def test_set_privacy_group_false(self):
+        'Test setting the privacy for something that is explicitly not a group'
+        m = MoiraeForGroup(MagicMock())
+        folder = MagicMock()
+        folder.is_group = False
+
+        with self.assertRaises(TypeError):
+            m.set_group_privacy(folder, 'example')
+
+    def test_set_privacy_group_no_messages(self):
+        'Test setting the privacy for a group that lacks the messasges object'
+        m = MoiraeForGroup(MagicMock())
+        folder = MagicMock()
+        del folder.messages
+
+        with self.assertRaises(AttributeError):
+            m.set_group_privacy(folder, 'example')

@@ -17,9 +17,11 @@ from unittest import TestSuite, main as unittest_main
 from gs.group.start.tests.checkid import (
     CheckIdUserTest, CheckIdSiteTest, CheckIdGroupTest, CheckIdExistsCheck, )
 from gs.group.start.tests.groupcreator import (
-    MoiraeForGroupExceptionTest, MoiraeForGroupFolderTest, MoiraeForGroupPropertiesTest, )
+    MoiraeForGroupExceptionTest, MoiraeForGroupFolderTest, MoiraeForGroupPropertiesTest,
+    MoiraeForGroupListTest, MoiraeForGroupPrivacyTest, MoiraeForGroupFilesMessagesTest, )
 testCases = (CheckIdUserTest, CheckIdSiteTest, CheckIdGroupTest, CheckIdExistsCheck,
-             MoiraeForGroupExceptionTest, MoiraeForGroupFolderTest, MoiraeForGroupPropertiesTest, )
+             MoiraeForGroupExceptionTest, MoiraeForGroupFolderTest, MoiraeForGroupPropertiesTest,
+             MoiraeForGroupListTest, MoiraeForGroupPrivacyTest, MoiraeForGroupFilesMessagesTest, )
 
 
 def load_tests(loader, tests, pattern):
